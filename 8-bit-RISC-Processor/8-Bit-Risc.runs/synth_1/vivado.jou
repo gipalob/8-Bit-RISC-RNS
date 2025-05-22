@@ -1,0 +1,14 @@
+#-----------------------------------------------------------
+# Vivado v2023.2 (64-bit)
+# SW Build 4029153 on Fri Oct 13 20:13:54 MDT 2023
+# IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
+# SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
+# Start of session at: Thu May 22 21:32:29 2025
+# Process ID: 733
+# Current directory: /home/user/CIS4900/8-bit-RISC-Processor/8-Bit-Risc.runs/synth_1
+# Command line: vivado -log testbench.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source testbench.tcl
+# Log file: /home/user/CIS4900/8-bit-RISC-Processor/8-Bit-Risc.runs/synth_1/testbench.vds
+# Journal file: /home/user/CIS4900/8-bit-RISC-Processor/8-Bit-Risc.runs/synth_1/vivado.jou
+# Running On: ec13384283b1, OS: Linux, CPU Frequency: 2502.057 MHz, CPU Physical cores: 1, Host memory: 8322 MB
+#-----------------------------------------------------------
+source testbench.tcl -notrace

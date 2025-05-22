@@ -21,7 +21,7 @@ module instr_and_data_mem (clk, prog_ctr, instr_mem_out, data_rd_addr, data_wr_a
 // load program into memory 
 	initial
 	begin
-	$readmemh("program2.txt",instr_mem);
+	$readmemh("/home/user/CIS4900/8-bit-RISC-Processor/program2.txt",instr_mem);
 	end
 
 // read instructions from memory
@@ -35,7 +35,7 @@ module instr_and_data_mem (clk, prog_ctr, instr_mem_out, data_rd_addr, data_wr_a
 // initialize data memory from file
 	initial
 	begin
-	$readmemh("data2.txt",data_mem);
+	$readmemh("/home/user/CIS4900/8-bit-RISC-Processor/data2.txt",data_mem);
 	end
                                                      
 // get data during LOAD instruction                 

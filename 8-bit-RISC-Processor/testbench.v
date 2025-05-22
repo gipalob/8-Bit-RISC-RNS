@@ -1,6 +1,7 @@
 module testbench;
 reg clk, reset;
-
+wire [7:0] op1_rd, op2_rd;
+wire [9:0] prog_ctr;
 initial
 	begin
 	clk = 1'b0;
@@ -10,6 +11,6 @@ initial
 
 always clk = #5 ~clk;
 
-processor_top proc_top1(clk, reset);
+processor_top proc_top1(clk, reset, prog_ctr, op1_rd, op2_rd);
 
 endmodule
