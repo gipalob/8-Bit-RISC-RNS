@@ -1,0 +1,5 @@
+processor_top.v
+instr_and_data_mem.v
+processor_core.v
+register_file.v
+testbench.v
