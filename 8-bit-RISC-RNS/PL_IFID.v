@@ -2,20 +2,23 @@
 //              Modified from nayanaBannur/8-bit-RISC-Processor
 //              every stage after ID has all signals packaged into a single register
 
-module PL_IFID #(parameter PROG_CTR_WID) (
+module PL_IFID #(parameter PROG_CTR_WID, NUM_DOMAINS) (
     input wire clk,
     input wire rst,
     //IO signals for IF
-    input wire [15:0] instr_mem_out,    //from intr_mem
-    input branch_taken_reg,
-    input [7:0] op1_data,               //data for op1 from ctrl_Forward 
-    input [7:0] op2_data,               //data for op2 from ctrl_Forward
+    input wire [15:0] 					instr_mem_out,    	//from intr_mem
+    input 								branch_taken_EX,
+    input [NUM_DOMAINS*8 - 1:0] 		op1_data,           //data for op1 from ctrl_Forward 
+    input [NUM_DOMAINS*8 - 1:0]			op2_data,           //data for op2 from ctrl_Forward
 
-    output reg [2:0] op1_addr_IFID,              //op1_addr to ctrl_Forward
-    output reg [2:0] op2_addr_IFID,              //op2_addr to ctrl_Forward
-    output reg load_true_IFID,                   //load instruction flag to ctrl_Forward
-    output reg [63:0] IFID_reg    //IFID pipeline register out
-    output reg [PROG_CTR_WID-1:0] nxt_prog_ctr_reg //easier to keep this seperate as it's dynamic size
+    output reg [2:0] 					op1_addr_IFID_fwd,  //op1_addr to ctrl_Forward
+    output reg [2:0] 					op2_addr_IFID_fwd,  //op2_addr to ctrl_Forward
+    output reg 							load_true_IFID,     //load instruction flag to ctrl_Forward
+
+    output reg [47:0] 					IFID_reg    		//IFID pipeline register out
+    output reg [PROG_CTR_WID-1:0] 		pred_nxt_prog_ctr 	//easier to keep this seperate as it's dynamic size
+	output reg [NUM_DOMAINS*8 - 1:0] 	op1_data_IFID, 		//op1 data out for IFID pipeline register - easier to keep this seperate as it's dynamic size
+	output reg [NUM_DOMAINS*8 - 1:0] 	op2_data_IFID  		//op2 data out for IFID pipeline register - easier to keep this seperate as it's dynamic size
 );
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -31,7 +34,7 @@ module PL_IFID #(parameter PROG_CTR_WID) (
         end else begin
             instruction <= instr_mem_out;
 
-            if (branch_taken_reg)
+            if (branch_taken_EX)
                 invalidate_fetch_instr <= 1'b1; //invalidate fetch instruction if branch is taken
             else
                 invalidate_fetch_instr <= 1'b0; //otherwise, continue fetching instructions
@@ -50,13 +53,13 @@ module PL_IFID #(parameter PROG_CTR_WID) (
 
     always @(instruction) 
     begin
-		opcode	        <= instruction[15:11];
-		op1_addr_IFID	<= instruction[2:0];
-		op2_addr_IFID   <= instruction[6:4];
-		res_addr	    <= instruction[10:8];
-		ld_mem_addr     <= instruction[7:0];
-		st_mem_addr     <= instruction[10:3];
-		branch_addr     <= instruction[9:0];
+		opcode	        	<= instruction[15:11];
+		op1_addr_IFID_fwd	<= instruction[2:0];
+		op2_addr_IFID_fwd   <= instruction[6:4];
+		res_addr	    	<= instruction[10:8];
+		ld_mem_addr     	<= instruction[7:0];
+		st_mem_addr     	<= instruction[10:3];
+		branch_addr     	<= instruction[9:0];
 	end
 
     reg add_op_true, and_op_true, or_op_true, not_op_true;      //operation flags
@@ -234,16 +237,17 @@ module PL_IFID #(parameter PROG_CTR_WID) (
         if (rst == 1'b1) begin
             IFID_reg <= 64'b0;
         end else begin
+			op1_data_IFID 	<= #1 op1_data; //op1 data out for IFID pipeline register
+			op2_data_IFID 	<= #1 op2_data; //op2 data out for IFID pipeline register
+			pred_nxt_prog_ctr <= #1 nxt_prog_ctr; //next program counter value
             IFID_reg <= #1 {          //og arr | len | IFID_reg idx
-                op1_data,               //[7:0] (8)    [0:7]
-                op2_data,               //[7:0] (8)    [8:15]
                 ld_mem_addr,            //[7:0] (8)    [16:23]
                 st_mem_addr,            //[7:0] (8)    [24:31]  
-                op1_addr,               //[2:0] (3)    [32:34]  
-                op2_addr,               //[2:0] (3)    [35:37]
+                op1_addr_IFID_fwd,      //[2:0] (3)    [32:34]  
+                op2_addr_IFID_fwd,      //[2:0] (3)    [35:37]
                 res_addr,               //[2:0] (3)    [38:40] 
                 invalidate_fetch_instr, //      (1)    [41]
-                branch_taken_reg,       //      (1)    [42]     invalidate_decode_instr = branch_taken_reg. so we can just pass that
+                branch_taken_EX,        //      (1)    [42]     invalidate_decode_instr = branch_taken_EX. so we can just pass that
                 add_op_true,            //      (1)    [43]
                 or_op_true,             //      (1)    [44]
                 not_op_true,            //      (1)    [45]
@@ -265,7 +269,7 @@ module PL_IFID #(parameter PROG_CTR_WID) (
                 jump_eq,                //      (1)    [61]
                 jump_carry,             //      (1)    [62]
                 unconditional_jump,     //      (1)    [63]
-            }                       //total len: 64 bits
+            }                       //total len: 48 bits
         end
 	end
 endmodule
