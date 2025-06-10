@@ -2,23 +2,27 @@
 //              Modified from nayanaBannur/8-bit-RISC-Processor
 //              every stage after ID has all signals packaged into a single register
 
-module PL_IFID #(parameter PROG_CTR_WID, NUM_DOMAINS) (
+module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
     input wire clk,
     input wire rst,
     //IO signals for IF
     input wire [15:0] 					instr_mem_out,    	//from intr_mem
-    input 								branch_taken_EX,
+    input 								branch_taken_EX,    //branch taken signal from EX stage
     input [NUM_DOMAINS*8 - 1:0] 		op1_data,           //data for op1 from ctrl_Forward 
     input [NUM_DOMAINS*8 - 1:0]			op2_data,           //data for op2 from ctrl_Forward
 
-    output reg [2:0] 					op1_addr_IFID_fwd,  //op1_addr to ctrl_Forward
-    output reg [2:0] 					op2_addr_IFID_fwd,  //op2_addr to ctrl_Forward
-    output reg 							load_true_IFID,     //load instruction flag to ctrl_Forward
+    output reg [2:0] 					op1_addr_IFID_fwd,  //ID: op1_addr to ctrl_Forward
+    output reg [2:0] 					op2_addr_IFID_fwd,  //ID: op2_addr to ctrl_Forward
+    output reg 							load_true_IFID,     //ID: load instruction flag to ctrl_Forward
 
-    output reg [47:0] 					IFID_reg    		//IFID pipeline register out
-    output reg [PROG_CTR_WID-1:0] 		pred_nxt_prog_ctr 	//easier to keep this seperate as it's dynamic size
-	output reg [NUM_DOMAINS*8 - 1:0] 	op1_data_IFID, 		//op1 data out for IFID pipeline register - easier to keep this seperate as it's dynamic size
-	output reg [NUM_DOMAINS*8 - 1:0] 	op2_data_IFID  		//op2 data out for IFID pipeline register - easier to keep this seperate as it's dynamic size
+    //pipeline register out to next stage
+    output reg [38:0] 					IFID_reg,    		//IFID pipeline register out
+    output reg [PROG_CTR_WID-1:0] 		pred_nxt_prog_ctr, 	//inst address to jump to on successful branch evaluation - pulled from inst in ID
+	output reg [NUM_DOMAINS*8 - 1:0] 	op1_dout_IFID, 		//op1 data out for IFID pipeline register - easier to keep this seperate as it's dynamic size
+	output reg [NUM_DOMAINS*8 - 1:0] 	op2_dout_IFID  		//op2 data out for IFID pipeline register - easier to keep this seperate as it's dynamic size
+    output reg [2:0]                    op1_addr_out_IFID,
+    output reg [2:0]                    op2_addr_out_IFID,
+    output reg [2:0]                    res_addr_out_IFID
 );
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -152,15 +156,30 @@ module PL_IFID #(parameter PROG_CTR_WID, NUM_DOMAINS) (
 					unconditional_jump <= 1'b1;
 		    end
 
-		//	OP_LOAD:	begin
-			5'h01000: 
+		//	OP_RLOAD:	begin 
+			5'b01000: //'RLOAD': Load from mem to reg 'rd'; LOADR rd, rs1=addr[0:7], rs2=addr[8:15] where rs1 and rs2 are registers that hold the lower and upper 8b of the 16b address
             begin
 					load_true_IFID <= 1'b1;
 					write_to_regfile <= 1'b1;
 			end                      
                                                       
-		//	OP_STORE:	store_true <= 1'b1;
-			5'b01001:	store_true <= 1'b1;
+		//	OP_RSTORE:	begin
+			5'b01001: //'RSTORE': Store to mem from reg 'rs'; STORER rs, rd1=addr[0:7], rd2=addr[8:15] where rd1 and rd2 are registers that hold the lower and upper 8b of the 16b address
+            begin
+                    store_true <= 1'b1;
+            end
+    /*
+        FOR RLOAD AND RSTORE:
+            RLOAD:  res_addr is DESTINATION reg addr
+                    op1_addr_IFID_fwd is lower 8b of address
+                    op2_addr_IFID_fwd is upper 8b of address
+            RSTORE: res_addr is SOURCE reg addr
+                    op1_addr_IFID_fwd is lower 8b of address
+                    op2_addr_IFID_fwd is upper 8b of address
+            
+            That's the plan- keep them as they were in original implementation until refactoring done
+
+    */
 
 		//	OP_ANDBIT:	begin
 			5'b01010:	
@@ -225,6 +244,7 @@ module PL_IFID #(parameter PROG_CTR_WID, NUM_DOMAINS) (
 					jump_true	<= 1'b1;
 					jump_carry <= 1'b1;
 			end
+            
 
 			default: 	;			//= NOP
 			endcase
@@ -237,39 +257,39 @@ module PL_IFID #(parameter PROG_CTR_WID, NUM_DOMAINS) (
         if (rst == 1'b1) begin
             IFID_reg <= 64'b0;
         end else begin
-			op1_data_IFID 	<= #1 op1_data; //op1 data out for IFID pipeline register
-			op2_data_IFID 	<= #1 op2_data; //op2 data out for IFID pipeline register
-			pred_nxt_prog_ctr <= #1 nxt_prog_ctr; //next program counter value
-            IFID_reg <= #1 {          //og arr | len | IFID_reg idx
-                ld_mem_addr,            //[7:0] (8)    [16:23]
-                st_mem_addr,            //[7:0] (8)    [24:31]  
-                op1_addr_IFID_fwd,      //[2:0] (3)    [32:34]  
-                op2_addr_IFID_fwd,      //[2:0] (3)    [35:37]
-                res_addr,               //[2:0] (3)    [38:40] 
-                invalidate_fetch_instr, //      (1)    [41]
-                branch_taken_EX,        //      (1)    [42]     invalidate_decode_instr = branch_taken_EX. so we can just pass that
-                add_op_true,            //      (1)    [43]
-                or_op_true,             //      (1)    [44]
-                not_op_true,            //      (1)    [45]
-                and_bitwise_true,       //      (1)    [46]
-                or_bitwise_true,        //      (1)    [47]
-                not_bitwise_true,       //      (1)    [48]
-                and_op_true,            //      (1)    [49]
-                carry_in,               //      (1)    [50]
-                en_op2_complement,      //      (1)    [51]
-                jump_true,              //      (1)    [52]
-                compare_true,           //      (1)    [53]
-                shift_left_true,        //      (1)    [54]
-                lgcl_or_bitwse_T,       //      (1)    [55]
-                store_true,             //      (1)    [56]
-                load_true_IFID,         //      (1)    [57]
-                write_to_regfile,       //      (1)    [58]
-                jump_gt,                //      (1)    [59]
-                jump_lt,                //      (1)    [60]
-                jump_eq,                //      (1)    [61]
-                jump_carry,             //      (1)    [62]
-                unconditional_jump,     //      (1)    [63]
-            }                       //total len: 48 bits
+            pred_nxt_prog_ctr <= #1 nxt_prog_ctr; //next program counter value
+			op1_dout_IFID 	    <= #1 op1_data; //op1 data out for IFID pipeline register
+			op2_dout_IFID 	    <= #1 op2_data; //op2 data out for IFID pipeline register
+            op1_addr_out_IFID   <= op1_addr_IFID_fwd; //op1 address out for IFID pipeline register
+            op2_addr_out_IFID   <= op2_addr_IFID_fwd; //op2 address out for IFID pipeline register
+            res_addr_out_IFID   <= res_addr; //destination register address out for IFID pipeline register
+            IFID_reg <= #1 {          //og arr | len | IFID_reg idx 
+                invalidate_fetch_instr, //      (1)    [0]
+                branch_taken_EX,        //      (1)    [1]     invalidate_decode_instr = branch_taken_EX. so we can just pass that
+                add_op_true,            //      (1)    [2]
+                or_op_true,             //      (1)    [3]
+                not_op_true,            //      (1)    [4]
+                and_bitwise_true,       //      (1)    [5]
+                or_bitwise_true,        //      (1)    [6]
+                not_bitwise_true,       //      (1)    [7]
+                and_op_true,            //      (1)    [8]
+                carry_in,               //      (1)    [9]
+                en_op2_complement,      //      (1)    [10]
+                jump_true,              //      (1)    [11]
+                compare_true,           //      (1)    [12]
+                shift_left_true,        //      (1)    [13]
+                lgcl_or_bitwse_T,       //      (1)    [14]
+                store_true,             //      (1)    [15]
+                load_true_IFID,         //      (1)    [16]
+                write_to_regfile,       //      (1)    [17]
+                jump_gt,                //      (1)    [18]
+                jump_lt,                //      (1)    [19]
+                jump_eq,                //      (1)    [20]
+                jump_carry,             //      (1)    [21]
+                unconditional_jump,     //      (1)    [22]
+                ld_mem_addr,            //[7:0] (8)    [23:30]
+                st_mem_addr             //[7:0] (8)    [31:38] 
+            };                       //total len: 39 bits
         end
 	end
 endmodule

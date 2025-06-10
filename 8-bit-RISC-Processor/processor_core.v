@@ -577,7 +577,7 @@ always @(posedge clk)
 		if (branch_taken_reg == 1) //update in store res stage
 			begin                             
 			prog_ctr <= #1 nxt_prog_ctr_r2;
-			set_invalidate_instruction <= #1 1'b1; //no purpose?
+			set_invalidate_instruction <= #1 1'b1;
 			end
 		else
 			begin
