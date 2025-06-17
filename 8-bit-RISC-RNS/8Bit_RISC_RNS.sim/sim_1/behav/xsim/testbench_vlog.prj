@@ -1,0 +1,19 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../Data_Mem.v" \
+"../../../../Instr_Mem.v" \
+"../../../../PL_EX.v" \
+"../../../../PL_IFID.v" \
+"../../../../PL_MEMWB.v" \
+"../../../../Reg_File.v" \
+"../../../../ctrl_BranchPred.v" \
+"../../../../ctrl_Forward.v" \
+"../../../../ctrl_ProgCtr.v" \
+"../../../../top.v" \
+"../../../../tb_rns.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

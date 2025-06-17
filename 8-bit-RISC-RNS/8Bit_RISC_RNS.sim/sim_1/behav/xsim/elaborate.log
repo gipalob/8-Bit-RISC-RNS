@@ -1,0 +1,28 @@
+Vivado Simulator v2023.2.2
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: /home/user/Xilinx/Vivado/2023.2/bin/unwrapped/lnx64.o/xelab --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot testbench_behav xil_defaultlib.testbench xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+WARNING: [VRFC 10-9543] actual bit length 8 differs from formal bit length 1 for port 'branch_taken' [/home/user/CIS4900/8-bit-RISC-RNS/top.v:168]
+WARNING: [VRFC 10-9543] actual bit length 8 differs from formal bit length 1 for port 'branch_taken' [/home/user/CIS4900/8-bit-RISC-RNS/top.v:227]
+Completed static elaboration
+Starting simulation data flow analysis
+WARNING: [XSIM 43-4100] "/home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.sim/sim_1/behav/xsim/glbl.v" Line 6. Module glbl has a timescale but at least one module in design doesn't have timescale.
+WARNING: [XSIM 43-4100] "/home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.sim/sim_1/behav/xsim/glbl.v" Line 6. Module glbl has a timescale but at least one module in design doesn't have timescale.
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.ctrl_ProgCtr
+Compiling module xil_defaultlib.Instr_Mem
+Compiling module xil_defaultlib.Data_Mem
+Compiling module xil_defaultlib.Reg_File
+Compiling module xil_defaultlib.PL_IFID
+Compiling module xil_defaultlib.PL_EX
+Compiling module xil_defaultlib.PL_MEMWB
+Compiling module xil_defaultlib.Forwarding
+Compiling module xil_defaultlib.ctrl_BranchPred
+Compiling module xil_defaultlib.processor_top
+Compiling module xil_defaultlib.testbench
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot testbench_behav

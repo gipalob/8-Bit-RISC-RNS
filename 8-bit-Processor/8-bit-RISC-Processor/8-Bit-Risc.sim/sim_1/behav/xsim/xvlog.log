@@ -1,0 +1,10 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/user/CIS4900/8-bit-RISC-Processor/instr_and_data_mem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module instr_and_data_mem
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/user/CIS4900/8-bit-RISC-Processor/processor_core.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module processor_core
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/user/CIS4900/8-bit-RISC-Processor/processor_top.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module processor_top
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/user/CIS4900/8-bit-RISC-Processor/register_file.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module register_file
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/user/CIS4900/8-bit-RISC-Processor/testbench.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module testbench

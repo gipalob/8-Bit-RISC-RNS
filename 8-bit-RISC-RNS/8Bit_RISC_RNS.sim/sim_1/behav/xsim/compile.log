@@ -1,0 +1,22 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/user/CIS4900/8-bit-RISC-RNS/Data_Mem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Data_Mem
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/user/CIS4900/8-bit-RISC-RNS/Instr_Mem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Instr_Mem
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/user/CIS4900/8-bit-RISC-RNS/PL_EX.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module PL_EX
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/user/CIS4900/8-bit-RISC-RNS/PL_IFID.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module PL_IFID
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/user/CIS4900/8-bit-RISC-RNS/PL_MEMWB.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module PL_MEMWB
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/user/CIS4900/8-bit-RISC-RNS/Reg_File.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Reg_File
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/user/CIS4900/8-bit-RISC-RNS/ctrl_BranchPred.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ctrl_BranchPred
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/user/CIS4900/8-bit-RISC-RNS/ctrl_Forward.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Forwarding
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/user/CIS4900/8-bit-RISC-RNS/ctrl_ProgCtr.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ctrl_ProgCtr
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/user/CIS4900/8-bit-RISC-RNS/top.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module processor_top
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module testbench

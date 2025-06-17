@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="testbench_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="testbench" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="181.990 ns"></ZoomStartTime>
+      <ZoomEndTime time="302.591 ns"></ZoomEndTime>
+      <Cursor1Time time="247.990 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="227"></NameColumnWidth>
+      <ValueColumnWidth column_width="79"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="17" />
+   <wvobject type="logic" fp_name="/testbench/clk">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/testbench/reset">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/testbench/op1_data">
+      <obj_property name="ElementShortName">op1_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">op1_data[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/testbench/op2_data">
+      <obj_property name="ElementShortName">op2_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">op2_data[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/testbench/operation_result_out">
+      <obj_property name="ElementShortName">operation_result_out[7:0]</obj_property>
+      <obj_property name="ObjectShortName">operation_result_out[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/testbench/prog_ctr">
+      <obj_property name="ElementShortName">prog_ctr[9:0]</obj_property>
+      <obj_property name="ObjectShortName">prog_ctr[9:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/testbench/dmemout">
+      <obj_property name="ElementShortName">dmemout[7:0]</obj_property>
+      <obj_property name="ObjectShortName">dmemout[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/testbench/dmemrdaddr">
+      <obj_property name="ElementShortName">dmemrdaddr[7:0]</obj_property>
+      <obj_property name="ObjectShortName">dmemrdaddr[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/testbench/op1_add">
+      <obj_property name="ElementShortName">op1_add[2:0]</obj_property>
+      <obj_property name="ObjectShortName">op1_add[2:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/testbench/op2_add">
+      <obj_property name="ElementShortName">op2_add[2:0]</obj_property>
+      <obj_property name="ObjectShortName">op2_add[2:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/testbench/destreg">
+      <obj_property name="ElementShortName">destreg[2:0]</obj_property>
+      <obj_property name="ObjectShortName">destreg[2:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/testbench/reg_wr_data">
+      <obj_property name="ElementShortName">reg_wr_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_wr_data[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/testbench/reg_wr_enab">
+      <obj_property name="ElementShortName">reg_wr_enab</obj_property>
+      <obj_property name="ObjectShortName">reg_wr_enab</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/testbench/took_branch">
+      <obj_property name="ElementShortName">took_branch</obj_property>
+      <obj_property name="ObjectShortName">took_branch</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/testbench/memwb_inv_instr">
+      <obj_property name="ElementShortName">memwb_inv_instr</obj_property>
+      <obj_property name="ObjectShortName">memwb_inv_instr</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/testbench/op1_ex">
+      <obj_property name="ElementShortName">op1_ex[7:0]</obj_property>
+      <obj_property name="ObjectShortName">op1_ex[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/testbench/op2_ex">
+      <obj_property name="ElementShortName">op2_ex[7:0]</obj_property>
+      <obj_property name="ObjectShortName">op2_ex[7:0]</obj_property>
+   </wvobject>
+</wave_config>
