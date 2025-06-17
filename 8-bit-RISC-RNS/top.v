@@ -17,7 +17,7 @@ module processor_top (clk, reset, prog_ctr_out, inst, op1_data, op1_addr, op2_da
     output [NUM_DOMAINS*8 - 1:0] reg_wr_data; //data to be written to register file
     output reg_wr_enab; //write enable signal for register file
     output took_branch, memwb_inv_instr;
-    output [0:38] IFID_reg; //IFID pipeline register output
+    output [0:39] IFID_reg; //IFID pipeline register output
     output [0:6] EX_reg; //EX pipeline register output
     output [0:4] brnch_conds_IFID, brnch_conds_EX;
     output [0:3] brnch_conds_MEMWB;

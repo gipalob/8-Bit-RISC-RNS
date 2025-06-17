@@ -13,9 +13,9 @@ module Data_Mem #(parameter NUM_DOMAINS = 1) (
 );
     reg [NUM_DOMAINS*8 - 1:0] data_mem[255:0];
 
-    initial begin
-	    $readmemh("/home/user/CIS4900/8-bit-RISC-Processor/data3.txt",data_mem);
-	end
+    //initial begin
+	//    $readmemh("/home/user/CIS4900/8-bit-RISC-Processor/data3.txt",data_mem);
+	//end
 
     // get data during LOAD instruction                 
 	always @(data_rd_addr)

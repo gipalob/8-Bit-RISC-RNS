@@ -16,7 +16,7 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
     output reg 							load_true_IFID,     //ID: load instruction flag to ctrl_Forward
 
     //pipeline register out to next stage
-    output reg [0:38] 					IFID_reg,    		//IFID pipeline register out
+    output reg [0:39] 					IFID_reg,    		//IFID pipeline register out
     output reg [PROG_CTR_WID-1:0] 		pred_nxt_prog_ctr, 	//inst address to jump to on successful branch evaluation - pulled from inst in ID
 	output reg [NUM_DOMAINS*8 - 1:0] 	op1_dout_IFID, 		//op1 data out for IFID pipeline register - easier to keep this seperate as it's dynamic size
 	output reg [NUM_DOMAINS*8 - 1:0] 	op2_dout_IFID,		//op2 data out for IFID pipeline register - easier to keep this seperate as it's dynamic size
@@ -63,6 +63,9 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
     reg [9:0] branch_addr; //branch address
     reg [PROG_CTR_WID-1:0] nxt_prog_ctr; //next program counter value
 
+	//For custom instructions:
+	reg [7:0] imm; //8-bit immediate for LDI
+
     always @(instruction) 
     begin
 		opcode	        	<= instruction[15:11];
@@ -83,6 +86,9 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
     reg write_to_regfile;                                       //flag to write to register file
     reg unconditional_jump;                                     //flag for unconditional jump
     reg jump_gt, jump_lt, jump_eq, jump_carry;                  //flags for conditional jumps
+
+	//custom flags:
+	reg ld_imm;
 
     always@ (opcode or branch_addr)        
 	begin
@@ -107,6 +113,8 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 		jump_lt <= 1'b0;
 		jump_eq <= 1'b0;
 		jump_carry <= 1'b0;
+		
+		ld_imm <= 1'b0;
 
 		case (opcode)
 		//	OP_NOP:  
@@ -255,7 +263,15 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 					jump_true	<= 1'b1;
 					jump_carry <= 1'b1;
 			end
-            
+////////////////////////////////////////////////////////////
+//NEW CUSTOM INSTRUCTIONS (ignoring RLOAD and RSTORE above):
+////////////////////////////////////////////////////////////
+		//	OP_LDI:	begin 
+			5'b10010: //'LDI': Load 8-bit immediate; immediate held in same bit indices as ld_mem_addr, res_addr is dest reg addr. EX stage will set operation_result to imm on ld_imm flag, effectively storing as if the immediate was an arithmetic result
+            begin
+					ld_imm <= 1'b1;
+					write_to_regfile <= 1'b1;
+			end            
 
 			default: 	;			//= NOP
 			endcase
@@ -295,7 +311,7 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 			end else begin
 				IFID_reg[1] <= #1 1'b0; //otherwise, do not invalidate decode instruction
 			end
-            IFID_reg[2:38] <= #1 {   //og arr | len | IFID_reg idx 
+            IFID_reg[2:39] <= #1 {   //og arr | len | IFID_reg idx 
                 add_op_true,            //      (1)    [2]
                 or_op_true,             //      (1)    [3]
                 not_op_true,            //      (1)    [4]
@@ -318,8 +334,9 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
                 jump_carry,             //      (1)    [21]
                 unconditional_jump,     //      (1)    [22]
                 ld_mem_addr,            //[7:0] (8)    [23:30]
-                st_mem_addr             //[7:0] (8)    [31:38] 
-            };                       //total len: 39 bits
+                st_mem_addr,            //[7:0] (8)    [31:38] 
+				ld_imm					//      (1)    [39] (imm val held in ld_mem_addr)
+            };                       //total len: 40 bits
         end
 	end
 endmodule

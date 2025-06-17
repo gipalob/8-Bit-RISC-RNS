@@ -7,7 +7,7 @@ module PL_EX #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10) (
     input [NUM_DOMAINS*8 - 1:0]     op1, op2,               // { [7:0] Domain1, [7:0] Domain2, ... }
     input [2:0]                     res_addr,              // result address for regfile write
     input [PROG_CTR_WID-1:0]        pred_nxt_prog_ctr,      // next program counter value from IFID
-    input [0:38]                    IFID_reg,               // IFID pipeline register out
+    input [0:39]                    IFID_reg,               // IFID pipeline register out
     input                           branch_taken,
 
     output reg [0:4]                branch_conds_EX,
@@ -47,8 +47,9 @@ module PL_EX #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10) (
             jump_carry,             //      (1)    [21]
             unconditional_jump,     //      (1)    [22]
             ld_mem_addr,            //[7:0] (8)    [23:30]
-            st_mem_addr             //[7:0] (8)    [31:38] 
-        };                       //total len: 39 bits
+            st_mem_addr,            //[7:0] (8)    [31:38] 
+            ld_imm                  //      (1)    [39] (imm val held in ld_mem_addr)
+        };                       //total len: 40 bits
     */
     reg [NUM_DOMAINS*8 - 1:0] din_1, din_2; //ALU op1/op2
     reg [NUM_DOMAINS*8 - 1:0] ALU_dout, Shift_dout, LGCL_dout;
@@ -140,9 +141,12 @@ module PL_EX #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10) (
             IFID_reg[0],    //invalidate_fetch_instr
             IFID_reg[1]     //invalidate_decode_instr
         };
-
+        /////////////////////////////////////
         //Distinct pipeline register elements
-        operation_result <= #1 cmb_dout;
+        /////////////////////////////////////
+        //operation result == [7:0] imm if ld_imm is true, else cmb_dout
+        //where ld_mem_addr contains the immediate value, cmb_dout is ALU output
+        operation_result <= #1 IFID_reg[39] ? ld_mem_addr : cmb_dout;
 
         branch_conds_EX <= #1 {
             COMP_gt_flag,
