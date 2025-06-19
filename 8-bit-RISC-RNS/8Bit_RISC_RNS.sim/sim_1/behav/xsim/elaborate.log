@@ -16,6 +16,11 @@ Compiling module xil_defaultlib.Instr_Mem
 Compiling module xil_defaultlib.Data_Mem
 Compiling module xil_defaultlib.Reg_File
 Compiling module xil_defaultlib.PL_IFID
+Compiling module xil_defaultlib.complement
+Compiling module xil_defaultlib.adder
+Compiling module xil_defaultlib.shift
+Compiling module xil_defaultlib.logical
+Compiling module xil_defaultlib.PL_ALU
 Compiling module xil_defaultlib.PL_EX
 Compiling module xil_defaultlib.PL_MEMWB
 Compiling module xil_defaultlib.Forwarding

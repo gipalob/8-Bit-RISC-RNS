@@ -2,6 +2,12 @@ INFO: [VRFC 10-2263] Analyzing Verilog file "/home/user/CIS4900/8-bit-RISC-RNS/D
 INFO: [VRFC 10-311] analyzing module Data_Mem
 INFO: [VRFC 10-2263] Analyzing Verilog file "/home/user/CIS4900/8-bit-RISC-RNS/Instr_Mem.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module Instr_Mem
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module complement
+INFO: [VRFC 10-311] analyzing module adder
+INFO: [VRFC 10-311] analyzing module shift
+INFO: [VRFC 10-311] analyzing module logical
+INFO: [VRFC 10-311] analyzing module PL_ALU
 INFO: [VRFC 10-2263] Analyzing Verilog file "/home/user/CIS4900/8-bit-RISC-RNS/PL_EX.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module PL_EX
 INFO: [VRFC 10-2263] Analyzing Verilog file "/home/user/CIS4900/8-bit-RISC-RNS/PL_IFID.v" into library xil_defaultlib

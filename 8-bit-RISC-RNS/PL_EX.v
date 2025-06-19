@@ -48,74 +48,23 @@ module PL_EX #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10) (
             imm                     //[7:0] (8)    [24:31]
         };                       //total len: 24 bits
     */
-    reg [NUM_DOMAINS*8 - 1:0] din_1, din_2; //ALU op1/op2
-    reg [NUM_DOMAINS*8 - 1:0] ALU_dout, Shift_dout, LGCL_dout;
+    
+    //**// ALU Instantiation //**//
     wire [NUM_DOMAINS*8 - 1:0] cmb_dout; //final output of ALU/Shift/LGCL
-    reg ALU_cout, Shift_cout; 
     wire cmb_cout, save_cout;
 
     wire COMP_gt_flag, COMP_lt_flag, COMP_eq_flag;
 
-    //trigger at op1, op2, en_op2_comp,    store_true,     add_op_true, lgcl_or_btwse_T, shift_left_true   
-    always @(op1 or op2 or IFID_reg[10] or IFID_reg[15] or IFID_reg[2] or IFID_reg[14] or IFID_reg[13])
-    begin
-        din_1 <= op1; //always passed as-is
-        if (IFID_reg[15] == 1'b1) begin //if store_true
-            din_2 <= 8'b0;
-        end 
-        else if (IFID_reg[10] == 1'b1) begin //if en_op2_complement
-            din_2 <= ~op2;
-        end
-        else begin
-            din_2 <= op2;
-        end
-    end
-
-    //**// ADDER //**//
-    //trigger at din_1, din_2, carry_in
-    always @(din_1 or din_2 or IFID_reg[9]) //AS IS, THIS WILL NOT WORK FOR >1 DOMAIN.
-    begin
-        {ALU_cout, ALU_dout} <= din_1 + din_2 + IFID_reg[9];
-    end
-    //**//       //**//
-
-    //**// COMPARE //**//
-    assign COMP_gt_flag = (ALU_cout == 1'b1) && (ALU_dout != 8'b0) && (IFID_reg[12] == 1'b1);
-    assign COMP_lt_flag = (ALU_cout == 1'b0) && (ALU_dout != 8'b0) && (IFID_reg[12] == 1'b1);
-    assign COMP_eq_flag = (ALU_dout == 8'b0)            &&            (IFID_reg[12] == 1'b1);
-    //**//         //**//
-
-    //**// Shift Left //**//
-    always @(din_1)
-    begin
-        Shift_cout <= din_1[7];
-        Shift_dout <= {din_1[6:0], 1'b0}; //shift left by 1
-    end 
-    //**//            //**//
-
-    //**// Logical & Bitwise //**//
-    always @(IFID_reg[8] or IFID_reg[3] or IFID_reg[4] or IFID_reg[5] or IFID_reg[6] or IFID_reg[7] or din_1 or din_2)
-    begin
-        if (IFID_reg[8] == 1'b1)        // and_op_true
-            LGCL_dout <= din_1 && din_2;
-        else if (IFID_reg[5] == 1'b1)   // and_bitwise_true
-            LGCL_dout <= din_1 & din_2;
-        else if (IFID_reg[3] == 1'b1)   // or_op_true
-            LGCL_dout <= din_1 || din_2;
-        else if (IFID_reg[6] == 1'b1)   // or_bitwise_true
-            LGCL_dout <= din_1 | din_2;
-        else if (IFID_reg[4] == 1'b1)   // not_op_true
-            LGCL_dout <= !din_1;
-        else
-            LGCL_dout <= !din_1; //default is NOT (bitwise) - Does this have a point? Does this mean we have a free opcode?
-    end
-    //**//                   //**//
-
-    //**// Get final outputs //**//
-    assign cmb_dout = (IFID_reg[2] || IFID_reg[15]) ? ALU_dout : 
-                      (IFID_reg[14]? LGCL_dout : Shift_dout); 
-
-    assign cmb_cout = IFID_reg[2] ? ALU_cout : Shift_cout; //if add_op_true, cmb_cout = ALU_cout, else cmb_cout = Shift_cout
+    PL_ALU ALU (
+        .op1_in(op1),
+        .op2_in(op2),
+        .ALU_ctrl(IFID_reg[2:15]), //IFID_reg[2:15] contains ALU control signals
+        .dout(cmb_dout),
+        .cout(cmb_cout),
+        .COMP_gt(COMP_gt_flag),
+        .COMP_lt(COMP_lt_flag),
+        .COMP_eq(COMP_eq_flag)
+    );
 
     assign save_cout = (IFID_reg[2] && !IFID_reg[12]) || IFID_reg[13]; //save cout if we're adding and not comparing, or if we're shifting left
     //**//                   //**//

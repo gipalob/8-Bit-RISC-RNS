@@ -4,8 +4,9 @@ Feb  8 2024
 23:58:30
 /home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.sim/sim_1/behav/xsim/glbl.v,1697210495,verilog,,,,glbl,,,,,,,,
 /home/user/CIS4900/8-bit-RISC-RNS/Data_Mem.v,1750190395,verilog,,/home/user/CIS4900/8-bit-RISC-RNS/Instr_Mem.v,,Data_Mem,,,,,,,,
-/home/user/CIS4900/8-bit-RISC-RNS/Instr_Mem.v,1750299580,verilog,,/home/user/CIS4900/8-bit-RISC-RNS/PL_EX.v,,Instr_Mem,,,,,,,,
-/home/user/CIS4900/8-bit-RISC-RNS/PL_EX.v,1750360250,verilog,,/home/user/CIS4900/8-bit-RISC-RNS/PL_IFID.v,,PL_EX,,,,,,,,
+/home/user/CIS4900/8-bit-RISC-RNS/Instr_Mem.v,1750299580,verilog,,/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU.v,,Instr_Mem,,,,,,,,
+/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU.v,1750370964,verilog,,/home/user/CIS4900/8-bit-RISC-RNS/PL_EX.v,,PL_ALU;adder;complement;logical;shift,,,,,,,,
+/home/user/CIS4900/8-bit-RISC-RNS/PL_EX.v,1750370717,verilog,,/home/user/CIS4900/8-bit-RISC-RNS/PL_IFID.v,,PL_EX,,,,,,,,
 /home/user/CIS4900/8-bit-RISC-RNS/PL_IFID.v,1750299624,verilog,,/home/user/CIS4900/8-bit-RISC-RNS/PL_MEMWB.v,,PL_IFID,,,,,,,,
 /home/user/CIS4900/8-bit-RISC-RNS/PL_MEMWB.v,1750290870,verilog,,/home/user/CIS4900/8-bit-RISC-RNS/Reg_File.v,,PL_MEMWB,,,,,,,,
 /home/user/CIS4900/8-bit-RISC-RNS/Reg_File.v,1750209074,verilog,,/home/user/CIS4900/8-bit-RISC-RNS/ctrl_BranchPred.v,,Reg_File,,,,,,,,
