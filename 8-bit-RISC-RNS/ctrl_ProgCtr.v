@@ -17,7 +17,7 @@ module ctrl_ProgCtr #(parameter PROG_CTR_WID=10) (
 	begin
 	    if (reset == 1'b1)
 		begin
-	        prog_ctr <= #1 10'b1;
+	        prog_ctr <= #1 10'b0;
 		end 
 		else begin
 			if (branch_taken_EX == 1) //update in store res stage

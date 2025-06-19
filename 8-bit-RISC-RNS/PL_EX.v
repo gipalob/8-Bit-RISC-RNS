@@ -4,21 +4,19 @@
 module PL_EX #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10) (
     input clk, reset,
     //Pipeline registers from IFID
-    input [NUM_DOMAINS*8 - 1:0]     op1, op2,               // { [7:0] Domain1, [7:0] Domain2, ... }
-    input [2:0]                     res_addr,              // result address for regfile write
+    input [NUM_DOMAINS*8 - 1:0]     op1, op2, op3,          // { [7:0] Domain1, [7:0] Domain2, ... }
+    input [2:0]                     res_addr,               // result address for regfile write
     input [PROG_CTR_WID-1:0]        pred_nxt_prog_ctr,      // next program counter value from IFID
-    input [0:39]                    IFID_reg,               // IFID pipeline register out
+    input [0:31]                    IFID_reg,               // IFID pipeline register out
     input                           branch_taken,
 
-    output reg [0:4]                branch_conds_EX,
-    output reg                      branch_taken_EX, //indicate branch was taken in EX stage- reg out needed for timing in Program Counter & IFID I believe
-    output reg [7:0]                data_wr_addr, data_rd_addr, //data memory write/read address
-    output reg [0:6]                EX_reg,
-    output reg [2:0]                destination_reg_addr,
+    output reg [0:4]                 branch_conds_EX,
+    output reg                       branch_taken_EX, //indicate branch was taken in EX stage- reg out needed for timing in Program Counter & IFID I believe
+    output reg [15:0]                data_wr_addr, data_rd_addr, //data memory write/read address
+    output reg [0:6]                 EX_reg,
+    output reg [2:0]                 destination_reg_addr,
     output reg [NUM_DOMAINS*8 - 1:0] operation_result,      // { [7:0] Domain1, [7:0] Domain2, ... }
-    output reg [PROG_CTR_WID-1:0]   pred_nxt_prog_ctr_EX,
-    output cout, 
-    output [7:0] dout
+    output reg [PROG_CTR_WID-1:0]    pred_nxt_prog_ctr_EX
 );
     /*
         Map of IFID_reg input:
@@ -46,10 +44,9 @@ module PL_EX #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10) (
             jump_eq,                //      (1)    [20]
             jump_carry,             //      (1)    [21]
             unconditional_jump,     //      (1)    [22]
-            ld_mem_addr,            //[7:0] (8)    [23:30]
-            st_mem_addr,            //[7:0] (8)    [31:38] 
-            ld_imm                  //      (1)    [39] (imm val held in ld_mem_addr)
-        };                       //total len: 40 bits
+            ld_imm,                 //      (1)    [23]
+            imm                     //[7:0] (8)    [24:31]
+        };                       //total len: 24 bits
     */
     reg [NUM_DOMAINS*8 - 1:0] din_1, din_2; //ALU op1/op2
     reg [NUM_DOMAINS*8 - 1:0] ALU_dout, Shift_dout, LGCL_dout;
@@ -123,19 +120,13 @@ module PL_EX #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10) (
     assign save_cout = (IFID_reg[2] && !IFID_reg[12]) || IFID_reg[13]; //save cout if we're adding and not comparing, or if we're shifting left
     //**//                   //**//
 
-    assign cout = ALU_cout; //output carry out
-    assign dout = ALU_dout; //output data
-
     //**// EX Stage Pipeline Register Out //**//
-    wire [7:0] ld_mem_addr, st_mem_addr; //load/store memory address
-    assign ld_mem_addr = IFID_reg[23:30];
-    assign st_mem_addr = IFID_reg[31:38];
+    wire [7:0] imm;
+    assign imm = IFID_reg[24:31]; //immediate value from IFID pipeline register
+
     always @(posedge clk)
 	begin
         //Combined pipeline register elements
-        data_wr_addr <= #1 IFID_reg[15] ? st_mem_addr : ld_mem_addr; //if store_true, write to st_mem_addr_reg, else write to ld_mem_addr_reg
-        data_rd_addr <= #1 ld_mem_addr; 
-
         EX_reg[4:6] <= #1 {
             IFID_reg[16],   //load_true_IFID
             IFID_reg[0],    //invalidate_fetch_instr
@@ -144,9 +135,15 @@ module PL_EX #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10) (
         /////////////////////////////////////
         //Distinct pipeline register elements
         /////////////////////////////////////
-        //operation result == [7:0] imm if ld_imm is true, else cmb_dout
+        //operation result == 
+        //                      IF store_true, op3 ELSE
+        //                      IF ld_imm: [7:0] imm 
+        //                      ELSE cmb_dout
         //where ld_mem_addr contains the immediate value, cmb_dout is ALU output
-        operation_result <= #1 IFID_reg[39] ? ld_mem_addr : cmb_dout;
+        operation_result <= #1 IFID_reg[15] ? op3 : (IFID_reg[23] ? imm : cmb_dout);
+
+        data_wr_addr <= #1 IFID_reg[15] ? {op2, op1} : 16'b0; //if store_true, write to st_mem_addr_reg, else write to ld_mem_addr_reg
+        data_rd_addr <= #1 IFID_reg[16] ? {op2, op1} : 16'b0; //if load_true_IFID, write to ld_mem_addr_reg, else write to st_mem_addr_reg
 
         branch_conds_EX <= #1 {
             COMP_gt_flag,

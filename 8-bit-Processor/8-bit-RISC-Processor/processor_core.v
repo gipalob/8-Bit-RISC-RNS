@@ -591,6 +591,6 @@ always @(posedge clk)
 			set_invalidate_instruction <= #1 1'b0;
 			end
 
-	   end
 
+	   end
 endmodule

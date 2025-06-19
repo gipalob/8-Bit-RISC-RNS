@@ -1,20 +1,18 @@
-//Description: Data memory module for 8-bit RNS-domain RISC processor, modified from NayanaBannur/8-bit-RISC-Processor to support dual-domain RNS
-//             Currently implementation is 256-elements, with each element being NUM_DOMAINS byte(s)
-//			   Remember, we're completing the same operation for each domain in parallel- so we don't want to have to deconstruct / reconstruct for every operation.
-//             Better to just store each domain's operand. 
+//Description: Data memory with 16-bit address space, byte addressable. 
 
-module Data_Mem #(parameter NUM_DOMAINS = 1) (
+module Data_Mem (
     input clk, reset,
-	input [7:0] data_rd_addr, data_wr_addr,
-    input [NUM_DOMAINS*8 - 1:0] datamem_wr_data, // { [7:0] Domain1, [7:0] Domain2, ... }
+	input [15:0] data_rd_addr, data_wr_addr,
+    input [7:0] datamem_wr_data, // { [7:0] Domain1, [7:0] Domain2, ... }
 	input store_to_mem,
                                     
-	output reg [NUM_DOMAINS*8 - 1:0] dmem_dout   // { [7:0] Domain1, [7:0] Domain2 }
+	output reg [7:0] dmem_dout   // { [7:0] Domain1, [7:0] Domain2 }
 );
-    reg [NUM_DOMAINS*8 - 1:0] data_mem[255:0];
+    reg [7:0] data_mem[65535:0]; //i.e., 64Kbyte
 
+    //for loading initial data memory contents
     //initial begin
-	//    $readmemh("/home/user/CIS4900/8-bit-RISC-Processor/data3.txt",data_mem);
+	//    $readmemh("",data_mem);
 	//end
 
     // get data during LOAD instruction                 

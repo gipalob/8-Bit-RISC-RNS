@@ -43,6 +43,7 @@ module PL_MEMWB #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10) (
             branch_conds_MEMWB <= #1 4'b0;
         end
         else begin
+            branch_conds_MEMWB <= #1 4'b0; //reset branch conditions
             if ((EX_reg[2] && !invalidate_instr) == 1'b1)
                 branch_conds_MEMWB[3] <= #1 branch_conds_EX[3]; //does this always get reset to X or 0? 
 
