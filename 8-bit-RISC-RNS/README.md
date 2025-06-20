@@ -10,5 +10,27 @@ This implementation is foundationally based on NayanaBannur/8-bit-RISC-Processor
 3) QOL ISA Improvements
 > `LDI` Instruction: Load an 8-bit immediate value into a register.
 
+## ISA Organization:
+Instructions are all 16-bits long. 
+### R-Type Instructions
+| Bit   | Assignment      |
+| :---: | :-------------: |
+| 15    | opcode[4]       |
+| 14    | opcode[3]       |
+| 13    | opcode[2]       |
+| 12    | opcode[1]       |
+| 11    | opcode[0]       |
+| 10    | rd[2]           |
+|  9    | rd[1]           |
+|  8    | rd[0]           |
+|  7    | rs2 Domain Flag |
+|  6    | rs2[2]          |
+|  5    | rs2[2]          |
+|  4    | rs2[2]          |
+|  3    | rs1 Domain Flag |
+|  2    | rs1[2]          |
+|  1    | rs1[1]          |
+|  0    | rs1[0]          |
+
 
 ## RNS Implementation Methodology
