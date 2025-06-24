@@ -11,12 +11,11 @@ This implementation is foundationally based on NayanaBannur/8-bit-RISC-Processor
 `LDI` Instruction:
 - Load an 8-bit immediate value into a register.
 Hazard Detection:
-- The original implementation does not track instructions currently in the execution pipeline. For example, if you attempt to execute this series of instructions:
->>>  `ADD x1, x1, x0`
-   `COMPARE x1, x2`
-   `JMPEQ 0x211`
-   `JMP 0x219`
-- - If x1 == x2, `JMPEQ` will execute and set the program counter to 0x211 when it reaches the end of EX. However, by this point, `JMP 0x219` has finished IF/ID, and there is no hazard detection / instruction invalidation for `JMP` instructions. The instruction at 0x211 will enter IF/ID, and then the next cycle the program counter is set to 0x219. This is the same for any instructions directly after any other `JMPxx`; The behavior would be the same if `JMP 0x219` was replaced with an `ADD`, `SUB`, `MUL`, etc- any instruction directly after a successful branch will be completed.
+- The original implementation had some 'holes' in hazard detection. For example, if you attempt to execute this series of instructions:
+>  `COMPARE x1, x2`
+>  `JMPEQ 0x211`
+>  `JMP 0x219`
+- If x1 == x2, `JMPEQ` will execute and set the program counter to 0x211 when it reaches the end of EX. However, by this point, `JMP 0x219` has finished IF/ID as well, and in the original implementation there was no hazard detection / instruction invalidation for `JMP` instructions. The instruction at 0x211 will enter IF/ID, and then the next cycle the program counter is set to 0x219. To reiterate- this _does not apply_ to other instructions- if `JMPEQ` evaluates true, and the instruction directly afterwards is, say, `ADD`, the `invalidate_instr` signal will keep `reg_wr_en` LOW when the `ADD` enters `MEMWB`. This was fixed by conditionally assigning branch_taken in the EX pipeline register based on its last state.
 
 ## ISA Organization:
 Instructions are all 16-bits long. 

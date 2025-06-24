@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="186.040 ns"></ZoomStartTime>
-      <ZoomEndTime time="303.341 ns"></ZoomEndTime>
+      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="983.983 ns"></ZoomEndTime>
       <Cursor1Time time="174.830 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="230"></NameColumnWidth>
-      <ValueColumnWidth column_width="109"></ValueColumnWidth>
+      <NameColumnWidth column_width="210"></NameColumnWidth>
+      <ValueColumnWidth column_width="79"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="33" />
+   <WVObjectSize size="19" />
    <wvobject type="logic" fp_name="/testbench/clk">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -28,138 +28,73 @@
       <obj_property name="ElementShortName">reset</obj_property>
       <obj_property name="ObjectShortName">reset</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/testbench/op1_data">
-      <obj_property name="ElementShortName">op1_data[7:0]</obj_property>
-      <obj_property name="ObjectShortName">op1_data[7:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   <wvobject type="array" fp_name="/testbench/IF_addr1">
+      <obj_property name="ElementShortName">IF_addr1[2:0]</obj_property>
+      <obj_property name="ObjectShortName">IF_addr1[2:0]</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/testbench/op2_data">
-      <obj_property name="ElementShortName">op2_data[7:0]</obj_property>
-      <obj_property name="ObjectShortName">op2_data[7:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   <wvobject type="array" fp_name="/testbench/IF_addr2">
+      <obj_property name="ElementShortName">IF_addr2[2:0]</obj_property>
+      <obj_property name="ObjectShortName">IF_addr2[2:0]</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/testbench/op3_data">
-      <obj_property name="ElementShortName">op3_data[7:0]</obj_property>
-      <obj_property name="ObjectShortName">op3_data[7:0]</obj_property>
+   <wvobject type="array" fp_name="/testbench/EX_addr1">
+      <obj_property name="ElementShortName">EX_addr1[2:0]</obj_property>
+      <obj_property name="ObjectShortName">EX_addr1[2:0]</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/testbench/operation_result_out">
-      <obj_property name="ElementShortName">operation_result_out[7:0]</obj_property>
-      <obj_property name="ObjectShortName">operation_result_out[7:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   <wvobject type="array" fp_name="/testbench/EX_addr2">
+      <obj_property name="ElementShortName">EX_addr2[2:0]</obj_property>
+      <obj_property name="ObjectShortName">EX_addr2[2:0]</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/testbench/prog_ctr_out">
-      <obj_property name="ElementShortName">prog_ctr_out[9:0]</obj_property>
-      <obj_property name="ObjectShortName">prog_ctr_out[9:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   <wvobject type="array" fp_name="/testbench/IF_op1">
+      <obj_property name="ElementShortName">IF_op1[7:0]</obj_property>
+      <obj_property name="ObjectShortName">IF_op1[7:0]</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/testbench/dmemout">
-      <obj_property name="ElementShortName">dmemout[7:0]</obj_property>
-      <obj_property name="ObjectShortName">dmemout[7:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   <wvobject type="array" fp_name="/testbench/IF_op2">
+      <obj_property name="ElementShortName">IF_op2[7:0]</obj_property>
+      <obj_property name="ObjectShortName">IF_op2[7:0]</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/testbench/dmemrdaddr">
-      <obj_property name="ElementShortName">dmemrdaddr[15:0]</obj_property>
-      <obj_property name="ObjectShortName">dmemrdaddr[15:0]</obj_property>
+   <wvobject type="array" fp_name="/testbench/EX_op1">
+      <obj_property name="ElementShortName">EX_op1[7:0]</obj_property>
+      <obj_property name="ObjectShortName">EX_op1[7:0]</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/testbench/dmemwraddr">
-      <obj_property name="ElementShortName">dmemwraddr[15:0]</obj_property>
-      <obj_property name="ObjectShortName">dmemwraddr[15:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   <wvobject type="array" fp_name="/testbench/EX_op2">
+      <obj_property name="ElementShortName">EX_op2[7:0]</obj_property>
+      <obj_property name="ObjectShortName">EX_op2[7:0]</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="/testbench/dmem_wr_enab">
-      <obj_property name="ElementShortName">dmem_wr_enab</obj_property>
-      <obj_property name="ObjectShortName">dmem_wr_enab</obj_property>
+   <wvobject type="array" fp_name="/testbench/IF_opcode">
+      <obj_property name="ElementShortName">IF_opcode[4:0]</obj_property>
+      <obj_property name="ObjectShortName">IF_opcode[4:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/testbench/op1_addr">
-      <obj_property name="ElementShortName">op1_addr[2:0]</obj_property>
-      <obj_property name="ObjectShortName">op1_addr[2:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/testbench/op2_addr">
-      <obj_property name="ElementShortName">op2_addr[2:0]</obj_property>
-      <obj_property name="ObjectShortName">op2_addr[2:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/testbench/op3_addr">
-      <obj_property name="ElementShortName">op3_addr[2:0]</obj_property>
-      <obj_property name="ObjectShortName">op3_addr[2:0]</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/testbench/destination_reg_addr">
-      <obj_property name="ElementShortName">destination_reg_addr[2:0]</obj_property>
-      <obj_property name="ObjectShortName">destination_reg_addr[2:0]</obj_property>
+   <wvobject type="logic" fp_name="/testbench/reg_wr_en">
+      <obj_property name="ElementShortName">reg_wr_en</obj_property>
+      <obj_property name="ObjectShortName">reg_wr_en</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/testbench/reg_wr_data">
       <obj_property name="ElementShortName">reg_wr_data[7:0]</obj_property>
       <obj_property name="ObjectShortName">reg_wr_data[7:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/testbench/debug_opcode_IFID">
-      <obj_property name="ElementShortName">debug_opcode_IFID[4:0]</obj_property>
-      <obj_property name="ObjectShortName">debug_opcode_IFID[4:0]</obj_property>
-      <obj_property name="Radix">BINARYRADIX</obj_property>
+   <wvobject type="logic" fp_name="/testbench/invalidate_instr">
+      <obj_property name="ElementShortName">invalidate_instr</obj_property>
+      <obj_property name="ObjectShortName">invalidate_instr</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="/testbench/reg_wr_enab">
-      <obj_property name="ElementShortName">reg_wr_enab</obj_property>
-      <obj_property name="ObjectShortName">reg_wr_enab</obj_property>
+   <wvobject type="array" fp_name="/testbench/prog_ctr">
+      <obj_property name="ElementShortName">prog_ctr[9:0]</obj_property>
+      <obj_property name="ObjectShortName">prog_ctr[9:0]</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="/testbench/took_branch">
-      <obj_property name="ElementShortName">took_branch</obj_property>
-      <obj_property name="ObjectShortName">took_branch</obj_property>
+   <wvobject type="logic" fp_name="/testbench/invalidate_instr_IFID">
+      <obj_property name="ElementShortName">invalidate_instr_IFID</obj_property>
+      <obj_property name="ObjectShortName">invalidate_instr_IFID</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/testbench/instr">
-      <obj_property name="ElementShortName">instr[15:0]</obj_property>
-      <obj_property name="ObjectShortName">instr[15:0]</obj_property>
+   <wvobject type="logic" fp_name="/testbench/unconditional_jmp">
+      <obj_property name="ElementShortName">unconditional_jmp</obj_property>
+      <obj_property name="ObjectShortName">unconditional_jmp</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="/testbench/memwb_inv_instr">
-      <obj_property name="ElementShortName">memwb_inv_instr</obj_property>
-      <obj_property name="ObjectShortName">memwb_inv_instr</obj_property>
+   <wvobject type="logic" fp_name="/testbench/branch_taken_EX">
+      <obj_property name="ElementShortName">branch_taken_EX</obj_property>
+      <obj_property name="ObjectShortName">branch_taken_EX</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/testbench/plreg_ifid">
-      <obj_property name="ElementShortName">plreg_ifid[0:31]</obj_property>
-      <obj_property name="ObjectShortName">plreg_ifid[0:31]</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/testbench/plreg_ex">
-      <obj_property name="ElementShortName">plreg_ex[0:6]</obj_property>
-      <obj_property name="ObjectShortName">plreg_ex[0:6]</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/testbench/branch_conds_IFID">
-      <obj_property name="ElementShortName">branch_conds_IFID[0:4]</obj_property>
-      <obj_property name="ObjectShortName">branch_conds_IFID[0:4]</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/testbench/branch_conds_EX">
-      <obj_property name="ElementShortName">branch_conds_EX[0:4]</obj_property>
-      <obj_property name="ObjectShortName">branch_conds_EX[0:4]</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/testbench/branch_conds_MEMWB">
-      <obj_property name="ElementShortName">branch_conds_MEMWB[0:3]</obj_property>
-      <obj_property name="ObjectShortName">branch_conds_MEMWB[0:3]</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/testbench/cout">
-      <obj_property name="ElementShortName">cout</obj_property>
-      <obj_property name="ObjectShortName">cout</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/testbench/dout">
-      <obj_property name="ElementShortName">dout[7:0]</obj_property>
-      <obj_property name="ObjectShortName">dout[7:0]</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/testbench/op1_ex">
-      <obj_property name="ElementShortName">op1_ex[7:0]</obj_property>
-      <obj_property name="ObjectShortName">op1_ex[7:0]</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/testbench/op2_ex">
-      <obj_property name="ElementShortName">op2_ex[7:0]</obj_property>
-      <obj_property name="ObjectShortName">op2_ex[7:0]</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/testbench/op3_ex">
-      <obj_property name="ElementShortName">op3_ex[7:0]</obj_property>
-      <obj_property name="ObjectShortName">op3_ex[7:0]</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/testbench/imm_out">
-      <obj_property name="ElementShortName">imm_out[7:0]</obj_property>
-      <obj_property name="ObjectShortName">imm_out[7:0]</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/testbench/ex_next_prog_ctr">
-      <obj_property name="ElementShortName">ex_next_prog_ctr[9:0]</obj_property>
-      <obj_property name="ObjectShortName">ex_next_prog_ctr[9:0]</obj_property>
+   <wvobject type="array" fp_name="/testbench/IFID_reg">
+      <obj_property name="ElementShortName">IFID_reg[0:31]</obj_property>
+      <obj_property name="ObjectShortName">IFID_reg[0:31]</obj_property>
    </wvobject>
 </wave_config>

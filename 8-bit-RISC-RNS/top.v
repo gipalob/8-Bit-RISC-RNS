@@ -21,7 +21,7 @@ module processor_top (clk, reset);
     wire [NUM_DOMAINS*8 - 1:0]  rd_data3;           //data for op3 from regfile
     wire [NUM_DOMAINS*8 - 1:0]  dmem_dout;          //data read from data memory
     wire [NUM_DOMAINS*8 - 1:0]  wr_data;            //data to be written to reg || datamem 
-    wire [15:0]                  data_wr_addr, data_rd_addr;
+    wire [15:0]                 data_wr_addr, data_rd_addr;
     wire                        mem_wr_en, reg_wr_en;
 
     //**// IF/ID Pipeline Register Signals //**//

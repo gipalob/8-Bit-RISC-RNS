@@ -121,7 +121,9 @@ module PL_EX #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10) (
             destination_reg_addr <= 3'b0;
         end
         else begin
-            branch_taken_EX <= #1 branch_taken;
+            branch_taken_EX <= #1 branch_taken && !branch_taken_EX && !IFID_reg[0]; 
+            //'!branch_taken_EX` (the last state of the reg) prevents JMP execution if JMP instr comes directly after a conditional JMP
+            //'!IFID_reg[0]` also checks invalidate_fetch_instr, just to be safe.
             EX_reg[0:3] <= #1 {
                 IFID_reg[15],   //store_true
                 IFID_reg[17],   //write_to_regfile
