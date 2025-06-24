@@ -8,11 +8,11 @@ This implementation is foundationally based on NayanaBannur/8-bit-RISC-Processor
 > The original implementation only supported an 8-bit addressable data memory; for many applications, 256 data memory elements is incredibly limiting. Load & Store operations were modified to accept 3 register inputs instead of a single register input and an 8-bit constant, increasing the versatility of memory operations (addresses held in registers vs embedded in an instruction), and allowing the concatenation of two register's contents to form an 8-bit address. 
 
 3) QOL ISA Improvements
-- `LDI` Instruction
-- - Load an 8-bit immediate value into a register.
-- Hazard Detection:
-- - The original implementation does not track instructions currently in the execution pipeline. For example, if you attempt to execute this series of instructions:
->  `ADD x1, x1, x0`
+`LDI` Instruction:
+- Load an 8-bit immediate value into a register.
+Hazard Detection:
+- The original implementation does not track instructions currently in the execution pipeline. For example, if you attempt to execute this series of instructions:
+>>>  `ADD x1, x1, x0`
    `COMPARE x1, x2`
    `JMPEQ 0x211`
    `JMP 0x219`
