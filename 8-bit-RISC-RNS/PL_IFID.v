@@ -293,6 +293,12 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 					write_to_regfile <= 1'b1;
 			end            
 
+//RNS Instructions
+		//ADDMD
+		//SUBMD
+		//MULMD
+		
+
 			default: 	;			//= NOP
 			endcase
 	end
