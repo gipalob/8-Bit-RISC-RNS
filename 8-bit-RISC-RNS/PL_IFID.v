@@ -12,21 +12,21 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
     input [NUM_DOMAINS*8 - 1:0]			op2_data,           //data for op2 from ctrl_Forward
 	input [NUM_DOMAINS*8 - 1:0]			op3_data,           //data for op2 from ctrl_Forward
 
-    output reg [2:0] 					op1_addr_IFID,  //ID: op1_addr to ctrl_Forward
-    output reg [2:0] 					op2_addr_IFID,  //ID: op2_addr to ctrl_Forward
+    output reg [3:0] 					op1_addr_IFID,  //ID: op1_addr to ctrl_Forward
+    output reg [3:0] 					op2_addr_IFID,  //ID: op2_addr to ctrl_Forward
 	output reg [2:0]                    op3_addr_IFID,  //ID: op3_addr to ctrl_Forward
     output reg 							load_true_IFID,     //ID: load instruction flag to ctrl_Forward
 
     //pipeline register out to next stage
-    output reg [0:31] 					IFID_reg,    		//IFID pipeline register out
+    output reg [0:33] 					IFID_reg,    		//IFID pipeline register out
     output reg [PROG_CTR_WID-1:0] 		pred_nxt_prog_ctr, 	//inst address to jump to on successful branch evaluation - pulled from inst in ID
 	output reg [NUM_DOMAINS*8 - 1:0] 	op1_dout_IFID, 		//op1 data out for IFID pipeline register - easier to keep this seperate as it's dynamic size
 	output reg [NUM_DOMAINS*8 - 1:0] 	op2_dout_IFID,		//op2 data out for IFID pipeline register - easier to keep this seperate as it's dynamic size
 	output reg [NUM_DOMAINS*8 - 1:0] 	op3_dout_IFID,		//op3 data out for IFID pipeline register - easier to keep this seperate as it's dynamic size
-    output reg [2:0]                    op1_addr_out_IFID,
-    output reg [2:0]                    op2_addr_out_IFID,
+    output reg [3:0]                    op1_addr_out_IFID,
+    output reg [3:0]                    op2_addr_out_IFID,
 	output reg [2:0]                    op3_addr_out_IFID, //op3 is rs for RSTORE
-    output reg [2:0]                    res_addr_out_IFID,
+    output reg [3:0]                    res_addr_out_IFID,
 	output reg [4:0] debug_opcode_IFID //debug: opcode of instruction in IFID stage
 );
 
@@ -64,7 +64,6 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
     reg [4:0] opcode; //opcode of the instruction
     reg [2:0] res_addr; //destination register address
     //reg [7:0] ld_mem_addr; //load memory address
-    reg [7:0] st_mem_addr; //store memory address
     reg [9:0] branch_addr; //branch address
     reg [PROG_CTR_WID-1:0] nxt_prog_ctr; //next program counter value
 
@@ -74,13 +73,16 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
     always @(instruction) 
     begin
 		opcode	        	<= instruction[15:11];
-		op1_addr_IFID		<= instruction[2:0];
-		op2_addr_IFID	   	<= instruction[6:4];
 		res_addr	    	<= instruction[10:8];
 		imm			    	<= instruction[7:0];
-		st_mem_addr     	<= instruction[10:3];
+		op2_addr_IFID	   	<= instruction[7:4]; //bit 7 is rs2 domain flag; 1 == RNS, 0 == normal int
+		op1_addr_IFID		<= instruction[3:0]; //bit 4 is rs1 domain flag; 1 == RNS, 0 == normal int
 		branch_addr     	<= instruction[9:0];
 	end
+	/*
+		Will need to modify to throw an error if:
+			(inst[7] == 1 || inst[3] == 1) && (RNS_op_true == 0), pipeline error
+	*/
 
     reg add_op_true, and_op_true, or_op_true, not_op_true;      //operation flags
     reg and_bitwise_true, or_bitwise_true, not_bitwise_true;    //bitwise operation flags
@@ -93,7 +95,7 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
     reg jump_gt, jump_lt, jump_eq, jump_carry;                  //flags for conditional jumps
 
 	//custom flags:
-	reg ld_imm;
+	reg ld_imm, mul_op_true, RNS_op_true;
 
     always@ (opcode or branch_addr)        
 	begin
@@ -118,6 +120,8 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 		jump_lt <= 1'b0;
 		jump_eq <= 1'b0;
 		jump_carry <= 1'b0;
+		RNS_op_true <= 1'b0;
+		mul_op_true <= 1'b0;
 		
 		ld_imm <= 1'b0;
 		op3_addr_IFID <= 3'b0; //reset op3_addr_IFID
@@ -291,13 +295,39 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
             begin
 					ld_imm <= 1'b1;
 					write_to_regfile <= 1'b1;
-			end            
+			end           
 
 //RNS Instructions
-		//ADDMD
-		//SUBMD
-		//MULMD
-		
+		//	OP_ADDMD:	begin 
+			5'b10011: 
+			begin
+					RNS_op_true <= 1'b1;
+					write_to_regfile <= 1'b1;
+					add_op_true <= 1'b1;
+			end
+		//	OP_SUBMD:	begin 
+			5'b10100: 
+			begin
+					RNS_op_true <= 1'b1;
+					write_to_regfile <= 1'b1;
+					en_op2_complement <= 1'b1; //subtract
+					add_op_true <= 1'b1;
+					//No two's compl;ement needed for RNS subtraction, as it is done in the RNS domain
+			end
+		//	OP_MULMD:	begin 		
+			5'b10101: 
+			begin
+					RNS_op_true <= 1'b1;
+					write_to_regfile <= 1'b1;
+					mul_op_true <= 1'b1;
+			end
+		//	OP_RECNST:	begin 		
+			5'b10110: 
+			begin
+					RNS_op_true <= 1'b1;
+					write_to_regfile <= 1'b1;
+					//need to write the logic for this
+			end
 
 			default: 	;			//= NOP
 			endcase
@@ -341,7 +371,7 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 			end else begin
 				IFID_reg[1] <= #1 1'b0; //otherwise, do not invalidate decode instruction
 			end
-            IFID_reg[2:31] <= #1 {   //og arr | len | IFID_reg idx 
+            IFID_reg[2:32] <= #1 {   //og arr | len | IFID_reg idx 
                 add_op_true,            //      (1)    [2]
                 or_op_true,             //      (1)    [3]
                 not_op_true,            //      (1)    [4]
@@ -364,8 +394,10 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
                 jump_carry,             //      (1)    [21]
                 unconditional_jump,     //      (1)    [22]
 				ld_imm,					//      (1)    [23] (imm val held in ld_mem_addr)
-				imm						//[7:0] (8)    [24:31] immediate value for LDI instruction
-            };                       //total len: 32 bits
+				imm,					//[7:0] (8)    [24:31] immediate value for LDI instruction
+				mul_op_true,			//      (1)    [32]
+				RNS_op_true				//      (1)    [33] - RNS operation flag, set to 1 for RNS instructions
+            };                       //total len: 33 bits
         end
 	end
 endmodule

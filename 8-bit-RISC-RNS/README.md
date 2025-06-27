@@ -39,7 +39,7 @@ Instructions are all 16-bits long.
 |  1    | rs1[1]          |
 |  0    | rs1[0]          |
 
-- The rs1/rs2 domain flags indicate which register file rs1/rs2 are sourced from; The RNS domain or integer domain register file. Unused for standard R-Type instructions, but important for R-M type (R-Modular) instructions.
+- The rs1/rs2 domain flags indicate which register file rs1/rs2 are sourced from; The RNS domain or integer domain register file. Unused for standard R-Type instructions, but important for R-M type (R-Modular) instructions. This makes the register address signals effectively 4-bits, with the MSB only used as the domain flag. Note that 'rs3' which is taken from rd and exclusively used for `RLOAD` and `RSTORE` is always a 3-bit address signal.
 - For R-M type instructions, rd will always be a RNS domain register, with the only exceptions being `(Reconstruct instruction? Output instruction?)`
 
 

@@ -3,7 +3,8 @@
 
 module processor_top (clk, reset);
     parameter PROG_CTR_WID = 10;
-    parameter NUM_DOMAINS = 1;
+    parameter NUM_DOMAINS = 2; // Number of RNS domains; Integer domain remains
+    parameter [8 * NUM_DOMAINS:0] MODULI = {8'd129, 9'd256};
     
     input clk, reset;
 
@@ -40,7 +41,7 @@ module processor_top (clk, reset);
     wire [2:0]                  op3_addr_out_IFID;  //op3 address out for IFID pipeline register
     wire [2:0]                  res_addr_out_IFID;  //result address out for IFID pipeline register
     wire [PROG_CTR_WID-1:0]     pred_nxt_prog_ctr;  //predicted next program counter value obtained from addr in branch instruction currently in IFID
-    wire [0:31] IFID_reg; //IFID pipeline register output
+    wire [0:33] IFID_reg; //IFID pipeline register output
     
     wire [0:4] brnch_conds_IFID;
     //**/////////////////////////////////////**//
@@ -55,6 +56,7 @@ module processor_top (clk, reset);
     wire [0:4] brnch_conds_EX;
     wire [0:4]                  branch_conds_EX;        //branch conditions in EX stage to ctrl_Fwd
     wire [2:0]                  destination_reg_addr;   //destination register address, triggered on Register write enable
+    wire destination_RNS;                               //whether rd is in RNS domain, used to determine which reg file is written to
     wire [NUM_DOMAINS*8 - 1:0]  operation_result;       //result of ALU/Shift/LGCL operation
     wire [PROG_CTR_WID-1:0]     pred_nxt_prog_ctr_EX;   //predicted next program counter value to be pulled from EX pipeline reg
     //**/////////////////////////////////////**//
@@ -96,10 +98,11 @@ module processor_top (clk, reset);
         .clk(clk),
         .reset(reset),
         .wr_data(wr_data),              //data to be written to reg on wr_addr && wr_en, to be pulled from EX pipeline reg
-        .rd_addr1(op1_addr_IFID),            //op1 address, to be pulled from ID pipeline reg
-        .rd_addr2(op2_addr_IFID),            //op2 address, to be pulled from ID pipeline reg
-        .rd_addr3(op3_addr_IFID),            //op2 address, to be pulled from ID pipeline reg
-        .wr_addr(destination_reg_addr),              //destination register address, to be pulled from EX pipeline reg
+        .rd_addr1(op1_addr_IFID),       //op1 address, to be pulled from ID pipeline reg
+        .rd_addr2(op2_addr_IFID),       //op2 address, to be pulled from ID pipeline reg
+        .rd_addr3(op3_addr_IFID),       //op2 address, to be pulled from ID pipeline reg
+        .wr_addr(destination_reg_addr), //destination register address, to be pulled from EX pipeline reg
+        .wr_RNS(destination_RNS),       //whether rd is in RNS domain, used to determine which reg file is written to
         .wr_en(reg_wr_en),              //write enable signal, to be pulled from EX pipeline reg
         .rd_data1(rd_data1),            //op1 read data, to be pulled from ID pipeline reg
         .rd_data2(rd_data2),            //op2 read data, to be pulled from ID pipeline reg
@@ -147,6 +150,7 @@ module processor_top (clk, reset);
         .data_wr_addr(data_wr_addr), .data_rd_addr(data_rd_addr),   //data memory write/read address
         .EX_reg(EX_reg),                                            //mixed EX pipeline register signals
         .destination_reg_addr(destination_reg_addr),                //destination register address, to be pulled from EX pipeline reg
+        .destination_RNS(destination_RNS),
         .operation_result(operation_result),
         .pred_nxt_prog_ctr_EX(pred_nxt_prog_ctr_EX)                //predicted next program counter value to be pulled from EX pipeline reg
     );

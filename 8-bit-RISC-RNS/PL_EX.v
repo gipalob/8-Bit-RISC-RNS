@@ -1,13 +1,13 @@
 //Description: EX Stage of pipeline. Modified from NayanaBannur/8-bit-RISC-Processor to support parameterized values / RNS domains
 //             Instantiates ALU for each domain.
-
-module PL_EX #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10) (
+                                                            // 9-bit moduli max to fit 256.
+module PL_EX #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10, [9 * NUM_DOMAINS-1:0] MODULI = {9'd129, 9'd256}) (
     input clk, reset,
     //Pipeline registers from IFID
     input [NUM_DOMAINS*8 - 1:0]     op1, op2, op3,          // { [7:0] Domain1, [7:0] Domain2, ... }
     input [2:0]                     res_addr,               // result address for regfile write
     input [PROG_CTR_WID-1:0]        pred_nxt_prog_ctr,      // next program counter value from IFID
-    input [0:31]                    IFID_reg,               // IFID pipeline register out
+    input [0:33]                    IFID_reg,               // IFID pipeline register out
     input                           branch_taken,
 
     output reg [0:4]                 branch_conds_EX,
@@ -15,6 +15,7 @@ module PL_EX #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10) (
     output reg [15:0]                data_wr_addr, data_rd_addr, //data memory write/read address
     output reg [0:6]                 EX_reg,
     output reg [2:0]                 destination_reg_addr,
+    output reg destination_RNS,
     output reg [NUM_DOMAINS*8 - 1:0] operation_result,      // { [7:0] Domain1, [7:0] Domain2, ... }
     output reg [PROG_CTR_WID-1:0]    pred_nxt_prog_ctr_EX
 );
@@ -45,21 +46,46 @@ module PL_EX #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10) (
             jump_carry,             //      (1)    [21]
             unconditional_jump,     //      (1)    [22]
             ld_imm,                 //      (1)    [23]
-            imm                     //[7:0] (8)    [24:31]
-        };                       //total len: 24 bits
+            imm,                    //[7:0] (8)    [24:31]
+            mul_op_true,            //      (1)    [32]
+            RNS_op_true             //      (1)    [33] - RNS operation flag, set to 1 for RNS instructions
+        };                       //total len: 34 bits
     */
     
     //**// ALU Instantiation //**//
-    wire [NUM_DOMAINS*8 - 1:0] cmb_dout; //final output of ALU/Shift/LGCL
-    wire cmb_cout, save_cout;
+    wire [NUM_DOMAINS*8 - 1:0] RNS_dout; //final output of ALU
+    wire [7:0] ALU_dout; //final output of ALU, for integer domain
+    wire cmb_cout, RNS_dout, save_cout;
 
     wire COMP_gt_flag, COMP_lt_flag, COMP_eq_flag;
 
+    if (NUM_DOMAINS > 1)
+    begin
+        genvar i;
+        for (i = 0; i < NUM_DOMAINS; i = i + 1) 
+        begin
+            PL_RNS_ALU RNS_ALU(
+                .modulus(MODULI[i*9 +: 9]), // Extract the modulus for the current domain
+                .op1_in(op1[i*8 +: 8]),
+                .op2_in(op2[i*8 +: 8]),
+                .ALU_ctrl({IFID_reg[2:15], IFID_reg[32]}), //IFID_reg[2:15] contains ALU control signals, IFID_reg[32] is mul_op_true
+                .RNS_ALU_EN(IFID_reg[33]), //RNS operation flag
+                .dout(RNS_dout[i*8 +: 8]),
+                .cout(RNS_cout),
+                .COMP_gt(COMP_gt_flag),
+                .COMP_lt(COMP_lt_flag),
+                .COMP_eq(COMP_eq_flag)
+            );
+        end
+    end
+    
+    //Generate integer domain ALU regardless of whether RNS is enabled
     PL_ALU ALU (
-        .op1_in(op1),
-        .op2_in(op2),
+        .ALU_EN(!IFID_reg[33]), //if RNS_ALU_EN is 0, use normal ALU
+        .op1_in(op1[7:0]),
+        .op2_in(op2[7:0]),
         .ALU_ctrl(IFID_reg[2:15]), //IFID_reg[2:15] contains ALU control signals
-        .dout(cmb_dout),
+        .dout(ALU_dout),
         .cout(cmb_cout),
         .COMP_gt(COMP_gt_flag),
         .COMP_lt(COMP_lt_flag),
@@ -84,13 +110,13 @@ module PL_EX #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10) (
         /////////////////////////////////////
         //Distinct pipeline register elements
         /////////////////////////////////////
-        //operation result == 
+        //operation result ==   IF RNS_op_true, RNS_dout ELSE
         //                      IF store_true, op3 ELSE
         //                      IF ld_imm: [7:0] imm 
         //                      ELSE cmb_dout
         //where ld_mem_addr contains the immediate value, cmb_dout is ALU output
-        operation_result <= #1 IFID_reg[15] ? op3 : (IFID_reg[23] ? imm : cmb_dout);
-
+        operation_result <= #1 IFID_reg[33] ? RNS_dout : (IFID_reg[15] ? op3 : (IFID_reg[23] ? imm : cmb_dout));
+        //need to think about bit filling for non-RNS operations, as datapath could be wider than 8-bits and im unsure how the bitfilling will work out
         data_wr_addr <= #1 IFID_reg[15] ? {op2, op1} : 16'b0; //if store_true, write to st_mem_addr_reg, else write to ld_mem_addr_reg
         data_rd_addr <= #1 IFID_reg[16] ? {op2, op1} : 16'b0; //if load_true_IFID, write to ld_mem_addr_reg, else write to st_mem_addr_reg
 
@@ -131,6 +157,8 @@ module PL_EX #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10) (
                 branch_taken_EX //invalidate_execute_instr
             };
             destination_reg_addr <= #1 res_addr;
+            destination_RNS <= #1 IFID_reg[33]; //RNS operation flag, set to 1 for RNS instructions to determine which reg file to write to
+            // will need to modify condition for reconstruct operation
         end
     end
 

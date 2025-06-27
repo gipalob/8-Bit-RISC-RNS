@@ -1,0 +1,15 @@
+Time resolution is 1 ps
+--------------------
+Printing Register Contents: 
+reg_file [0] = 15
+reg_file [1] = 240
+reg_file [2] = 17
+reg_file [3] = 255
+reg_file [4] = 0
+reg_file [5] = 17
+reg_file [6] = x
+reg_file [7] = x
+--------------------
+Printing Data Memory Contents: 
+--------------------
+$stop called at time : 1 us : File "/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v" Line 61

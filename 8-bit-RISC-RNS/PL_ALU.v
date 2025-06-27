@@ -3,6 +3,7 @@
 
 
 module complement (
+    input ALU_EN, // Enable for ALU operations
     input [7:0] op1_in, op2_in,
     input en_complement,    //whether to complement op2
     input store_true,       //if store operation, keep op2 @ 0
@@ -13,15 +14,18 @@ module complement (
 );
     always @(op1_in or op2_in or en_complement or store_true or add_op or lgcl_op or shift_left) 
     begin
-        op1 <= op1_in; //always passed as-is
-        if (store_true) begin //if store operation
-            op2 <= 8'b0;
-        end 
-        else if (en_complement) begin //if complement operation
-            op2 <= ~op2_in;
-        end
-        else begin
-            op2 <= op2_in;
+        if (ALU_EN == 1'b1)
+        begin
+            op1 <= op1_in; //always passed as-is
+            if (store_true) begin //if store operation
+                op2 <= 8'b0;
+            end 
+            else if (en_complement) begin //if complement operation
+                op2 <= ~op2_in;
+            end
+            else begin
+                op2 <= op2_in;
+            end
         end
     end
 endmodule
@@ -87,9 +91,10 @@ endmodule
 
 
 module PL_ALU (
+    input ALU_EN,
     input [7:0] op1_in,
     input [7:0] op2_in,
-    input [0:13] ALU_ctrl, // Control signals for ALU operations - IFID_reg[2:15]
+    input [0:14] ALU_ctrl, // Control signals for ALU operations - IFID_reg[2:15]
     output [7:0] dout,
     output cout, // carry out
     output COMP_gt, COMP_lt, COMP_eq // Compare outputs
@@ -114,9 +119,16 @@ module PL_ALU (
     assign shift_left    = ALU_ctrl[11];
     assign lgcl_en       = ALU_ctrl[12];
     assign store_true    = ALU_ctrl[13];
+    assign mul_op_true   = ALU_ctrl[14];
 
     // Instantiate sub-modules
+    /*
+        The outputs of complement, even if op1 and op2 aren't being complemented, are always passed to adder, shift, and logical modules.
+        Thus, we can disable this ALU by stopping complement if RNS ALU is enabled
+    */
+
     complement comp_inst (
+        .ALU_EN(ALU_EN),
         .op1_in(op1_in),
         .op2_in(op2_in),
         .en_complement(en_complement),

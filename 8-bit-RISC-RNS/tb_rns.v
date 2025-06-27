@@ -12,7 +12,7 @@ wire [7:0] IF_op1, IF_op2, EX_op1, EX_op2;
 wire [4:0] IF_opcode;
 wire reg_wr_en, invalidate_instr, invalidate_instr_IFID, unconditional_jmp, branch_taken_EX;
 wire [7:0] reg_wr_data;
-wire [0:31] IFID_reg;
+wire [0:32] IFID_reg;
 
 assign prog_ctr = proc_top1.prog_ctr;
 assign IF_opcode = proc_top1.stage_IFID.opcode;
