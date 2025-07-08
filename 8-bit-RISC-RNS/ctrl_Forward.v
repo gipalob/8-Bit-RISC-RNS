@@ -8,17 +8,17 @@ module Forwarding #(parameter NUM_DOMAINS=1) (
     input [NUM_DOMAINS*8 - 1:0] rd_data3,                   //data read from register file for op2
 
     //Inputs FROM ID stage
-    input [2:0]                 op1_addr_IFID,              //source register 1 address from IF/ID
-    input [2:0]                 op2_addr_IFID,              //source register 2 address from IF/ID
+    input [3:0]                 op1_addr_IFID,              //source register 1 address from IF/ID
+    input [3:0]                 op2_addr_IFID,              //source register 2 address from IF/ID
     input [2:0]                 op3_addr_IFID,              //source register 2 address from IF/ID
     input                       load_true_IFID,             //load instruction flag from IFID
-    input [2:0]                 destination_reg_addr,       //destination register address from WB
+    input [3:0]                destination_reg_addr,       //destination register address from WB
     input                       reg_wr_en,                  //register write enable signal
     
 
     //Inputs specific for fwd logic for EX stage
-    input [2:0]                 op1_addr_IDtoEX,            //source register 1 address in EX stage (pulled from IFID pipeline register)
-    input [2:0]                 op2_addr_IDtoEX,            //source register 2 address in EX stage (pulled from IFID pipeline register)
+    input [3:0]                 op1_addr_IDtoEX,            //source register 1 address in EX stage (pulled from IFID pipeline register)
+    input [3:0]                 op2_addr_IDtoEX,            //source register 2 address in EX stage (pulled from IFID pipeline register)
     input [2:0]                 op3_addr_IDtoEX,            //source register 2 address in EX stage (pulled from IFID pipeline register)
     input [NUM_DOMAINS*8 - 1:0] op1_data_IDtoEX,            //data read from register file for op1 in EX stage (pulled from IFID pipeline register)
     input [NUM_DOMAINS*8 - 1:0] op2_data_IDtoEX,            //data read from register file for op2 in EX stage (pulled from IFID pipeline register)

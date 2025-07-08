@@ -1,15 +1,26 @@
 Time resolution is 1 ps
 --------------------
-Printing Register Contents: 
-reg_file [0] = 15
-reg_file [1] = 240
-reg_file [2] = 17
-reg_file [3] = 255
-reg_file [4] = 0
-reg_file [5] = 17
+Printing Integer Register Contents: 
+reg_file [0] = 8
+reg_file [1] = 2
+reg_file [2] = 10
+reg_file [3] = x
+reg_file [4] = x
+reg_file [5] = x
 reg_file [6] = x
 reg_file [7] = x
 --------------------
+Printing RNS Domain Register Contents: 
+Index | D256 Bin | D129 Bin
+0	| 00010000 | 00010000
+1	| 00001010 | 00001010
+2	| 00000110 | 00000110
+3	| 10100000 | 00011111
+4	| 11000000 | 00111001
+5	| 00001000 | 00000010
+6	| xxxxxxxx | xxxxxxxx
+7	| xxxxxxxx | xxxxxxxx
+--------------------
 Printing Data Memory Contents: 
 --------------------
-$stop called at time : 1 us : File "/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v" Line 61
+$stop called at time : 1 us : File "/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v" Line 112

@@ -94,7 +94,7 @@ module PL_ALU (
     input ALU_EN,
     input [7:0] op1_in,
     input [7:0] op2_in,
-    input [0:14] ALU_ctrl, // Control signals for ALU operations - IFID_reg[2:15]
+    input [0:13] ALU_ctrl, // Control signals for ALU operations - IFID_reg[2:15]
     output [7:0] dout,
     output cout, // carry out
     output COMP_gt, COMP_lt, COMP_eq // Compare outputs
@@ -119,7 +119,6 @@ module PL_ALU (
     assign shift_left    = ALU_ctrl[11];
     assign lgcl_en       = ALU_ctrl[12];
     assign store_true    = ALU_ctrl[13];
-    assign mul_op_true   = ALU_ctrl[14];
 
     // Instantiate sub-modules
     /*

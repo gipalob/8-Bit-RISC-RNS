@@ -3,6 +3,7 @@ verilog xil_defaultlib  \
 "../../../../Data_Mem.v" \
 "../../../../Instr_Mem.v" \
 "../../../../PL_ALU.v" \
+"../../../../PL_ALU_RNS.v" \
 "../../../../PL_EX.v" \
 "../../../../PL_IFID.v" \
 "../../../../PL_MEMWB.v" \

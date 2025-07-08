@@ -5,6 +5,10 @@ Running: /home/user/Xilinx/Vivado/2023.2/bin/unwrapped/lnx64.o/xelab --incr --de
 Using 8 slave threads.
 Starting static elaboration
 Pass Through NonSizing Optimizer
+WARNING: [VRFC 10-9543] actual bit length 8 differs from formal bit length 16 for port 'rd_data3' [/home/user/CIS4900/8-bit-RISC-RNS/top.v:180]
+WARNING: [VRFC 10-9543] actual bit length 8 differs from formal bit length 16 for port 'op3_data_FWD_ID' [/home/user/CIS4900/8-bit-RISC-RNS/top.v:189]
+WARNING: [VRFC 10-9543] actual bit length 8 differs from formal bit length 16 for port 'op3_data_IDtoEX' [/home/user/CIS4900/8-bit-RISC-RNS/top.v:199]
+WARNING: [VRFC 10-9543] actual bit length 8 differs from formal bit length 16 for port 'op3_data_FWD_EX' [/home/user/CIS4900/8-bit-RISC-RNS/top.v:203]
 Completed static elaboration
 Starting simulation data flow analysis
 WARNING: [XSIM 43-4100] "/home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.sim/sim_1/behav/xsim/glbl.v" Line 6. Module glbl has a timescale but at least one module in design doesn't have timescale.
@@ -14,16 +18,24 @@ Time Resolution for simulation is 1ps
 Compiling module xil_defaultlib.ctrl_ProgCtr
 Compiling module xil_defaultlib.Instr_Mem
 Compiling module xil_defaultlib.Data_Mem
-Compiling module xil_defaultlib.Reg_File
-Compiling module xil_defaultlib.PL_IFID
+Compiling module xil_defaultlib.Reg_File(NUM_DOMAINS=2)
+Compiling module xil_defaultlib.PL_IFID(NUM_DOMAINS=2)
+Compiling module xil_defaultlib.RNS_complement
+Compiling module xil_defaultlib.RNS_adder
+Compiling module xil_defaultlib.RNS_sub
+Compiling module xil_defaultlib.RNS_multiplier
+Compiling module xil_defaultlib.RNS_fit_129
+Compiling module xil_defaultlib.PL_ALU_RNS_default
+Compiling module xil_defaultlib.RNS_fit_256
+Compiling module xil_defaultlib.PL_ALU_RNS(modulus=9'b100000000)
 Compiling module xil_defaultlib.complement
 Compiling module xil_defaultlib.adder
 Compiling module xil_defaultlib.shift
 Compiling module xil_defaultlib.logical
 Compiling module xil_defaultlib.PL_ALU
-Compiling module xil_defaultlib.PL_EX
-Compiling module xil_defaultlib.PL_MEMWB
-Compiling module xil_defaultlib.Forwarding
+Compiling module xil_defaultlib.PL_EX(NUM_DOMAINS=2)
+Compiling module xil_defaultlib.PL_MEMWB(NUM_DOMAINS=2)
+Compiling module xil_defaultlib.Forwarding(NUM_DOMAINS=2)
 Compiling module xil_defaultlib.ctrl_BranchPred
 Compiling module xil_defaultlib.processor_top
 Compiling module xil_defaultlib.testbench

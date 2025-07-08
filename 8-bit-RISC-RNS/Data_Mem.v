@@ -8,17 +8,17 @@ module Data_Mem (
                                     
 	output reg [7:0] dmem_dout   // { [7:0] Domain1, [7:0] Domain2 }
 );
-    reg [7:0] data_mem[65535:0]; //i.e., 64Kbyte
+    reg [7:0] memory_file[65535:0]; //i.e., 64Kbyte
 
     //for loading initial data memory contents
     //initial begin
-	//    $readmemh("",data_mem);
+	//    $readmemh("",memory_file);
 	//end
 
     // get data during LOAD instruction                 
 	always @(data_rd_addr)
 	begin
-		dmem_dout <= data_mem[data_rd_addr];
+		dmem_dout <= memory_file[data_rd_addr];
 		/*
 			A possible concern with this is which domain we're going to use for the address...
 			Part of a standard assembly flow is performing arithmetic operations on the address...
@@ -32,7 +32,7 @@ module Data_Mem (
 	begin
 	    if (store_to_mem == 1'b1) 
 		begin
-			data_mem[data_wr_addr] <= datamem_wr_data;
+			memory_file[data_wr_addr] <= datamem_wr_data;
 		end
 	end
 

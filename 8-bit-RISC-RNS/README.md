@@ -39,7 +39,7 @@ Instructions are all 16-bits long.
 |  1    | rs1[1]          |
 |  0    | rs1[0]          |
 
-- The rs1/rs2 domain flags indicate which register file rs1/rs2 are sourced from; The RNS domain or integer domain register file. Unused for standard R-Type instructions, but important for R-M type (R-Modular) instructions. This makes the register address signals effectively 4-bits, with the MSB only used as the domain flag. Note that 'rs3' which is taken from rd and exclusively used for `RLOAD` and `RSTORE` is always a 3-bit address signal.
+- The rs1/rs2 domain flags indicate which register file rs1/rs2 are sourced from; The RNS domain or integer domain register file. Note that 'rs3' which is taken from the bit-indices that are normally deignated for rs3, and exclusively used for `RLOAD` and `RSTORE`, is always a 3-bit address signal.
 - For R-M type instructions, rd will always be a RNS domain register, with the only exceptions being `(Reconstruct instruction? Output instruction?)`
 
 
@@ -91,3 +91,12 @@ Instructions are all 16-bits long.
 
 
 ## RNS Implementation Methodology
+As mentioned in the R-Type instruction description, there are two bits of the instruction used to designate which register file operands are pulled from- the RNS domain register file, or the integer domain register file. This means that we do not need a whole assortment of dedicated RNS instructions (i.e., RNS-specific LDI, MV-RNS {to move register contents from int-domain reg to RNS-domain reg}, LD-RNS {to load int-domain data in data memory into RNS-domain registers}) and can 'load' data into the RNS-domain registers simply by performing an operation on them. That means, the below instruction sequence is valid, in spite of the operands not being initially in the RNS-domain:
+```
+LDI x0, 0x14
+LDI x1, 0x23
+MULMD m0, x0, x1
+```
+Where the 'm' register prefix indicates an RNS-domain register.
+> Note that for R-type instructions, although rs1 & rs2 are (effectively) 4-bit register addresses, rd is _not_. The domain of the destination register is determined by the opcode of the instruction.
+> Another worthwhile note is that as Mod-Domain instructions are able to use integer domain registers for rs1 and rs2 (and because rd can only be 3 bits) LDI _cannot_ load into Mod-Domain registers. 

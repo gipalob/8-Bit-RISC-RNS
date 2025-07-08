@@ -3,7 +3,7 @@
 
 module processor_top (clk, reset);
     parameter PROG_CTR_WID = 10;
-    parameter NUM_DOMAINS = 2; // Number of RNS domains; Integer domain remains
+    parameter NUM_DOMAINS = 2; // Number of RNS domains; Integer domain remains. Really, this doesn't have much of a purpose... many instructions, due to instruction length restrictions, can really only tolerate 2 RNS domains.
     parameter [8 * NUM_DOMAINS:0] MODULI = {8'd129, 9'd256};
     
     input clk, reset;
@@ -19,29 +19,30 @@ module processor_top (clk, reset);
 
     wire [NUM_DOMAINS*8 - 1:0]  rd_data1;           //data for op1 from regfile
     wire [NUM_DOMAINS*8 - 1:0]  rd_data2;           //data for op2 from regfile
-    wire [NUM_DOMAINS*8 - 1:0]  rd_data3;           //data for op3 from regfile
-    wire [NUM_DOMAINS*8 - 1:0]  dmem_dout;          //data read from data memory
+    wire [7:0]                  rd_data3;           //data for op3 from regfile
+    wire [7:0]  dmem_dout;          //data read from data memory
     wire [NUM_DOMAINS*8 - 1:0]  wr_data;            //data to be written to reg || datamem 
     wire [15:0]                 data_wr_addr, data_rd_addr;
     wire                        mem_wr_en, reg_wr_en;
 
     //**// IF/ID Pipeline Register Signals //**//
     wire                        load_true_IFID;     //load instruction flag to ctrl_Forward
-    wire [2:0]                  op1_addr_IFID;      //op1 address to ctrl_Forward
-    wire [2:0]                  op2_addr_IFID;      //op2 address to ctrl_Forward
+    wire [3:0]                  op1_addr_IFID;      //op1 address to ctrl_Forward
+    wire [3:0]                  op2_addr_IFID;      //op2 address to ctrl_Forward
+    wire                        RNS_inst_IFID_fwd;
     wire [2:0]                  op3_addr_IFID;      //op2 address to ctrl_Forward
     wire [NUM_DOMAINS*8 - 1:0]  op1_din_IFID;       //op1 data IN to IFID from ctrl_Forward
     wire [NUM_DOMAINS*8 - 1:0]  op2_din_IFID;       //op1 data IN to IFID from ctrl_Forward
-    wire [NUM_DOMAINS*8 - 1:0]  op3_din_IFID;       //op1 data IN to IFID from ctrl_Forward
+    wire [7:0]                  op3_din_IFID;       //op1 data IN to IFID from ctrl_Forward
     wire [NUM_DOMAINS*8 - 1:0]  op1_dout_IFID;      //op1 data out for IFID pipeline register
     wire [NUM_DOMAINS*8 - 1:0]  op2_dout_IFID;      //op2 data out for IFID pipeline register
-    wire [NUM_DOMAINS*8 - 1:0]  op3_dout_IFID;      //op2 data out for IFID pipeline register
-    wire [2:0]                  op1_addr_out_IFID;  //op1 address out for IFID pipeline register
-    wire [2:0]                  op2_addr_out_IFID;  //op2 address out for IFID pipeline register
+    wire [7:0]                  op3_dout_IFID;      //op2 data out for IFID pipeline register
+    wire [3:0]                  op1_addr_out_IFID;  //op1 address out for IFID pipeline register
+    wire [3:0]                  op2_addr_out_IFID;  //op2 address out for IFID pipeline register
     wire [2:0]                  op3_addr_out_IFID;  //op3 address out for IFID pipeline register
     wire [2:0]                  res_addr_out_IFID;  //result address out for IFID pipeline register
     wire [PROG_CTR_WID-1:0]     pred_nxt_prog_ctr;  //predicted next program counter value obtained from addr in branch instruction currently in IFID
-    wire [0:33] IFID_reg; //IFID pipeline register output
+    wire [0:38] IFID_reg; //IFID pipeline register output
     
     wire [0:4] brnch_conds_IFID;
     //**/////////////////////////////////////**//
@@ -49,13 +50,13 @@ module processor_top (clk, reset);
     //**// EX Inputs //**//
     wire [NUM_DOMAINS*8 - 1:0]  op1_din_EX; //from ctrl_Forward
     wire [NUM_DOMAINS*8 - 1:0]  op2_din_EX; //from ctrl_Forward
-    wire [NUM_DOMAINS*8 - 1:0]  op3_din_EX; //from ctrl_Forward
+    wire [7:0]                  op3_din_EX; //from ctrl_Forward
     wire branch_taken_in_EX;
     //**// EX Pipeline Register Signals //**//
-    wire [0:6] EX_reg; //EX pipeline register output
+    wire [0:7] EX_reg; //EX pipeline register output
     wire [0:4] brnch_conds_EX;
     wire [0:4]                  branch_conds_EX;        //branch conditions in EX stage to ctrl_Fwd
-    wire [2:0]                  destination_reg_addr;   //destination register address, triggered on Register write enable
+    wire [3:0]                  destination_reg_addr;   //destination register address, triggered on Register write enable
     wire destination_RNS;                               //whether rd is in RNS domain, used to determine which reg file is written to
     wire [NUM_DOMAINS*8 - 1:0]  operation_result;       //result of ALU/Shift/LGCL operation
     wire [PROG_CTR_WID-1:0]     pred_nxt_prog_ctr_EX;   //predicted next program counter value to be pulled from EX pipeline reg
@@ -88,7 +89,7 @@ module processor_top (clk, reset);
         .clk(clk), .reset(reset),
         //INPUTS
         .data_rd_addr(data_rd_addr), .data_wr_addr(data_wr_addr), //even though both will be {op1, op2} need to keep separate for timing - read triggers dout <= {mem @ addr}
-        .datamem_wr_data(wr_data), .store_to_mem(mem_wr_en),
+        .datamem_wr_data(wr_data[7:0]), .store_to_mem(mem_wr_en),
         //OUTPUTS
         .dmem_dout(dmem_dout)
     );
@@ -149,8 +150,7 @@ module processor_top (clk, reset);
         .branch_taken_EX(branch_taken_EX),
         .data_wr_addr(data_wr_addr), .data_rd_addr(data_rd_addr),   //data memory write/read address
         .EX_reg(EX_reg),                                            //mixed EX pipeline register signals
-        .destination_reg_addr(destination_reg_addr),                //destination register address, to be pulled from EX pipeline reg
-        .destination_RNS(destination_RNS),
+        .destination_reg_addr(destination_reg_addr),                //destination register address, to be pulled from EX pipeline reg)
         .operation_result(operation_result),
         .pred_nxt_prog_ctr_EX(pred_nxt_prog_ctr_EX)                //predicted next program counter value to be pulled from EX pipeline reg
     );
@@ -168,6 +168,7 @@ module processor_top (clk, reset);
         .invalidate_instr(invalidate_instr),        //invalidate instruction in IFID pipeline register
         .mem_wr_en(mem_wr_en),                      //memory write enable signal
         .reg_wr_en(reg_wr_en),                      //register write enable signal
+        .destination_RNS(destination_RNS),          //whether rd is in RNS domain, used to determine which reg file is written to
         .wr_data(wr_data)                           //data to be written to reg || datamem 
     );
 

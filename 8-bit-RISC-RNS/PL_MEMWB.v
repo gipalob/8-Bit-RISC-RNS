@@ -4,17 +4,18 @@ module PL_MEMWB #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10) (
     input clk, reset,
     //Pipeline registers from EX
     input [NUM_DOMAINS*8 - 1:0] operation_result, // { [7:0] Domain1, [7:0] Domain2, ... }
-    input [0:6] EX_reg,
+    input [0:7] EX_reg,
     input [0:4] branch_conds_EX,
 
     //Other
-    input [NUM_DOMAINS*8 - 1:0] dmem_dout, //data read from data memory
+    input [7:0] dmem_dout, //data read from data memory
 
     //Outputs
     output reg [0:3] branch_conds_MEMWB,
     output invalidate_instr,              //invalidate instruction in IFID pipeline register
     output mem_wr_en,                     
     output reg_wr_en,
+    output destination_RNS,
     output [NUM_DOMAINS*8 - 1:0] wr_data // { [7:0] Domain1, [7:0] Domain2, ... }
 );
 /*
@@ -26,13 +27,15 @@ module PL_MEMWB #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10) (
         invalidate_execute_instr,   (1)    [3]
         load_true,                  (1)    [4]
         invalidate_fetch_instr,     (1)    [5]
-        invalidate_decode_instr     (1)    [6]
+        invalidate_decode_instr,    (1)    [6]
+        destination_RNS             (1)    [7]
     }
 */
-    assign wr_data =            EX_reg[4] ? dmem_dout : operation_result;
+    assign wr_data =            EX_reg[4] ? {8'b0, dmem_dout} : operation_result;
     assign invalidate_instr =   (EX_reg[3] || EX_reg[5] || EX_reg[6]);
     assign mem_wr_en =          (EX_reg[0] && !invalidate_instr);
     assign reg_wr_en =          (EX_reg[1] && !invalidate_instr);
+    assign destination_RNS =    EX_reg[7]; //if 1, write to RNS reg file, else write to normal reg file
 
 
     //Pipeline registers
