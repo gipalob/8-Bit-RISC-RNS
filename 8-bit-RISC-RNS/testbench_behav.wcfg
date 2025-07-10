@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="94.500 ns"></ZoomStartTime>
-      <ZoomEndTime time="243.912 ns"></ZoomEndTime>
+      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="177.167 ns"></ZoomEndTime>
       <Cursor1Time time="76.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="216"></NameColumnWidth>
-      <ValueColumnWidth column_width="81"></ValueColumnWidth>
+      <NameColumnWidth column_width="213"></NameColumnWidth>
+      <ValueColumnWidth column_width="79"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="44" />
+   <WVObjectSize size="41" />
    <wvobject type="logic" fp_name="/testbench/clk">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -135,8 +135,8 @@
       <obj_property name="ObjectShortName">branch_taken_EX</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/testbench/IFID_reg">
-      <obj_property name="ElementShortName">IFID_reg[0:37]</obj_property>
-      <obj_property name="ObjectShortName">IFID_reg[0:37]</obj_property>
+      <obj_property name="ElementShortName">IFID_reg[0:39]</obj_property>
+      <obj_property name="ObjectShortName">IFID_reg[0:39]</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/testbench/op1_mod129">
       <obj_property name="ElementShortName">op1_mod129[7:0]</obj_property>
@@ -166,30 +166,6 @@
       <obj_property name="ElementShortName">RNS_dout[15:0]</obj_property>
       <obj_property name="ObjectShortName">RNS_dout[15:0]</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/testbench/m129_low">
-      <obj_property name="ElementShortName">m129_low[6:0]</obj_property>
-      <obj_property name="ObjectShortName">m129_low[6:0]</obj_property>
-      <obj_property name="isExpanded"></obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/testbench/m129_mid">
-      <obj_property name="ElementShortName">m129_mid[6:0]</obj_property>
-      <obj_property name="ObjectShortName">m129_mid[6:0]</obj_property>
-      <obj_property name="isExpanded"></obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/testbench/m129_high">
-      <obj_property name="ElementShortName">m129_high[1:0]</obj_property>
-      <obj_property name="ObjectShortName">m129_high[1:0]</obj_property>
-      <obj_property name="isExpanded"></obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/testbench/m129_step_one">
-      <obj_property name="ElementShortName">m129_step_one[8:0]</obj_property>
-      <obj_property name="ObjectShortName">m129_step_one[8:0]</obj_property>
-      <obj_property name="isExpanded"></obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/testbench/m129_step_two">
-      <obj_property name="ElementShortName">m129_step_two[8:0]</obj_property>
-      <obj_property name="ObjectShortName">m129_step_two[8:0]</obj_property>
-   </wvobject>
    <wvobject type="array" fp_name="/testbench/m129_dout">
       <obj_property name="ElementShortName">m129_dout[7:0]</obj_property>
       <obj_property name="ObjectShortName">m129_dout[7:0]</obj_property>
@@ -205,5 +181,13 @@
       <obj_property name="ObjectShortName">m256_subout[15:0]</obj_property>
       <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/testbench/bypass_op1_dcd">
+      <obj_property name="ElementShortName">bypass_op1_dcd</obj_property>
+      <obj_property name="ObjectShortName">bypass_op1_dcd</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/testbench/bypass_op1_ex">
+      <obj_property name="ElementShortName">bypass_op1_ex</obj_property>
+      <obj_property name="ObjectShortName">bypass_op1_ex</obj_property>
    </wvobject>
 </wave_config>

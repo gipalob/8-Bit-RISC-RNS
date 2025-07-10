@@ -8,7 +8,7 @@ module PL_EX #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10, [9 * NUM_DOMAINS-1:
     input [7:0]                     op3,
     input [2:0]                     res_addr,               // result address for regfile write
     input [PROG_CTR_WID-1:0]        pred_nxt_prog_ctr,      // next program counter value from IFID
-    input [0:38]                    IFID_reg,               // IFID pipeline register out
+    input [0:39]                    IFID_reg,               // IFID pipeline register out
     input                           branch_taken,
 
     output reg [0:4]                 branch_conds_EX,
@@ -53,8 +53,9 @@ module PL_EX #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10, [9 * NUM_DOMAINS-1:
             RLLM_op_true,			//      (1)    [35] - ROLL-MODULAR operation flag
             RNS_dest_reg, 		 	//      (1)    [36] - RNS destination register flag
             op1_file,				//	  	(1)    [37] - op1 file flag, 0 for integer, 1 for RNS
-            op2_file				//	  	(1)    [38] - op2 file flag, 0 for integer, 1 for RNS
-        };                       //total len: 38 bits
+            op2_file,				//	  	(1)    [38] - op2 file flag, 0 for integer, 1 for RNS
+            UNRL_lower				//      (1)    [39] - Indicate whether an UNRL instruction is storing the lower or upper 8b of RNS reg
+        };                       //total len: 39 bits
     */
     
     //**// ALU Instantiation //**//
@@ -115,19 +116,21 @@ module PL_EX #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10, [9 * NUM_DOMAINS-1:
         //Distinct pipeline register elements
         /////////////////////////////////////
         if (IFID_reg[33]) begin
-            operation_result <= #1 RNS_dout;            // if RNS operation, use RNS output
+            operation_result <= #1 RNS_dout;                // if RNS operation, use RNS output
         end else if (IFID_reg[35]) begin
-            operation_result <= #1 {op1[7:0], op2[7:0]};          // For RLLM-Values that go into domain2, domain1 for mod-domain rd
+            operation_result <= #1 {op1[7:0], op2[7:0]};    // For RLLM-Values that go into domain2, domain1 for mod-domain rd
         end else if (IFID_reg[15]) begin
-            operation_result <= #1 {8'b0, op3};                 // if store_true, use op3
+            operation_result <= #1 {8'b0, op3};             // if store_true, use op3
         end else if (IFID_reg[23]) begin
-            operation_result <= #1 {8'b0, imm};                 // if ld_imm, use immediate value
+            operation_result <= #1 {8'b0, imm};             // if ld_imm, use immediate value
+        end else if (IFID_reg[34]) begin                        
+            operation_result <= #1 {8'b0, (IFID_reg[39] == 1'b1) ? op1[7:0] : op1[15:8]}; //UNRL- If UNRLL, use lower 8b, else upper 8b
         end else begin
             operation_result <= #1 {8'b0, ALU_dout};            // else use ALU output
         end
         //need to think about bit filling for non-RNS operations, as datapath could be wider than 8-bits and im unsure how the bitfilling will work out
-        data_wr_addr <= #1 IFID_reg[15] ? {op2, op1} : 16'b0; //if store_true, write to st_mem_addr_reg, else write to ld_mem_addr_reg
-        data_rd_addr <= #1 IFID_reg[16] ? {op2, op1} : 16'b0; //if load_true_IFID, write to ld_mem_addr_reg, else write to st_mem_addr_reg
+        data_wr_addr <= #1 IFID_reg[15] ? {op1[7:0], op2[7:0]} : 16'b0; //if store_true, write to st_mem_addr_reg, else write to ld_mem_addr_reg
+        data_rd_addr <= #1 IFID_reg[16] ? {op1[7:0], op2[7:0]} : 16'b0; //if load_true_IFID, write to ld_mem_addr_reg, else write to st_mem_addr_reg
 
         branch_conds_EX <= #1 {
             COMP_gt_flag,
@@ -152,6 +155,7 @@ module PL_EX #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10, [9 * NUM_DOMAINS-1:
             branch_taken_EX <= #1 branch_taken && !branch_taken_EX && !IFID_reg[0]; 
             //'!branch_taken_EX` (the last state of the reg) prevents JMP execution if JMP instr comes directly after a conditional JMP
             //'!IFID_reg[0]` also checks invalidate_fetch_instr, just to be safe to check against other currently-in-pipeline instructions
+            
             EX_reg[0:3] <= #1 {
                 IFID_reg[15],   //store_true
                 IFID_reg[17],   //write_to_regfile

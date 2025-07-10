@@ -11,7 +11,7 @@ This implementation is foundationally based on NayanaBannur/8-bit-RISC-Processor
 `LDI` Instruction:
 - Load an 8-bit immediate value into a register.
 Hazard Detection:
-- The original implementation had some 'holes' in hazard detection. For example, if you attempt to execute this series of instructions:
+- The original implementation had a 'hole' in hazard detection. For example, if you attempt to execute this series of instructions:
 >  `COMPARE x1, x2`
 >  `JMPEQ 0x211`
 >  `JMP 0x219`
@@ -99,4 +99,72 @@ MULMD m0, x0, x1
 ```
 Where the 'm' register prefix indicates an RNS-domain register.
 > Note that for R-type instructions, although rs1 & rs2 are (effectively) 4-bit register addresses, rd is _not_. The domain of the destination register is determined by the opcode of the instruction.
-> Another worthwhile note is that as Mod-Domain instructions are able to use integer domain registers for rs1 and rs2 (and because rd can only be 3 bits) LDI _cannot_ load into Mod-Domain registers. 
+> Another worthwhile note is that as Mod-Domain instructions are able to use integer domain source registers (and because rd can only be 3 bits due to instruction length limitations) LDI _cannot_ load into Mod-Domain registers. 
+
+### Important Notes
+1) Care was taken to try to make the logic design of the processor as dynamic as possible; when looking at the code, you'll notice a few parameterized values. The moduli are parameterized, the number of domains is parameterized, and the program counter width is parameterized. *However:*
+> Program counter width (`parameter PROG_CTR_WID`) is, in reality, a value that's inherently limited to 10-bits due to the 16 bit instruction length. Theoretically, this could be expanded by one bit as the opcode is 5-bits. However, due to the desire to keep 16-bit instructions (two byte length is convenient, no real need to expand for any other reason) expanding the program counter width isn't particularly feasible. 
+> The number of domains (`parameter NUM_DOMAINS`) is also moot, to an extent. Many registers / wires are defined around this parameter, and for the most part, it could be raised with minimal side effects- most of the datapath is designed with this value being dynamic in mind. _However:_
+>> Recall that the wires for op1/op2 (and other register-sourced / register-bound wires) are all >8-bit length. Currently, for 8-bit operands, the register file pads the MSBs of its output with 0's- the number of 0's is hard-coded, due to the additional logical complexity required to make zero-padding dynamic. The situation is the same, anywhere else that zero-padding occurs. 
+>> The `RLLM` instruction (used, for example, to roll two bytes read from Data Memory into a mod-domain register) can only take **two** register addresses due to the instruction length limitation. For that reason, and the fact that the data memory is 16-bit addressable (no possibility to, say, define a range of addresses in data memory to roll into a single mod-domain register), it wouldn't be possible to roll more than two bytes together.
+>> The story for `UNRL{U/L}` is similar. Already, un-rolling a mod-domain register is seperated into two instructions. Using that methodology, one opcode per modular domain would need to be used for `UNRL` (i.e., `UNRL_d1 rd, mS`, `UNRL_d2 rd, mS`, ... `UNRL_dN, mS`) which isn't efficable. Any other methodology for unrolling wouldn't really be efficable. 
+
+### Modulus Operations
+The output of every RNS-ALU sub-module (Add, subtract, multiply) is 16-bits. Although add and subtract do not need that bit-width, as multiply _does_, it's maintained for those modules regardless for simplicity. 
+Additionally, the _only_ place where the actual `% {modulo}` operation is performed is within dedicated `RNS_fit_N` modules. These modules are instantiated depending on the `parameter [8:0] modulo` input to the GENBLK instantation of a given `PL_ALU_RNS` module in `PL_EX`. This makes it quite simple to have an optimized modulo operation for an arbitrary modulus: define a new module containing the optimized algorithm, (for instance:) `module RNS_fit_Y`, and add a condition to the `PL_ALU_RNS` module for `if (modulus == 9'dY): Instantiate RNS_fit_Y`. 
+
+### Overview of RNS Instructions
+#### __Arithmetic__
+1) ADDM rd, rs1, rs2
+- Add two values, storing the result across the two modular domains. Sources can either be integer-domain or modular-domain.
+2) SUBM rd, rs1, rs2
+- Subtract two values, storing the result across the two modular domains. Sources can either be integer-domain or modular-domain.
+3) MULM rd, rs1, rs2
+- Multiply two values, storing the result across the two modular domains. Sources can either be integer-domain or modular-domain. 
+
+For integer domain sources, opN[7:0] is provided to all `PL_ALU_RNS` modules.
+
+#### __Supplementary__
+1) UNRLL rd, rs1
+- Place the lower 8-bits of an RNS register (aka, the value mod Domain1) into an integer domain register. 
+2) UNRLU rd, rs1
+- Place the upper 8-bits of an RNS register (aka, the value mod Domain2) into an integer domain register.
+3) RLLM rd, rs1, rs2
+- Roll two integer-domain registers into an RNS register. 
+
+> For UNRLL and UNRLU, if `rs` is not a modular-domain register, no regfile write will occur. The  `write_to_regfile` signal is tied to the domain flag (see instruction bit-index breakdown) for `rs`.
+
+> Additionally, for clarity: None of these instructions perform reconstruction from the RNS.
+
+
+#### Example RNS Flows
+1) Let's say the data memory contains 4 bytes of data, corresponding to two RNS operands. This is what it looks like to load those 4 bytes of data into RNS registers:
+```
+# Load from datamem 
+LDI x0, 0x00
+LDI x1, 0x01
+
+RLOAD x4, x0, x0    # Load [15:0] addr = {8'd0, 8'd0} to x4
+ADD x2, x0, x1      # x2++
+RLOAD x5, x0, x2    # Load [15:0] addr = {8'd0, 8'd1} to x5
+ADD x2, x2, x1      # x2++
+RLOAD x6, x0, x2    # Load [15:0] addr = {8'd0, 8'd2} to x6
+ADD x2, x2, x1      # x2++
+RLOAD x7, x0, x2    # Load [15:0] addr = {8'd0, 8'd3} to x7
+
+# Roll into RNS reg
+RLLM m0, x4, x5
+RLLM m1, x6, x7
+```
+
+2) Similarly, let's see what it looks like to store an RNS register to datamem:
+```
+LDI x0, 0x00
+LDI x1, 0x01
+
+UNRLL x4, m0
+RSTORE x4, x0, x0   # Store x4 = m0[7:0] to addr = {8'd0, 8'd0}
+
+UNRLU x4, m0
+RSTORE x4, x0, x1   # Store x4 = m0[15:8] to addr = {8'd0, 8'd1}
+```

@@ -20,7 +20,7 @@ INFO: [VRFC 10-2263] Analyzing Verilog file "/home/user/CIS4900/8-bit-RISC-RNS/P
 INFO: [VRFC 10-311] analyzing module PL_EX
 INFO: [VRFC 10-2263] Analyzing Verilog file "/home/user/CIS4900/8-bit-RISC-RNS/PL_IFID.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module PL_IFID
-WARNING: [VRFC 10-8658] /* is inside a comment [/home/user/CIS4900/8-bit-RISC-RNS/PL_IFID.v:207]
+WARNING: [VRFC 10-8658] /* is inside a comment [/home/user/CIS4900/8-bit-RISC-RNS/PL_IFID.v:208]
 INFO: [VRFC 10-2263] Analyzing Verilog file "/home/user/CIS4900/8-bit-RISC-RNS/PL_MEMWB.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module PL_MEMWB
 INFO: [VRFC 10-2263] Analyzing Verilog file "/home/user/CIS4900/8-bit-RISC-RNS/Reg_File.v" into library xil_defaultlib

@@ -3,13 +3,13 @@
 
 
 module complement (
-    input ALU_EN, // Enable for ALU operations
+    input       ALU_EN, // Enable for ALU operations
     input [7:0] op1_in, op2_in,
-    input en_complement,    //whether to complement op2
-    input store_true,       //if store operation, keep op2 @ 0
-    input add_op, 
-    input lgcl_op,
-    input shift_left,
+    input       en_complement,    //whether to complement op2
+    input       store_true,       //if store operation, keep op2 @ 0
+    input       add_op, 
+    input       lgcl_op,
+    input       shift_left,
     output reg [7:0] op1, op2
 );
     always @(op1_in or op2_in or en_complement or store_true or add_op or lgcl_op or shift_left) 
@@ -34,7 +34,7 @@ endmodule
 
 module adder (
     input [7:0] op1, op2,
-    input carry_in,
+    input       carry_in,
     output reg [7:0] result,
     output reg carry_out
 );
@@ -47,9 +47,9 @@ endmodule
 
 module shift (
     input [7:0] op1, 
-    input shift_en, //enable shift operation
+    input       shift_en, //enable shift operation
     output reg [7:0] result,
-    output reg carry_out
+    output reg       carry_out
 );
     always @(posedge shift_en)
     begin
@@ -91,12 +91,12 @@ endmodule
 
 
 module PL_ALU (
-    input ALU_EN,
-    input [7:0] op1_in,
-    input [7:0] op2_in,
-    input [0:13] ALU_ctrl, // Control signals for ALU operations - IFID_reg[2:15]
-    output [7:0] dout,
-    output cout, // carry out
+    input           ALU_EN,
+    input [7:0]     op1_in,
+    input [7:0]     op2_in,
+    input [0:13]    ALU_ctrl, // Control signals for ALU operations - IFID_reg[2:15]
+    output [7:0]    dout,
+    output cout,
     output COMP_gt, COMP_lt, COMP_eq // Compare outputs
 );
     wire [7:0] op1, op2;

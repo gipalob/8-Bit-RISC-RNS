@@ -22,6 +22,9 @@ if __name__ == "__main__":
         if modlo == 57 and modhi == 192:
             print(f"Found the value for i={i} with modlo={modlo} and modhi={modhi}")
             print(f"Reconstructed value: {x_rec}")
+            
+        if (modlo > modhi):
+            print(f"Lower > upper at {i}")
         
     
     

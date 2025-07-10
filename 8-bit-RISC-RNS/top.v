@@ -42,7 +42,7 @@ module processor_top (clk, reset);
     wire [2:0]                  op3_addr_out_IFID;  //op3 address out for IFID pipeline register
     wire [2:0]                  res_addr_out_IFID;  //result address out for IFID pipeline register
     wire [PROG_CTR_WID-1:0]     pred_nxt_prog_ctr;  //predicted next program counter value obtained from addr in branch instruction currently in IFID
-    wire [0:38] IFID_reg; //IFID pipeline register output
+    wire [0:39] IFID_reg; //IFID pipeline register output
     
     wire [0:4] brnch_conds_IFID;
     //**/////////////////////////////////////**//

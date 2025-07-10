@@ -3,12 +3,12 @@
 # SW Build 4126759 on Thu Feb  8 23:52:05 MST 2024
 # IP Build 4126054 on Fri Feb  9 11:39:09 MST 2024
 # SharedData Build 4115275 on Tue Jan 30 00:40:57 MST 2024
-# Start of session at: Tue Jul  1 22:40:02 2025
-# Process ID: 4271
+# Start of session at: Thu Jul 10 21:17:56 2025
+# Process ID: 19434
 # Current directory: /home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.runs/synth_1
 # Command line: vivado -log testbench.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source testbench.tcl
 # Log file: /home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.runs/synth_1/testbench.vds
 # Journal file: /home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.runs/synth_1/vivado.jou
-# Running On: 79fafcd9e1d9, OS: Linux, CPU Frequency: 2502.057 MHz, CPU Physical cores: 1, Host memory: 8322 MB
+# Running On: a7607bd5eb5e, OS: Linux, CPU Frequency: 2502.057 MHz, CPU Physical cores: 1, Host memory: 8322 MB
 #-----------------------------------------------------------
 source testbench.tcl -notrace

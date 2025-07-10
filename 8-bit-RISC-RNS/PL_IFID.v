@@ -18,7 +18,7 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
     output reg 							load_true_IFID,     //ID: load instruction flag to ctrl_Forward
 
     //pipeline register out to next stage
-    output reg [0:38] 					IFID_reg,    		//IFID pipeline register out
+    output reg [0:39] 					IFID_reg,    		//IFID pipeline register out
     output reg [PROG_CTR_WID-1:0] 		pred_nxt_prog_ctr, 	//inst address to jump to on successful branch evaluation - pulled from inst in ID
 	output reg [NUM_DOMAINS*8 - 1:0] 	op1_dout_IFID, 		//op1 data out for IFID pipeline register - easier to keep this seperate as it's dynamic size
 	output reg [NUM_DOMAINS*8 - 1:0] 	op2_dout_IFID,		//op2 data out for IFID pipeline register - easier to keep this seperate as it's dynamic size
@@ -95,7 +95,7 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
     reg jump_gt, jump_lt, jump_eq, jump_carry;                  //flags for conditional jumps
 
 	//custom flags:
-	reg ld_imm, mul_op_true, RNS_ALU_op, RNS_dest_reg, UNRL_op_true, RLLM_op_true; //flags for custom operations
+	reg ld_imm, mul_op_true, RNS_ALU_op, RNS_dest_reg, UNRL_op_true, UNRL_lower, RLLM_op_true; //flags for custom operations
 	reg op1_file, op2_file;
 
     always@ (opcode or branch_addr)        
@@ -124,8 +124,9 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 		RNS_ALU_op <= 1'b0;
 		mul_op_true <= 1'b0;
 		UNRL_op_true <= 1'b0;
+		UNRL_lower <= 1'b0;
 		RLLM_op_true <= 1'b0;
-		RNS_dest_reg <= 1'b0; //RNS destination register flag
+		RNS_dest_reg <= 1'b0;
 		op1_file <= op1_addr_IFID[3];
 		op2_file <= op2_addr_IFID[3]; //RNS file flag for op1 and op2, 0 for integer, 1 for RNS
 
@@ -191,14 +192,14 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 					unconditional_jump <= 1'b1;
 		    end
 	//	OP_RLOAD:	begin 
-			5'b01000: //'RLOAD': Load from mem to reg 'rd'; LOADR rd, rs1=addr[0:7], rs2=addr[8:15] where rs1 and rs2 are registers that hold the lower and upper 8b of the 16b address
+			5'b01000: //'RLOAD': Load from mem to reg 'rd'; LOADR rd, rs1=addr[8:15], rs2=addr[0:7] where rs1 and rs2 are registers that hold the lower and upper 8b of the 16b address
             begin
 					load_true_IFID <= 1'b1;
 					write_to_regfile <= 1'b1;
 			end                      
                                                       
 		//	OP_RSTORE:	begin
-			5'b01001: //'RSTORE': Store to mem from reg 'rs'; STORER rs, rd1=addr[0:7], rd2=addr[8:15] where rd1 and rd2 are registers that hold the lower and upper 8b of the 16b address
+			5'b01001: //'RSTORE': Store to mem from reg 'rs'; RSTORE rs, rd1=addr[15:8], rd2=addr[7:0] where rd1 and rd2 are registers that hold the lower and upper 8b of the 16b address
             begin
                     store_true <= 1'b1;
 					op3_addr_IFID <= res_addr; //op3 is rs for RSTORE
@@ -291,7 +292,7 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 			end           
 
 //RNS Instructions
-		//	OP_ADDMD:	begin 
+		//	OP_ADDM:	begin 
 			5'b10011: 
 			begin
 					RNS_ALU_op 			<= 1'b1;
@@ -299,17 +300,17 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 					write_to_regfile 	<= 1'b1;
 					add_op_true 		<= 1'b1;
 			end
-		//	OP_SUBMD:	begin 
+		//	OP_SUBM:	begin 
 			5'b10100: 
 			begin
 					RNS_ALU_op 			<= 1'b1;
 					RNS_dest_reg 		<= 1'b1;
 					write_to_regfile 	<= 1'b1;
-					en_op2_complement 	<= 1'b1; //subtract
+					en_op2_complement 	<= 1'b1; //indicate subtract- for the RNS ALU, this just indicates the operation is subtraction. No complement is performed
 					add_op_true 		<= 1'b1;
 					//No two's compl;ement needed for RNS subtraction, as it is done in the RNS domain
 			end
-		//	OP_MULMD:	begin 		
+		//	OP_MULM:	begin 		
 			5'b10101: 
 			begin
 					RNS_ALU_op 			<= 1'b1;
@@ -322,14 +323,37 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 			begin
 					
 			end
-		//	OP_UNRL:	begin 		// Unroll an RNS register into two registers
+			/*
+				The 'UNRLx' instructions unroll an RNS register into two integer domain registers; i.e., for outputting or storing to data memory.
+				To maintain consistency / lessen complexity, unrolling is done with two instructions:
+					UNRLL, Unroll-Lower. This will take rsM[7:0] and store to rd.
+					UNRLU, Unroll-Upper. This will take rsM[15:8] and store to rd.
+
+				Complementary, there's the RLLM instruction to roll two integer source registers into an RNS register. 
+
+				Note that 'write_to_regfile' in UNRLx isn't simply raised to 1-
+				It's set to the MSB of the source address- which is 1 if the source is RNS
+				In theory, it's possible to receive an mod-domain instruction that doesn't have mod-domain rs's...
+				This isn't a problem for RLLM, or for mod-arithmetic operations, but if UNRLx receives a non-mod domain rs
+				it may store 8'bX to the regfile.
+			*/
+
+		//	OP_UNRLL:	begin
 			5'b10111: 
 			begin
 					UNRL_op_true 		<= 1'b1;
-					write_to_regfile 	<= 1'b1;
+					write_to_regfile 	<= op1_addr_IFID[3];
+					UNRL_lower 			<= 1'b1;
+			end
+		//	OP_UNRLU:	begin
+			5'b11000: 
+			begin
+					UNRL_op_true 		<= 1'b1;
+					write_to_regfile 	<= op1_addr_IFID[3];
+					UNRL_lower 			<= 1'b0;
 			end
 		// OP_RLLM: 	begin      // Roll two integer domain registers into an RNS register; for example, reading two bytes from data mem (across two LOAD instructions) and rolling them into an RNS register.
-			5'b11000: 
+			5'b11001: 
 			begin
 					RLLM_op_true 		<= 1'b1;
 					RNS_dest_reg 		<= 1'b1;
@@ -378,7 +402,7 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 			end else begin
 				IFID_reg[1] <= #1 1'b0; //otherwise, do not invalidate decode instruction
 			end
-            IFID_reg[2:38] <= #1 {   //og arr | len | IFID_reg idx 
+            IFID_reg[2:39] <= #1 {   //og arr | len | IFID_reg idx 
                 add_op_true,            //      (1)    [2]
                 or_op_true,             //      (1)    [3]
                 not_op_true,            //      (1)    [4]
@@ -408,8 +432,9 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 				RLLM_op_true,			//      (1)    [35] - ROLL-MODULAR operation flag
 				RNS_dest_reg, 		 	//      (1)    [36] - RNS destination register flag
 				op1_file,				//	  	(1)    [37] - op1 file flag, 0 for integer, 1 for RNS
-				op2_file				//	  	(1)    [38] - op2 file flag, 0 for integer, 1 for RNS
-            };                       //total len: 38 bits
+				op2_file,				//	  	(1)    [38] - op2 file flag, 0 for integer, 1 for RNS
+				UNRL_lower				//      (1)    [39] - Indicate whether an UNRL instruction is storing the lower or upper 8b of RNS reg
+            };                       //total len: 39 bits
         end
 	end
 endmodule

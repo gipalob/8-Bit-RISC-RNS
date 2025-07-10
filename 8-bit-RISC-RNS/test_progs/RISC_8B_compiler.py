@@ -20,12 +20,12 @@ R_type_opcodes = {
     "ORBIT": "01011",
     "NOTBIT": "01100",
     "COMPARE": "01101",
-    "ADDMD": "10011",
-    "SUBMD": "10100",
-    "MULMD": "10101",
-    "RECNST": "10110",
-    "UNRL": "10111",
-    "RLLM": "11000"
+    "ADDM": "10011",
+    "SUBM": "10100",
+    "MULM": "10101",
+    "UNRLL": "10111",
+    "UNRLU": "11000",
+    "RLLM": "11001"
 }
 
 I_type_opcodes = {
@@ -74,7 +74,7 @@ def get_reg_bin(reg_str: str, src_reg: bool = False) -> str:
         if src_reg:
             reg_bin += '1'
         reg_bin += bin(int(reg_str[1:])).replace('0b', '').zfill(3)
-        
+    print(f"Src_reg: {src_reg}, reg_str {reg_str} -> {reg_bin}")
     return reg_bin
 
 
@@ -125,7 +125,12 @@ def get_R_bin(instruction: list, opcode: str = None):
         rs1 = get_reg_bin(instruction[1], src_reg=True)
         rs2 = get_reg_bin(instruction[2], src_reg=True)
         destreg = "000"
-    else: 
+    elif ("UNRL" in instruction[0].upper()):
+        rs1 = get_reg_bin(instruction[2], src_reg=True)
+        rs2 = "0000"
+        destreg = get_reg_bin(instruction[1], src_reg = False)
+        
+    else:
         rs1 = get_reg_bin(instruction[2], src_reg=True)
         rs2 = get_reg_bin(instruction[3], src_reg=True)
         destreg = get_reg_bin(instruction[1], src_reg=False)

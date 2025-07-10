@@ -14,7 +14,7 @@ wire [7:0] reg_d3, imm;
 wire [4:0] IF_opcode;
 wire reg_wr_en, invalidate_instr, invalidate_instr_IFID, unconditional_jmp, branch_taken_EX;
 wire [15:0] reg_wr_data, operation_result, RNS_dout;
-wire [0:37] IFID_reg;
+wire [0:39] IFID_reg;
 wire [7:0] op1_mod129, op2_mod129, op1_mod256, op2_mod256;
 wire [7:0] m129_out, m256_out;
 wire destination_rns;
