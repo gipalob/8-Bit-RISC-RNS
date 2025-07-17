@@ -3,158 +3,35 @@
 # SW Build 4126759 on Thu Feb  8 23:52:05 MST 2024
 # IP Build 4126054 on Fri Feb  9 11:39:09 MST 2024
 # SharedData Build 4115275 on Tue Jan 30 00:40:57 MST 2024
-# Start of session at: Thu Jul 10 21:17:56 2025
-# Process ID: 19434
+# Start of session at: Thu Jul 17 20:15:46 2025
+# Process ID: 637
 # Current directory: /home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.runs/synth_1
 # Command line: vivado -log testbench.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source testbench.tcl
 # Log file: /home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.runs/synth_1/testbench.vds
 # Journal file: /home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.runs/synth_1/vivado.jou
-# Running On: a7607bd5eb5e, OS: Linux, CPU Frequency: 2502.057 MHz, CPU Physical cores: 1, Host memory: 8322 MB
+# Running On: 645016fd8978, OS: Linux, CPU Frequency: 2502.057 MHz, CPU Physical cores: 1, Host memory: 8322 MB
 #-----------------------------------------------------------
 source testbench.tcl -notrace
-create_project: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1779.867 ; gain = 62.980 ; free physical = 3271 ; free virtual = 7793
+create_project: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1779.730 ; gain = 47.980 ; free physical = 3318 ; free virtual = 7751
+Command: read_checkpoint -auto_incremental -incremental /home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.srcs/utils_1/imports/synth_1/testbench.dcp
+INFO: [Vivado 12-5825] Read reference checkpoint from /home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.srcs/utils_1/imports/synth_1/testbench.dcp for incremental synthesis
+INFO: [Vivado 12-7989] Please ensure there are no constraint changes
 Command: synth_design -top testbench -part xc7k70tfbv676-1
 Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7k70t'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7k70t'
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 19458
+INFO: [Synth 8-7075] Helper process launched with PID 682
 ---------------------------------------------------------------------------------
-Starting Synthesize : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 2202.828 ; gain = 418.176 ; free physical = 2883 ; free virtual = 7188
+Starting Synthesize : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 2205.980 ; gain = 411.016 ; free physical = 2915 ; free virtual = 7123
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-11241] undeclared symbol 'shift_left', assumed default net type 'wire' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU.v:119]
-INFO: [Synth 8-11241] undeclared symbol 'mul_op', assumed default net type 'wire' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:110]
-WARNING: [Synth 8-10388] /* is inside a comment [/home/user/CIS4900/8-bit-RISC-RNS/PL_IFID.v:207]
+INFO: [Synth 8-11241] undeclared symbol 'mul_op', assumed default net type 'wire' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:107]
+WARNING: [Synth 8-10388] /* is inside a comment [/home/user/CIS4900/8-bit-RISC-RNS/PL_IFID.v:208]
 INFO: [Synth 8-6157] synthesizing module 'testbench' [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:1]
-INFO: [Synth 8-251] -------------------- [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:92]
-INFO: [Synth 8-251] Printing Integer Register Contents:  [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:93]
-INFO: [Synth 8-6085] Hierarchical reference on 'reg_file' stops possible memory inference [/home/user/CIS4900/8-bit-RISC-RNS/Reg_File.v:20]
-INFO: [Synth 8-251] reg_file [0] = x [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:95]
-INFO: [Synth 8-251] reg_file [1] = x [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:95]
-INFO: [Synth 8-251] reg_file [2] = x [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:95]
-INFO: [Synth 8-251] reg_file [3] = x [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:95]
-INFO: [Synth 8-251] reg_file [4] = x [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:95]
-INFO: [Synth 8-251] reg_file [5] = x [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:95]
-INFO: [Synth 8-251] reg_file [6] = x [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:95]
-INFO: [Synth 8-251] reg_file [7] = x [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:95]
-INFO: [Synth 8-251] -------------------- [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:97]
-INFO: [Synth 8-251] Printing RNS Domain Register Contents:  [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:98]
-INFO: [Synth 8-251] Index | D256 Bin | D129 Bin [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:99]
-INFO: [Synth 8-6085] Hierarchical reference on 'RNS_reg_file' stops possible memory inference [/home/user/CIS4900/8-bit-RISC-RNS/Reg_File.v:21]
-INFO: [Synth 8-251] 0	| 8'bxxxxxxxx | 8'bxxxxxxxx [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:101]
-INFO: [Synth 8-251] 1	| 8'bxxxxxxxx | 8'bxxxxxxxx [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:101]
-INFO: [Synth 8-251] 2	| 8'bxxxxxxxx | 8'bxxxxxxxx [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:101]
-INFO: [Synth 8-251] 3	| 8'bxxxxxxxx | 8'bxxxxxxxx [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:101]
-INFO: [Synth 8-251] 4	| 8'bxxxxxxxx | 8'bxxxxxxxx [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:101]
-INFO: [Synth 8-251] 5	| 8'bxxxxxxxx | 8'bxxxxxxxx [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:101]
-INFO: [Synth 8-251] 6	| 8'bxxxxxxxx | 8'bxxxxxxxx [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:101]
-INFO: [Synth 8-251] 7	| 8'bxxxxxxxx | 8'bxxxxxxxx [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:101]
-INFO: [Synth 8-251] -------------------- [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:103]
-INFO: [Synth 8-251] Printing Data Memory Contents:  [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:104]
-INFO: [Synth 8-6085] Hierarchical reference on 'memory_file' stops possible memory inference [/home/user/CIS4900/8-bit-RISC-RNS/Data_Mem.v:11]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-WARNING: [Synth 8-6896] if statement with non-constant condition is inside initial block, initial block items will be ignored [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:106]
-INFO: [Common 17-14] Message 'Synth 8-6896' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
-INFO: [Synth 8-251] -------------------- [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:110]
 WARNING: [Synth 8-11581] system task call 'stop' not supported [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:112]
 WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:6]
 INFO: [Synth 8-6157] synthesizing module 'processor_top' [/home/user/CIS4900/8-bit-RISC-RNS/top.v:4]
@@ -166,16 +43,9 @@ INFO: [Synth 8-6157] synthesizing module 'Instr_Mem' [/home/user/CIS4900/8-bit-R
 INFO: [Synth 8-3876] $readmem data file '/home/user/CIS4900/8-bit-RISC-RNS/test_progs/RNS_ALU_test/RNS_ALU_test.txt' is read successfully [/home/user/CIS4900/8-bit-RISC-RNS/Instr_Mem.v:11]
 INFO: [Synth 8-6155] done synthesizing module 'Instr_Mem' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/Instr_Mem.v:3]
 INFO: [Synth 8-6157] synthesizing module 'Data_Mem' [/home/user/CIS4900/8-bit-RISC-RNS/Data_Mem.v:3]
-INFO: [Synth 8-6085] Hierarchical reference on 'memory_file' stops possible memory inference [/home/user/CIS4900/8-bit-RISC-RNS/Data_Mem.v:11]
-WARNING: [Synth 8-567] referenced signal 'memory_file' should be on the sensitivity list [/home/user/CIS4900/8-bit-RISC-RNS/Data_Mem.v:19]
 INFO: [Synth 8-6155] done synthesizing module 'Data_Mem' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/Data_Mem.v:3]
 INFO: [Synth 8-6157] synthesizing module 'Reg_File' [/home/user/CIS4900/8-bit-RISC-RNS/Reg_File.v:4]
 	Parameter NUM_DOMAINS bound to: 2 - type: integer 
-INFO: [Synth 8-6085] Hierarchical reference on 'reg_file' stops possible memory inference [/home/user/CIS4900/8-bit-RISC-RNS/Reg_File.v:20]
-INFO: [Synth 8-6085] Hierarchical reference on 'RNS_reg_file' stops possible memory inference [/home/user/CIS4900/8-bit-RISC-RNS/Reg_File.v:21]
-WARNING: [Synth 8-567] referenced signal 'RNS_reg_file' should be on the sensitivity list [/home/user/CIS4900/8-bit-RISC-RNS/Reg_File.v:24]
-WARNING: [Synth 8-567] referenced signal 'reg_file' should be on the sensitivity list [/home/user/CIS4900/8-bit-RISC-RNS/Reg_File.v:24]
-WARNING: [Synth 8-567] referenced signal 'reg_file' should be on the sensitivity list [/home/user/CIS4900/8-bit-RISC-RNS/Reg_File.v:31]
 INFO: [Synth 8-6155] done synthesizing module 'Reg_File' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/Reg_File.v:4]
 INFO: [Synth 8-6157] synthesizing module 'PL_IFID' [/home/user/CIS4900/8-bit-RISC-RNS/PL_IFID.v:5]
 	Parameter PROG_CTR_WID bound to: 10 - type: integer 
@@ -189,26 +59,26 @@ WARNING: [Synth 8-7023] instance 'stage_IFID' of module 'PL_IFID' has 21 connect
 INFO: [Synth 8-6157] synthesizing module 'PL_EX' [/home/user/CIS4900/8-bit-RISC-RNS/PL_EX.v:4]
 	Parameter NUM_DOMAINS bound to: 2 - type: integer 
 	Parameter PROG_CTR_WID bound to: 10 - type: integer 
-INFO: [Synth 8-6157] synthesizing module 'PL_ALU_RNS' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:97]
+INFO: [Synth 8-6157] synthesizing module 'PL_ALU_RNS' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:94]
 	Parameter modulus bound to: 9'b010000001 
-INFO: [Synth 8-6157] synthesizing module 'RNS_fit_129' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:72]
-INFO: [Synth 8-6155] done synthesizing module 'RNS_fit_129' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:72]
-INFO: [Synth 8-6157] synthesizing module 'RNS_complement' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:6]
-WARNING: [Synth 8-567] referenced signal 'RNS_ALU_EN' should be on the sensitivity list [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:14]
-INFO: [Synth 8-6155] done synthesizing module 'RNS_complement' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:6]
-INFO: [Synth 8-6157] synthesizing module 'RNS_adder' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:28]
-INFO: [Synth 8-6155] done synthesizing module 'RNS_adder' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:28]
-INFO: [Synth 8-6157] synthesizing module 'RNS_sub' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:39]
-WARNING: [Synth 8-567] referenced signal 'modulus' should be on the sensitivity list [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:50]
-INFO: [Synth 8-6155] done synthesizing module 'RNS_sub' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:39]
-INFO: [Synth 8-6157] synthesizing module 'RNS_multiplier' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:57]
-INFO: [Synth 8-6155] done synthesizing module 'RNS_multiplier' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:57]
-INFO: [Synth 8-6155] done synthesizing module 'PL_ALU_RNS' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:97]
-INFO: [Synth 8-6157] synthesizing module 'PL_ALU_RNS__parameterized0' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:97]
+INFO: [Synth 8-6157] synthesizing module 'RNS_fit_129' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:70]
+INFO: [Synth 8-6155] done synthesizing module 'RNS_fit_129' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:70]
+INFO: [Synth 8-6157] synthesizing module 'RNS_complement' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:4]
+WARNING: [Synth 8-567] referenced signal 'RNS_ALU_EN' should be on the sensitivity list [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:12]
+INFO: [Synth 8-6155] done synthesizing module 'RNS_complement' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:4]
+INFO: [Synth 8-6157] synthesizing module 'RNS_adder' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:26]
+INFO: [Synth 8-6155] done synthesizing module 'RNS_adder' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:26]
+INFO: [Synth 8-6157] synthesizing module 'RNS_sub' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:37]
+WARNING: [Synth 8-567] referenced signal 'modulus' should be on the sensitivity list [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:48]
+INFO: [Synth 8-6155] done synthesizing module 'RNS_sub' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:37]
+INFO: [Synth 8-6157] synthesizing module 'RNS_multiplier' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:55]
+INFO: [Synth 8-6155] done synthesizing module 'RNS_multiplier' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:55]
+INFO: [Synth 8-6155] done synthesizing module 'PL_ALU_RNS' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:94]
+INFO: [Synth 8-6157] synthesizing module 'PL_ALU_RNS__parameterized0' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:94]
 	Parameter modulus bound to: 9'b100000000 
-INFO: [Synth 8-6157] synthesizing module 'RNS_fit_256' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:88]
-INFO: [Synth 8-6155] done synthesizing module 'RNS_fit_256' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:88]
-INFO: [Synth 8-6155] done synthesizing module 'PL_ALU_RNS__parameterized0' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:97]
+INFO: [Synth 8-6157] synthesizing module 'RNS_fit_256' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:85]
+INFO: [Synth 8-6155] done synthesizing module 'RNS_fit_256' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:85]
+INFO: [Synth 8-6155] done synthesizing module 'PL_ALU_RNS__parameterized0' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:94]
 INFO: [Synth 8-6157] synthesizing module 'PL_ALU' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU.v:93]
 INFO: [Synth 8-6157] synthesizing module 'complement' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU.v:5]
 WARNING: [Synth 8-567] referenced signal 'ALU_EN' should be on the sensitivity list [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU.v:15]
@@ -234,14 +104,326 @@ WARNING: [Synth 8-689] width (8) of port connection 'op3_data_FWD_EX' does not m
 INFO: [Synth 8-6157] synthesizing module 'ctrl_BranchPred' [/home/user/CIS4900/8-bit-RISC-RNS/ctrl_BranchPred.v:3]
 INFO: [Synth 8-6155] done synthesizing module 'ctrl_BranchPred' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/ctrl_BranchPred.v:3]
 INFO: [Synth 8-6155] done synthesizing module 'processor_top' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/top.v:4]
-ERROR: [Synth 8-6038] cannot resolve hierarchical name for the item 'proc_top1' [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:33]
-ERROR: [Synth 8-6156] failed synthesizing module 'testbench' [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:1]
+WARNING: [Synth 8-85] always block has no event control specified [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:115]
+INFO: [Synth 8-6155] done synthesizing module 'testbench' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:1]
+WARNING: [Synth 8-7129] Port add_op in module complement is either unconnected or has no load
+WARNING: [Synth 8-7129] Port lgcl_op in module complement is either unconnected or has no load
+WARNING: [Synth 8-7129] Port shift_left in module complement is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ALU_ctrl[5] in module PL_ALU is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ALU_ctrl[9] in module PL_ALU is either unconnected or has no load
+WARNING: [Synth 8-7129] Port en_complement in module RNS_complement is either unconnected or has no load
+WARNING: [Synth 8-7129] Port add_op in module RNS_complement is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mul_op in module RNS_complement is either unconnected or has no load
+WARNING: [Synth 8-7129] Port op_in[15] in module RNS_fit_256 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port op_in[14] in module RNS_fit_256 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port op_in[13] in module RNS_fit_256 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port op_in[12] in module RNS_fit_256 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port op_in[11] in module RNS_fit_256 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port op_in[10] in module RNS_fit_256 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port op_in[9] in module RNS_fit_256 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port op_in[8] in module RNS_fit_256 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ALU_ctrl[1] in module PL_ALU_RNS__parameterized0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ALU_ctrl[2] in module PL_ALU_RNS__parameterized0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ALU_ctrl[3] in module PL_ALU_RNS__parameterized0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ALU_ctrl[4] in module PL_ALU_RNS__parameterized0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ALU_ctrl[5] in module PL_ALU_RNS__parameterized0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ALU_ctrl[6] in module PL_ALU_RNS__parameterized0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ALU_ctrl[7] in module PL_ALU_RNS__parameterized0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ALU_ctrl[9] in module PL_ALU_RNS__parameterized0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ALU_ctrl[10] in module PL_ALU_RNS__parameterized0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ALU_ctrl[11] in module PL_ALU_RNS__parameterized0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ALU_ctrl[12] in module PL_ALU_RNS__parameterized0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ALU_ctrl[13] in module PL_ALU_RNS__parameterized0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ALU_ctrl[1] in module PL_ALU_RNS is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ALU_ctrl[2] in module PL_ALU_RNS is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ALU_ctrl[3] in module PL_ALU_RNS is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ALU_ctrl[4] in module PL_ALU_RNS is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ALU_ctrl[5] in module PL_ALU_RNS is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ALU_ctrl[6] in module PL_ALU_RNS is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ALU_ctrl[7] in module PL_ALU_RNS is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ALU_ctrl[9] in module PL_ALU_RNS is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ALU_ctrl[10] in module PL_ALU_RNS is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ALU_ctrl[11] in module PL_ALU_RNS is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ALU_ctrl[12] in module PL_ALU_RNS is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ALU_ctrl[13] in module PL_ALU_RNS is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IFID_reg[18] in module PL_EX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IFID_reg[19] in module PL_EX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IFID_reg[20] in module PL_EX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IFID_reg[21] in module PL_EX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IFID_reg[22] in module PL_EX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port reset in module Reg_File is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wr_addr[3] in module Reg_File is either unconnected or has no load
+WARNING: [Synth 8-7129] Port reset in module Data_Mem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port clk in module Instr_Mem is either unconnected or has no load
 ---------------------------------------------------------------------------------
-Finished Synthesize : Time (s): cpu = 00:03:35 ; elapsed = 00:03:36 . Memory (MB): peak = 2734.773 ; gain = 950.121 ; free physical = 1932 ; free virtual = 6453
+Finished Synthesize : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 2290.125 ; gain = 495.160 ; free physical = 2379 ; free virtual = 6812
 ---------------------------------------------------------------------------------
-synthesize failed
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2308.074 ; gain = 513.109 ; free physical = 2371 ; free virtual = 6805
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7k70tfbv676-1
+---------------------------------------------------------------------------------
+INFO: [Device 21-403] Loading part xc7k70tfbv676-1
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2316.172 ; gain = 521.207 ; free physical = 2371 ; free virtual = 6805
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-327] inferring latch for variable 'prog_ctr_reg' [/home/user/CIS4900/8-bit-RISC-RNS/ctrl_ProgCtr.v:14]
+WARNING: [Synth 8-327] inferring latch for variable 'instruction_reg' [/home/user/CIS4900/8-bit-RISC-RNS/PL_IFID.v:42]
+WARNING: [Synth 8-327] inferring latch for variable 'nxt_prog_ctr_reg' [/home/user/CIS4900/8-bit-RISC-RNS/PL_IFID.v:190]
+WARNING: [Synth 8-327] inferring latch for variable 'op1_reg' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:18]
+WARNING: [Synth 8-327] inferring latch for variable 'op2_reg' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:19]
+WARNING: [Synth 8-327] inferring latch for variable 'op1_reg' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU.v:19]
+WARNING: [Synth 8-327] inferring latch for variable 'op2_reg' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU.v:21]
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2336.762 ; gain = 541.797 ; free physical = 2354 ; free virtual = 6789
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   10 Bit       Adders := 1     
+	   3 Input    9 Bit       Adders := 2     
+	   4 Input    9 Bit       Adders := 2     
+	   2 Input    8 Bit       Adders := 3     
+	   3 Input    8 Bit       Adders := 1     
++---Registers : 
+	               16 Bit    Registers := 5     
+	               10 Bit    Registers := 2     
+	                8 Bit    Registers := 2     
+	                5 Bit    Registers := 2     
+	                4 Bit    Registers := 6     
+	                3 Bit    Registers := 2     
+	                1 Bit    Registers := 2     
++---RAMs : 
+	              128 Bit	(8 X 16 bit)          RAMs := 1     
+	               64 Bit	(8 X 8 bit)          RAMs := 1     
++---Muxes : 
+	   2 Input   40 Bit        Muxes := 1     
+	  16 Input   16 Bit        Muxes := 1     
+	   2 Input   16 Bit        Muxes := 16    
+	   2 Input   10 Bit        Muxes := 1     
+	   2 Input    8 Bit        Muxes := 9     
+	  26 Input    3 Bit        Muxes := 1     
+	   2 Input    3 Bit        Muxes := 1     
+	  26 Input    1 Bit        Muxes := 31    
+	   2 Input    1 Bit        Muxes := 2     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 240 (col length:80)
+BRAMs: 270 (col length: RAMB18 80 RAMB36 40)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+WARNING: [Synth 8-6430] The Block RAM "testbench/proc_top1/data_mem/memory_file_reg" may get memory collision error if read and write address collide. Use attribute (* rw_addr_collision= "yes" *) to avoid collision 
+RAM Pipeline Warning: Read Address Register Found For RAM proc_top1/data_mem/memory_file_reg. We will not be able to pipeline it. This may degrade performance. 
+RAM Pipeline Warning: Read Address Register Found For RAM proc_top1/data_mem/memory_file_reg. We will not be able to pipeline it. This may degrade performance. 
+WARNING: [Synth 8-6430] The Block RAM "testbench/proc_top1/data_mem/memory_file_reg" may get memory collision error if read and write address collide. Use attribute (* rw_addr_collision= "yes" *) to avoid collision 
+RAM Pipeline Warning: Read Address Register Found For RAM proc_top1/data_mem/memory_file_reg. We will not be able to pipeline it. This may degrade performance. 
+WARNING: [Synth 8-3332] Sequential element (proc_top1/programcounter/prog_ctr_reg[9]__0) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/programcounter/prog_ctr_reg[8]__0) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/programcounter/prog_ctr_reg[7]__0) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/programcounter/prog_ctr_reg[6]__0) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/programcounter/prog_ctr_reg[5]__0) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/programcounter/prog_ctr_reg[4]__0) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/programcounter/prog_ctr_reg[3]__0) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/programcounter/prog_ctr_reg[2]__0) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/programcounter/prog_ctr_reg[1]__0) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/programcounter/prog_ctr_reg[0]__0) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_IFID/instruction_reg[15]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_IFID/instruction_reg[14]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_IFID/instruction_reg[13]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_IFID/instruction_reg[12]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_IFID/instruction_reg[11]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_IFID/instruction_reg[10]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_IFID/instruction_reg[9]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_IFID/instruction_reg[8]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_IFID/instruction_reg[7]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_IFID/instruction_reg[6]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_IFID/instruction_reg[5]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_IFID/instruction_reg[4]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_IFID/instruction_reg[3]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_IFID/instruction_reg[2]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_IFID/instruction_reg[1]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_IFID/instruction_reg[0]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_IFID/nxt_prog_ctr_reg[9]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_IFID/nxt_prog_ctr_reg[8]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_IFID/nxt_prog_ctr_reg[7]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_IFID/nxt_prog_ctr_reg[6]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_IFID/nxt_prog_ctr_reg[5]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_IFID/nxt_prog_ctr_reg[4]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_IFID/nxt_prog_ctr_reg[3]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_IFID/nxt_prog_ctr_reg[2]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_IFID/nxt_prog_ctr_reg[1]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_IFID/nxt_prog_ctr_reg[0]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op1_reg[7]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op1_reg[6]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op1_reg[5]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op1_reg[4]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op1_reg[3]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op1_reg[2]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op1_reg[1]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op1_reg[0]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op2_reg[7]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op2_reg[6]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op2_reg[5]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op2_reg[4]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op2_reg[3]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op2_reg[2]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op2_reg[1]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op2_reg[0]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op1_reg[7]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op1_reg[6]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op1_reg[5]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op1_reg[4]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op1_reg[3]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op1_reg[2]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op1_reg[1]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op1_reg[0]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op2_reg[7]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op2_reg[6]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op2_reg[5]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op2_reg[4]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op2_reg[3]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op2_reg[2]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op2_reg[1]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op2_reg[0]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU/comp_inst/op1_reg[7]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU/comp_inst/op1_reg[6]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU/comp_inst/op1_reg[5]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU/comp_inst/op1_reg[4]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU/comp_inst/op1_reg[3]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU/comp_inst/op1_reg[2]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU/comp_inst/op1_reg[1]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU/comp_inst/op1_reg[0]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU/comp_inst/op2_reg[7]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU/comp_inst/op2_reg[6]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU/comp_inst/op2_reg[5]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU/comp_inst/op2_reg[4]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU/comp_inst/op2_reg[3]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU/comp_inst/op2_reg[2]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU/comp_inst/op2_reg[1]) is unused and will be removed from module testbench.
+WARNING: [Synth 8-3332] Sequential element (proc_top1/stage_EX/ALU/comp_inst/op2_reg[0]) is unused and will be removed from module testbench.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 2492.059 ; gain = 697.094 ; free physical = 2129 ; free virtual = 6590
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 2492.160 ; gain = 697.195 ; free physical = 2129 ; free virtual = 6590
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 2492.258 ; gain = 697.293 ; free physical = 2129 ; free virtual = 6590
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 2492.328 ; gain = 697.363 ; free physical = 2125 ; free virtual = 6586
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 2492.332 ; gain = 697.367 ; free physical = 2125 ; free virtual = 6586
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 2492.359 ; gain = 697.395 ; free physical = 2125 ; free virtual = 6586
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 2492.363 ; gain = 697.398 ; free physical = 2125 ; free virtual = 6586
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 2492.375 ; gain = 697.410 ; free physical = 2123 ; free virtual = 6584
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 2492.379 ; gain = 697.414 ; free physical = 2123 ; free virtual = 6584
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++-+-----+------+
+| |Cell |Count |
++-+-----+------+
++-+-----+------+
+
+Report Instance Areas: 
++------+---------+-------+------+
+|      |Instance |Module |Cells |
++------+---------+-------+------+
+|1     |top      |       |     0|
++------+---------+-------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 2492.410 ; gain = 697.445 ; free physical = 2123 ; free virtual = 6584
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 158 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 2492.438 ; gain = 697.473 ; free physical = 2123 ; free virtual = 6584
+Synthesis Optimization Complete : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 2492.449 ; gain = 697.477 ; free physical = 2123 ; free virtual = 6584
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2493.145 ; gain = 0.020 ; free physical = 2499 ; free virtual = 6969
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2585.883 ; gain = 0.000 ; free physical = 2377 ; free virtual = 6860
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Synth Design complete | Checksum: 4b9f2ba5
 INFO: [Common 17-83] Releasing license: Synthesis
-86 Infos, 118 Warnings, 0 Critical Warnings and 3 Errors encountered.
-synth_design failed
-ERROR: [Common 17-69] Command failed: Vivado Synthesis failed
-INFO: [Common 17-206] Exiting Vivado at Thu Jul 10 21:21:54 2025...
+65 Infos, 158 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:16 ; elapsed = 00:00:13 . Memory (MB): peak = 2588.133 ; gain = 803.723 ; free physical = 2359 ; free virtual = 6842
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 2074.077; main = 1652.994; forked = 566.154
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 4457.043; main = 2586.191; forked = 1964.746
+INFO: [Common 17-1381] The checkpoint '/home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.runs/synth_1/testbench.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file testbench_utilization_synth.rpt -pb testbench_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Thu Jul 17 20:16:09 2025...

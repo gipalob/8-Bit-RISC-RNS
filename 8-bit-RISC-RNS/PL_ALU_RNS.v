@@ -1,8 +1,6 @@
 //Description: ALU For EX Stage, with accompanying sub-modules.
 //             This ALU handles RNS-Domain operations, and thus has no shift or logical operations
 
-
-
 module RNS_complement (
     input RNS_ALU_EN, // Enable for RNS ALU operations
     input [7:0] op1_in, op2_in,
@@ -73,16 +71,15 @@ module RNS_fit_129 (
     input [15:0] op_in,
     output [7:0] op_out
 );
-    // wire [6:0] low = op_in[6:0];
-    // wire [6:0] mid = op_in[13:7];
-    // wire [1:0] high = op_in[15:14];
+    wire [6:0] low = op_in[6:0];
+    wire [6:0] mid = op_in[13:7];
+    wire [1:0] high = op_in[15:14];
 
-    // wire [8:0] step_one = low + mid + high; //fold bits together - this step has a max value of 384
+    wire [8:0] step_one = low + mid + high; //fold bits together - this step has a max value of 384
 
-    // wire [8:0] step_two = step_one[6:0] + step_one[8:7]; //fold again - this step has a max value of 130
+    wire [8:0] step_two = step_one[6:0] + step_one[8:7]; //fold again - this step has a max value of 130
 
-    // assign op_out = (step_two >= 129) ? (step_two - 129) : step_two[7:0]; // Fit into 129
-    assign op_out = op_in % 129;
+    assign op_out = (step_two >= 129) ? (step_two - 129) : step_two[7:0]; // Fit into 129
 endmodule
 
 module RNS_fit_256 (
@@ -94,7 +91,7 @@ endmodule
 
 
 
-module PL_ALU_RNS #(parameter [8:0] modulus = 9'd129) ( //need to define a std value for parameter even if it'll always be provded by above module
+module PL_ALU_RNS #(parameter [8:0] modulus = 9'd129) ( //need to define a std value for parameter even if it'll always be provded by above module in hierarchy
     input [7:0] op1_in,
     input [7:0] op2_in,
     input [0:14] ALU_ctrl, // Control signals for ALU operations - IFID_reg[2:15], IFID_reg[32]
