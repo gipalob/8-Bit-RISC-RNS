@@ -9,7 +9,7 @@ module RNS_complement (
     input mul_op,
     output reg [7:0] op1, op2
 );
-    always @(op1_in or op2_in or en_complement or add_op or mul_op) 
+    always @(op1_in or op2_in or en_complement or add_op or mul_op or RNS_ALU_EN) 
     begin
         if (RNS_ALU_EN == 1'b1) 
         begin

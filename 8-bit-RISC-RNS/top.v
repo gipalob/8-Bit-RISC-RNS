@@ -1,14 +1,21 @@
 // Description: Top module for 8-bit RISC RNS processor. 
 //              Defines parameters for dynamic var widths, instantiates all submodules / pipeline stages
 
-module processor_top (clk, reset);
+module processor_top (sysclk, reset, PLL_LOCK);
     parameter PROG_CTR_WID = 10;
     parameter NUM_DOMAINS = 2; // Number of RNS domains; Integer domain remains. Really, this doesn't have much of a purpose... many instructions, due to instruction length restrictions, can really only tolerate 2 RNS domains.
     parameter [8 * NUM_DOMAINS:0] MODULI = {8'd129, 9'd256};
     
-    input clk, reset;
-
+    input sysclk, reset;
+    output PLL_LOCK;
     wire clk;
+    // sysclk: inp 12 MHz, use clk_wiz to get 100MHz - could / should reconf clk_wiz to same freq as board we're comparing against (arduino uno r3?)
+    clk_wiz_0 clock_wizard(
+        .clk_in1(sysclk),
+        .reset(reset),
+        .clk_out1(clk),
+        .locked(PLL_LOCK)
+    );
     wire [PROG_CTR_WID-1:0]     prog_ctr;           //next program counter value
     wire                        branch_taken_EX;    //indicate branch was taken in EX stage
     wire [15:0]                 instr_mem_out;      //instruction fetched from memory

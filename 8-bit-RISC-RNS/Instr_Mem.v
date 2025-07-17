@@ -6,9 +6,10 @@ module Instr_Mem #(parameter PROG_CTR_WID=10) (
     output reg [15:0] instr_mem_out
 );
     reg [15:0] instr_mem[0:1023]; //define instr mem as 2^PROG_CTR_WID = {1, shifted left PROG_CTR_WID times} - 1 elements
-
+    
+    // Windows Path: "C:\code-projs\CIS4900\8-bit-RISC-RNS\test_progs\"
     initial begin
-	    $readmemh("/home/user/CIS4900/8-bit-RISC-RNS/test_progs/RNS_ALU_test/RNS_ALU_test.txt",instr_mem);
+	    $readmemh("C:/code-projs/CIS4900/8-bit-RISC-RNS/test_progs/big_mem_test/big_mem_test.txt",instr_mem);
 	end
 
     always @(prog_ctr) //is this an okay trigger? seems to mitigate some of the branching issues

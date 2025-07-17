@@ -1,0 +1,40 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
+| Date         : Thu Jul 17 18:37:41 2025
+| Host         : BEN-DESKTOP running 64-bit major release  (build 9200)
+| Command      : report_methodology -file processor_top_methodology_drc_routed.rpt -pb processor_top_methodology_drc_routed.pb -rpx processor_top_methodology_drc_routed.rpx
+| Design       : processor_top
+| Device       : xc7a35tcpg236-1
+| Speed File   : -1
+| Design State : Fully Routed
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Report Methodology
+
+Table of Contents
+-----------------
+1. REPORT SUMMARY
+2. REPORT DETAILS
+
+1. REPORT SUMMARY
+-----------------
+            Netlist: netlist
+          Floorplan: design_1
+      Design limits: <entire design considered>
+             Max violations: <unlimited>
+             Violations found: 1
++-----------+----------+------------------------------------------------------------------+------------+
+| Rule      | Severity | Description                                                      | Violations |
++-----------+----------+------------------------------------------------------------------+------------+
+| TIMING-56 | Warning  | Missing logically or physically excluded clock groups constraint | 1          |
++-----------+----------+------------------------------------------------------------------+------------+
+
+2. REPORT DETAILS
+-----------------
+TIMING-56#1 Warning
+Missing logically or physically excluded clock groups constraint  
+Multiple clocks are user generated or auto-derived on the source pin clock_wizard/inst/mmcm_adv_inst/CLKFBOUT but are not logically or physically exclusive with respect to one another. To have the static timing analysis match the behavior in hardware, there cannot be multiple clocks generated on the same pin and when such situation occurs, the clocks should be defined as physically or logically exclusive. The list of clocks generated on the source pin is: clkfbout_clk_wiz_0, clkfbout_clk_wiz_0_1
+Related violations: <none>
+
+

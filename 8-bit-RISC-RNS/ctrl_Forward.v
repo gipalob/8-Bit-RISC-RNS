@@ -5,7 +5,7 @@ module Forwarding #(parameter NUM_DOMAINS=1) (
     input [NUM_DOMAINS*8 - 1:0] wr_data,            //data memory write data (for load instruction)
     input [NUM_DOMAINS*8 - 1:0] rd_data1,                   //data read from register file for op1
     input [NUM_DOMAINS*8 - 1:0] rd_data2,                   //data read from register file for op2
-    input [NUM_DOMAINS*8 - 1:0] rd_data3,                   //data read from register file for op2
+    input [7:0]                 rd_data3,                   //data read from register file for op2
 
     //Inputs FROM ID stage
     input [3:0]                 op1_addr_IFID,              //source register 1 address from IF/ID
@@ -22,15 +22,15 @@ module Forwarding #(parameter NUM_DOMAINS=1) (
     input [2:0]                 op3_addr_IDtoEX,            //source register 2 address in EX stage (pulled from IFID pipeline register)
     input [NUM_DOMAINS*8 - 1:0] op1_data_IDtoEX,            //data read from register file for op1 in EX stage (pulled from IFID pipeline register)
     input [NUM_DOMAINS*8 - 1:0] op2_data_IDtoEX,            //data read from register file for op2 in EX stage (pulled from IFID pipeline register)
-    input [NUM_DOMAINS*8 - 1:0] op3_data_IDtoEX,            //data read from register file for op2 in EX stage (pulled from IFID pipeline register)
+    input [7:0]                 op3_data_IDtoEX,            //data read from register file for op2 in EX stage (pulled from IFID pipeline register)
     input                       load_true_EX,              //load instruction flag in EX stage
 
     output [NUM_DOMAINS*8 - 1:0] op1_data_FWD_ID,           //data for op1 after bypassing if needed
     output [NUM_DOMAINS*8 - 1:0] op2_data_FWD_ID,           //data for op2 after bypassing if needed
-    output [NUM_DOMAINS*8 - 1:0] op3_data_FWD_ID,           //data for op2 after bypassing if needed
+    output [7:0]                 op3_data_FWD_ID,           //data for op2 after bypassing if needed
     output [NUM_DOMAINS*8 - 1:0] op1_data_FWD_EX,           //operand 1 for EX stage after bypassing if needed
     output [NUM_DOMAINS*8 - 1:0] op2_data_FWD_EX,           //operand 2 for EX stage after bypassing if needed
-    output [NUM_DOMAINS*8 - 1:0] op3_data_FWD_EX            //operand 2 for EX stage after bypassing if needed
+    output [7:0]                 op3_data_FWD_EX            //operand 2 for EX stage after bypassing if needed
     );
     //////////////////////////////////////////////////////////////////////////////////////////////////////
     //Forwarding logic for IF/ID

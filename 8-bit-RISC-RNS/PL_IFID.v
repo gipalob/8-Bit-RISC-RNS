@@ -26,8 +26,7 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
     output reg [3:0]                    op1_addr_out_IFID,
     output reg [3:0]                    op2_addr_out_IFID,
 	output reg [2:0]                    op3_addr_out_IFID, //op3 is rs for RSTORE
-    output reg [2:0]                    res_addr_out_IFID,
-	output reg [4:0] debug_opcode_IFID //debug: opcode of instruction in IFID stage
+    output reg [2:0]                    res_addr_out_IFID
 );
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -98,7 +97,7 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 	reg ld_imm, mul_op_true, RNS_ALU_op, RNS_dest_reg, UNRL_op_true, UNRL_lower, RLLM_op_true; //flags for custom operations
 	reg op1_file, op2_file;
 
-    always@ (opcode or branch_addr)        
+    always@ (opcode or branch_addr or op1_addr_IFID or op2_addr_IFID or res_addr)        
 	begin
 		add_op_true <= 1'b0;
 		and_op_true <= 1'b0;
@@ -205,7 +204,6 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 					op3_addr_IFID <= res_addr; //op3 is rs for RSTORE
             end
     /*
-     /*
         FOR RLOAD AND RSTORE:
             RLOAD:  res_addr is DESTINATION reg addr
                     register at op1_addr_IFID contains lower 8b of address
@@ -390,7 +388,6 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
         if (rst == 1'b1) begin
             IFID_reg <= 64'b0;
         end else begin
-			debug_opcode_IFID <= #1 opcode; //debug: opcode of instruction in IFID stage
             pred_nxt_prog_ctr   <= #1 nxt_prog_ctr; //next program counter value
 			op1_dout_IFID 	    <= #1 op1_data; //op1 data out for IFID pipeline register
 			op2_dout_IFID 	    <= #1 op2_data; //op2 data out for IFID pipeline register

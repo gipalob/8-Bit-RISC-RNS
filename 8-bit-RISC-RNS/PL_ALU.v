@@ -7,12 +7,9 @@ module complement (
     input [7:0] op1_in, op2_in,
     input       en_complement,    //whether to complement op2
     input       store_true,       //if store operation, keep op2 @ 0
-    input       add_op, 
-    input       lgcl_op,
-    input       shift_left,
     output reg [7:0] op1, op2
 );
-    always @(op1_in or op2_in or en_complement or store_true or add_op or lgcl_op or shift_left) 
+    always @(op1_in or op2_in or en_complement or store_true or ALU_EN) 
     begin
         if (ALU_EN == 1'b1)
         begin
@@ -132,9 +129,6 @@ module PL_ALU (
         .op2_in(op2_in),
         .en_complement(en_complement),
         .store_true(store_true),
-        .add_op(add_op),
-        .lgcl_op(lgcl_en),
-        .shift_left(shift_left),
         .op1(op1),
         .op2(op2)
     );
