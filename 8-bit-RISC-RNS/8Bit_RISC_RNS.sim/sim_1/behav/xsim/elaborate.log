@@ -1,14 +1,14 @@
 Vivado Simulator v2023.2.2
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
-Running: /home/user/Xilinx/Vivado/2023.2/bin/unwrapped/lnx64.o/xelab --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot testbench_behav xil_defaultlib.testbench xil_defaultlib.glbl -log elaborate.log 
+Running: /home/user/Xilinx/Vivado/2023.2/bin/unwrapped/lnx64.o/xelab --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot testbench_behav xil_defaultlib.testbench xil_defaultlib.glbl -log elaborate.log 
 Using 8 slave threads.
 Starting static elaboration
 Pass Through NonSizing Optimizer
-WARNING: [VRFC 10-9543] actual bit length 8 differs from formal bit length 16 for port 'rd_data3' [/home/user/CIS4900/8-bit-RISC-RNS/top.v:180]
-WARNING: [VRFC 10-9543] actual bit length 8 differs from formal bit length 16 for port 'op3_data_FWD_ID' [/home/user/CIS4900/8-bit-RISC-RNS/top.v:189]
-WARNING: [VRFC 10-9543] actual bit length 8 differs from formal bit length 16 for port 'op3_data_IDtoEX' [/home/user/CIS4900/8-bit-RISC-RNS/top.v:199]
-WARNING: [VRFC 10-9543] actual bit length 8 differs from formal bit length 16 for port 'op3_data_FWD_EX' [/home/user/CIS4900/8-bit-RISC-RNS/top.v:203]
+WARNING: [VRFC 10-9543] actual bit length 10 differs from formal bit length 8 for port 'EX_reg' [/home/user/CIS4900/8-bit-RISC-RNS/processor_top.v:171]
+WARNING: [VRFC 10-5021] port 'IO_read_data' is not connected on this instance [/home/user/CIS4900/8-bit-RISC-RNS/tb_rns.v:6]
+WARNING: [VRFC 10-3705] select index 8 into 'EX_reg' is out of bounds [/home/user/CIS4900/8-bit-RISC-RNS/PL_MEMWB.v:47]
+WARNING: [VRFC 10-3705] select index 9 into 'EX_reg' is out of bounds [/home/user/CIS4900/8-bit-RISC-RNS/PL_MEMWB.v:48]
 Completed static elaboration
 Starting simulation data flow analysis
 WARNING: [XSIM 43-4100] "/home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.sim/sim_1/behav/xsim/glbl.v" Line 6. Module glbl has a timescale but at least one module in design doesn't have timescale.

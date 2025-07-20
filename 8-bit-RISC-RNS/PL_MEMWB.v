@@ -4,7 +4,7 @@ module PL_MEMWB #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10) (
     input clk, reset,
     //Pipeline registers from EX
     input [NUM_DOMAINS*8 - 1:0] operation_result, // { [7:0] Domain1, [7:0] Domain2, ... }
-    input [0:7] EX_reg,
+    input [0:9] EX_reg,
     input [0:4] branch_conds_EX,
 
     //Other
@@ -16,7 +16,11 @@ module PL_MEMWB #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10) (
     output mem_wr_en,                     
     output reg_wr_en,
     output destination_RNS,
-    output [NUM_DOMAINS*8 - 1:0] wr_data // { [7:0] Domain1, [7:0] Domain2, ... }
+    output [NUM_DOMAINS*8 - 1:0] wr_data, // { [7:0] Domain1, [7:0] Domain2, ... }
+    //For INPUT / OUTPUT instructions
+    output [7:0] IO_write_data,
+    output IO_write_strobe,
+    output IO_read_strobe
 );
 /*
     EX_reg signals:                 Len. | Index
@@ -28,7 +32,9 @@ module PL_MEMWB #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10) (
         load_true,                  (1)    [4]
         invalidate_fetch_instr,     (1)    [5]
         invalidate_decode_instr,    (1)    [6]
-        destination_RNS             (1)    [7]
+        destination_RNS,            (1)    [7]
+        outp_op,                    (1)    [8]
+        inp_op                      (1)    [9]
     }
 */
     assign wr_data =            EX_reg[4] ? {8'b0, dmem_dout} : operation_result;
@@ -37,6 +43,9 @@ module PL_MEMWB #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10) (
     assign reg_wr_en =          (EX_reg[1] && !invalidate_instr);
     assign destination_RNS =    EX_reg[7]; //if 1, write to RNS reg file, else write to normal reg file
 
+    assign IO_write_data =        operation_result[7:0]; //output data is always the lowest 8 bits of the operation result
+    assign IO_write_strobe =    (EX_reg[8] && !invalidate_instr); //PL_EX sets IO_port_ID to val from imm and operation_result to op3. MEMWB raises strobe as soon as EX PL reg populated 
+    assign IO_read_strobe =     (EX_reg[9] && !invalidate_instr); // PL_EX sets IO_port_ID to val from imm and operation_result to data held on input port. MEMWB raises strobe as soon as EX PL reg populated
 
     //Pipeline registers
     always @(posedge clk)

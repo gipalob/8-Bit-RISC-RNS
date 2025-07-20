@@ -10,6 +10,12 @@ This implementation is foundationally based on NayanaBannur/8-bit-RISC-Processor
 3) QOL ISA Improvements
     - `LDI` Instruction:
         - Load an 8-bit immediate value into a register.
+    - `INPUT` and `OUTPUT` Instructions:
+        - Similar to the instructions' implementation in PicoBlaze, can recieve/send data to/from the processor via an immediate-defined port. The read/write strobes are raised post-EX. A UART module is instantiated by `top.v` (which instantiates `processor_top`). UART is tied to these I/O ports:
+        - `8'h01`: UART TX Data output from processor
+        - `8'h02`: UART RX Data input to processor
+        - `8'h03`: Data present in UART Buffer
+        - `8'h04`: UART Buffer is full
     - Hazard Detection:
         - The original implementation had a 'hole' in hazard detection. For example, if you attempt to execute this series of instructions:
         ```
@@ -42,7 +48,7 @@ This implementation is foundationally based on NayanaBannur/8-bit-RISC-Processor
 |  1    | rs1[1]          |
 |  0    | rs1[0]          |
 
-- The rs1/rs2 domain flags indicate which register file rs1/rs2 are sourced from; The RNS domain or integer domain register file. Note that 'rs3', which is taken from the bit-indices that are normally designated for rd, and exclusively used for `RLOAD` and `RSTORE`, is always a 3-bit address signal.
+- The rs1/rs2 domain flags indicate which register file rs1/rs2 are sourced from; The RNS domain or integer domain register file. Note that 'rs3' (referred to as `op3` in the code), which is taken from the bit-indices that are normally designated for rd, and exclusively used for `RSTORE` and `OUTPUT`, is always a 3-bit address signal. 
 - For R-M type instructions, rd will always be a RNS domain register.
 
 
@@ -66,7 +72,7 @@ This implementation is foundationally based on NayanaBannur/8-bit-RISC-Processor
 |  1    | imm[1]          |
 |  0    | imm[0]          |
 
-- Only one I-Type instruction at the moment: `LDI`.
+- `LDI`, `INPUT`, and `OUTPUT` are all I-Type. For `OUTPUT`, rd is the source register. The immediate in `INPUT` and `OUTPUT` is used to define the 8-bit port that data is read from / sent to. I/O data source / destination is defined in top.v.
 
 ### J-Type Instructions
 | Bit   | Assignment      |

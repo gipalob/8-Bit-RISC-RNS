@@ -14,15 +14,15 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 
     output reg [3:0] 					op1_addr_IFID,  //ID: op1_addr to ctrl_Forward  - {RNS_file, [2:0] addr}
     output reg [3:0] 					op2_addr_IFID,  //ID: op2_addr to ctrl_Forward  - {RNS_file, [2:0] addr}
-	output reg [2:0]                    op3_addr_IFID,  //ID: op3_addr to ctrl_Forward  - always int regfile, so no RNS flag needed
+	output reg [2:0]                    op3_addr_IFID,  //ID: op3_addr to ctrl_Forward  - always from int regfile, so no RNS flag needed
     output reg 							load_true_IFID,     //ID: load instruction flag to ctrl_Forward
 
     //pipeline register out to next stage
-    output reg [0:39] 					IFID_reg,    		//IFID pipeline register out
+    output reg [0:41] 					IFID_reg,    		//IFID pipeline register out
     output reg [PROG_CTR_WID-1:0] 		pred_nxt_prog_ctr, 	//inst address to jump to on successful branch evaluation - pulled from inst in ID
 	output reg [NUM_DOMAINS*8 - 1:0] 	op1_dout_IFID, 		//op1 data out for IFID pipeline register - easier to keep this seperate as it's dynamic size
 	output reg [NUM_DOMAINS*8 - 1:0] 	op2_dout_IFID,		//op2 data out for IFID pipeline register - easier to keep this seperate as it's dynamic size
-	output reg [7:0] 					op3_dout_IFID,		//op3 data out for IFID pipeline register - easier to keep this seperate as it's dynamic size
+	output reg [7:0] 					op3_dout_IFID,		//op3 data out for IFID pipeline register
     output reg [3:0]                    op1_addr_out_IFID,
     output reg [3:0]                    op2_addr_out_IFID,
 	output reg [2:0]                    op3_addr_out_IFID, //op3 is rs for RSTORE
@@ -33,14 +33,6 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
     // Instruction Fetch
     reg [15:0] instruction; //instruction fetched from memory
     reg invalidate_fetch_instr; //flag to invalidate fetch instruction if branch is taken
-
-	always @(rst)
-	begin
-		if (rst == 1'b1)                          
-		begin
-			instruction <= 16'b0;
-		end
-	end
 	
     always @(instr_mem_out or rst or branch_taken_EX) 
     begin
@@ -73,7 +65,7 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
     begin
 		opcode	        	<= instruction[15:11];
 		res_addr	    	<= instruction[10:8];
-		imm			    	<= instruction[7:0];
+		imm			    	<= instruction[7:0]; //imm is used for LDI as well as INPUT and OUTPUT- acts as the port for INPUT and OUTPUT
 		op2_addr_IFID	   	<= instruction[7:4]; //bit 7 is rs2 domain flag; 1 == RNS, 0 == normal int
 		op1_addr_IFID		<= instruction[3:0]; //bit 4 is rs1 domain flag; 1 == RNS, 0 == normal int
 		branch_addr     	<= instruction[9:0];
@@ -94,7 +86,8 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
     reg jump_gt, jump_lt, jump_eq, jump_carry;                  //flags for conditional jumps
 
 	//custom flags:
-	reg ld_imm, mul_op_true, RNS_ALU_op, RNS_dest_reg, UNRL_op_true, UNRL_lower, RLLM_op_true; //flags for custom operations
+	reg outp_op, inp_op; 
+	reg ld_imm, mul_op_true, RNS_ALU_op, RNS_dest_reg, UNRL_op_true, UNRL_lower, RLLM_op_true;
 	reg op1_file, op2_file;
 
     always@ (opcode or branch_addr or op1_addr_IFID or op2_addr_IFID or res_addr)        
@@ -120,6 +113,8 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 		jump_lt <= 1'b0;
 		jump_eq <= 1'b0;
 		jump_carry <= 1'b0;
+		outp_op <= 1'b0;
+		inp_op <= 1'b0;
 		RNS_ALU_op <= 1'b0;
 		mul_op_true <= 1'b0;
 		UNRL_op_true <= 1'b0;
@@ -208,12 +203,9 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
             RLOAD:  res_addr is DESTINATION reg addr
                     register at op1_addr_IFID contains lower 8b of address
                     register at op2_addr_IFID contains upper 8b of address
-            RSTORE: res_addr is SOURCE reg addr
+            RSTORE: res_addr is SOURCE reg addr - aka, op3
                     register at op1_addr_IFID contains lower 8b of address
                     register at op2_addr_IFID contains upper 8b of address
-            
-            That's the plan- keep them as they were in original implementation until refactoring done
-
     */
 
 		//	OP_ANDBIT:	begin
@@ -287,7 +279,20 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
             begin
 					ld_imm <= 1'b1;
 					write_to_regfile <= 1'b1;
-			end           
+			end          
+		//  OP_OUTPUT: begin
+			5'b11010: //OP_OUTPUT: Output the value of the register to output port
+			begin
+					write_to_regfile <= 1'b0; 
+					outp_op <= 1'b1;
+					op3_addr_IFID <= res_addr; //op3 is the register to output
+			end 
+		//  OP_INPUT: begin
+			5'b11011: //OP_INPUT: Take a value from the input port to the register
+			begin
+					write_to_regfile <= 1'b1; 
+					inp_op <= 1'b1;
+			end 
 
 //RNS Instructions
 		//	OP_ADDM:	begin 
@@ -430,8 +435,10 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 				RNS_dest_reg, 		 	//      (1)    [36] - RNS destination register flag
 				op1_file,				//	  	(1)    [37] - op1 file flag, 0 for integer, 1 for RNS
 				op2_file,				//	  	(1)    [38] - op2 file flag, 0 for integer, 1 for RNS
-				UNRL_lower				//      (1)    [39] - Indicate whether an UNRL instruction is storing the lower or upper 8b of RNS reg
-            };                       //total len: 39 bits
+				UNRL_lower,				//      (1)    [39] - Indicate whether an UNRL instruction is storing the lower or upper 8b of RNS reg
+				outp_op,				//      (1)    [40] - output operation flag
+				inp_op					//      (1)    [41] - input operation
+            };                       //total len: 41 bits
         end
 	end
 endmodule

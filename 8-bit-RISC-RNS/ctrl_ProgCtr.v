@@ -8,11 +8,6 @@ module ctrl_ProgCtr #(parameter PROG_CTR_WID=10) (
 
     output reg [PROG_CTR_WID-1:0] prog_ctr
 );
-	always @(reset) 
-	begin
-		if (reset == 1'b1)
-			prog_ctr <= 10'b0;
-	end
     always @(posedge clk)
 	begin
 	    if (reset == 1'b1)

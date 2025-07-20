@@ -29,7 +29,9 @@ R_type_opcodes = {
 }
 
 I_type_opcodes = {
-    "LDI": "10010"
+    "LDI": "10010",
+    "OUTPUT": "11010",
+    "INPUT": "11011",
 }
 
 

@@ -67,7 +67,7 @@ module Forwarding #(parameter NUM_DOMAINS=1) (
     //////////////////////////////////////////////////////////////////////////////////////////////////////
     //Forwarding logic for EX
     reg bypass_op1_ex_stage, bypass_op2_ex_stage, bypass_op3_ex_stage; //flags to indicate whether to bypass op1/op2 data in EX stage
-    always @(op1_addr_IDtoEX or destination_reg_addr or reg_wr_en or op2_addr_IDtoEX or load_true_EX)
+    always @(op1_addr_IDtoEX or destination_reg_addr or reg_wr_en or op2_addr_IDtoEX or load_true_EX or op3_addr_IDtoEX)
     begin
         if ((op1_addr_IDtoEX == destination_reg_addr) && (reg_wr_en == 1'b1) && (load_true_EX == 1'b0))
             bypass_op1_ex_stage <= 1'b1;

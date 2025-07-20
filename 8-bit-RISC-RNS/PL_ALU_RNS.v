@@ -34,9 +34,8 @@ endmodule
 
 
 
-module RNS_sub (
+module RNS_sub #(parameter [8:0] modulus = 9'd129) (
     input [7:0] op1, op2,
-    input [8:0] modulus,
     output reg [15:0] result
 );
     /*
@@ -131,10 +130,9 @@ module PL_ALU_RNS #(parameter [8:0] modulus = 9'd129) ( //need to define a std v
         .result(adder_result)
     );
 
-    RNS_sub sub_inst (
+    RNS_sub #(modulus) sub_inst (
         .op1(op1),
         .op2(op2),
-        .modulus(modulus),
         .result(sub_result)
     );
 

@@ -1,5 +1,5 @@
 # compile verilog/system verilog design source files
-verilog xil_defaultlib  \
+verilog xil_defaultlib  --include "../../../../8Bit_RISC_RNS.ip_user_files/ipstatic" \
 "../../../../Data_Mem.v" \
 "../../../../Instr_Mem.v" \
 "../../../../PL_ALU.v" \
@@ -11,7 +11,7 @@ verilog xil_defaultlib  \
 "../../../../ctrl_BranchPred.v" \
 "../../../../ctrl_Forward.v" \
 "../../../../ctrl_ProgCtr.v" \
-"../../../../top.v" \
+"../../../../processor_top.v" \
 "../../../../tb_rns.v" \
 
 # compile glbl module
