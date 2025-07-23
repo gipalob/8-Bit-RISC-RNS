@@ -275,7 +275,7 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 //NEW CUSTOM INSTRUCTIONS (ignoring RLOAD and RSTORE above):
 ////////////////////////////////////////////////////////////
 		//	OP_LDI:	begin 
-			5'b10010: //'LDI': Load 8-bit immediate; immediate held in same bit indices as ld_mem_addr, res_addr is dest reg addr. EX stage will set operation_result to imm on ld_imm flag, effectively storing as if the immediate was an arithmetic result
+			5'b10010: //'LDI': Load 8-bit immediate; res_addr is dest reg addr. EX stage will set operation_result to imm on ld_imm flag, effectively storing as if the immediate was an arithmetic result
             begin
 					ld_imm <= 1'b1;
 					write_to_regfile <= 1'b1;

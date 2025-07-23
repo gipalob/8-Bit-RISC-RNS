@@ -1,20 +1,20 @@
 #-----------------------------------------------------------
-# Vivado v2023.2.2 (64-bit)
-# SW Build 4126759 on Thu Feb  8 23:52:05 MST 2024
-# IP Build 4126054 on Fri Feb  9 11:39:09 MST 2024
-# SharedData Build 4115275 on Tue Jan 30 00:40:57 MST 2024
-# Start of session at: Sun Jul 20 01:34:30 2025
-# Process ID: 45031
-# Current directory: /home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.runs/synth_1
-# Command line: vivado -log top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source top.tcl
-# Log file: /home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.runs/synth_1/top.vds
-# Journal file: /home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.runs/synth_1/vivado.jou
-# Running On: 99b7c0ba68ac, OS: Linux, CPU Frequency: 2502.057 MHz, CPU Physical cores: 1, Host memory: 8322 MB
+# Vivado v2023.2 (64-bit)
+# SW Build 4029153 on Fri Oct 13 20:14:34 MDT 2023
+# IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
+# SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
+# Start of session at: Tue Jul 22 21:15:07 2025
+# Process ID: 35612
+# Current directory: C:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.runs/synth_1
+# Command line: vivado.exe -log top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source top.tcl
+# Log file: C:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.runs/synth_1/top.vds
+# Journal file: C:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.runs/synth_1\vivado.jou
+# Running On: BEN-DESKTOP, OS: Windows, CPU Frequency: 3000 MHz, CPU Physical cores: 16, Host memory: 34277 MB
 #-----------------------------------------------------------
 source top.tcl -notrace
-create_project: Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 1806.887 ; gain = 129.977 ; free physical = 2008 ; free virtual = 6111
-Command: read_checkpoint -auto_incremental -incremental /home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.srcs/utils_1/imports/synth_1/testbench.dcp
-INFO: [Vivado 12-5825] Read reference checkpoint from /home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.srcs/utils_1/imports/synth_1/testbench.dcp for incremental synthesis
+create_project: Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 521.047 ; gain = 216.148
+Command: read_checkpoint -auto_incremental -incremental C:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.srcs/utils_1/imports/synth_1/testbench.dcp
+INFO: [Vivado 12-5825] Read reference checkpoint from C:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.srcs/utils_1/imports/synth_1/testbench.dcp for incremental synthesis
 INFO: [Vivado 12-7989] Please ensure there are no constraint changes
 Command: synth_design -top top -part xc7a35tcpg236-1 -directive PerformanceOptimized
 Starting synth_design
@@ -23,161 +23,160 @@ INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t
 INFO: [Device 21-403] Loading part xc7a35tcpg236-1
 INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
 INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
-INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 45059
+INFO: [Synth 8-7075] Helper process launched with PID 43444
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 2597.328 ; gain = 404.090 ; free physical = 1148 ; free virtual = 5069
+Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 1363.320 ; gain = 440.672
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-11241] undeclared symbol 'shift_left', assumed default net type 'wire' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU.v:116]
-INFO: [Synth 8-11241] undeclared symbol 'mul_op', assumed default net type 'wire' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:106]
-WARNING: [Synth 8-11065] parameter 'PROG_CTR_WID' becomes localparam in 'processor_top' with formal parameter declaration list [/home/user/CIS4900/8-bit-RISC-RNS/processor_top.v:13]
-INFO: [Synth 8-6157] synthesizing module 'top' [/home/user/CIS4900/8-bit-RISC-RNS/top.v:4]
-INFO: [Synth 8-6157] synthesizing module 'clk_wiz_0' [/home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.runs/synth_1/.Xil/Vivado-45031-99b7c0ba68ac/realtime/clk_wiz_0_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'clk_wiz_0' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.runs/synth_1/.Xil/Vivado-45031-99b7c0ba68ac/realtime/clk_wiz_0_stub.v:6]
-INFO: [Synth 8-6157] synthesizing module 'processor_top' [/home/user/CIS4900/8-bit-RISC-RNS/processor_top.v:4]
+INFO: [Synth 8-11241] undeclared symbol 'shift_left', assumed default net type 'wire' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:116]
+INFO: [Synth 8-11241] undeclared symbol 'mul_op', assumed default net type 'wire' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:106]
+WARNING: [Synth 8-11065] parameter 'PROG_CTR_WID' becomes localparam in 'processor_top' with formal parameter declaration list [C:/code-projs/CIS4900/8-bit-RISC-RNS/processor_top.v:13]
+INFO: [Synth 8-6157] synthesizing module 'top' [C:/code-projs/CIS4900/8-bit-RISC-RNS/top.v:4]
+INFO: [Synth 8-6157] synthesizing module 'clk_wiz_0' [C:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.runs/synth_1/.Xil/Vivado-35612-BEN-DESKTOP/realtime/clk_wiz_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'clk_wiz_0' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.runs/synth_1/.Xil/Vivado-35612-BEN-DESKTOP/realtime/clk_wiz_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'processor_top' [C:/code-projs/CIS4900/8-bit-RISC-RNS/processor_top.v:4]
 	Parameter NUM_DOMAINS bound to: 2 - type: integer 
 	Parameter MODULI bound to: 18'b010000001100000000 
-INFO: [Synth 8-6157] synthesizing module 'ctrl_ProgCtr' [/home/user/CIS4900/8-bit-RISC-RNS/ctrl_ProgCtr.v:3]
+INFO: [Synth 8-6157] synthesizing module 'ctrl_ProgCtr' [C:/code-projs/CIS4900/8-bit-RISC-RNS/ctrl_ProgCtr.v:3]
 	Parameter PROG_CTR_WID bound to: 10 - type: integer 
-INFO: [Synth 8-6155] done synthesizing module 'ctrl_ProgCtr' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/ctrl_ProgCtr.v:3]
-INFO: [Synth 8-6157] synthesizing module 'Instr_Mem' [/home/user/CIS4900/8-bit-RISC-RNS/Instr_Mem.v:3]
+INFO: [Synth 8-6155] done synthesizing module 'ctrl_ProgCtr' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/ctrl_ProgCtr.v:3]
+INFO: [Synth 8-6157] synthesizing module 'Instr_Mem' [C:/code-projs/CIS4900/8-bit-RISC-RNS/Instr_Mem.v:1]
 	Parameter PROG_CTR_WID bound to: 10 - type: integer 
-INFO: [Synth 8-3876] $readmem data file '/home/user/CIS4900/8-bit-RISC-RNS/test_progs/big_mem_test/big_mem_test.txt' is read successfully [/home/user/CIS4900/8-bit-RISC-RNS/Instr_Mem.v:13]
-INFO: [Synth 8-6155] done synthesizing module 'Instr_Mem' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/Instr_Mem.v:3]
-INFO: [Synth 8-6157] synthesizing module 'Data_Mem' [/home/user/CIS4900/8-bit-RISC-RNS/Data_Mem.v:3]
-INFO: [Synth 8-6155] done synthesizing module 'Data_Mem' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/Data_Mem.v:3]
-INFO: [Synth 8-6157] synthesizing module 'Reg_File' [/home/user/CIS4900/8-bit-RISC-RNS/Reg_File.v:4]
+INFO: [Synth 8-226] default block is never used [C:/code-projs/CIS4900/8-bit-RISC-RNS/Instr_Mem.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'Instr_Mem' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/Instr_Mem.v:1]
+INFO: [Synth 8-6157] synthesizing module 'Data_Mem' [C:/code-projs/CIS4900/8-bit-RISC-RNS/Data_Mem.v:3]
+INFO: [Synth 8-6155] done synthesizing module 'Data_Mem' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/Data_Mem.v:3]
+INFO: [Synth 8-6157] synthesizing module 'Reg_File' [C:/code-projs/CIS4900/8-bit-RISC-RNS/Reg_File.v:4]
 	Parameter NUM_DOMAINS bound to: 2 - type: integer 
-INFO: [Synth 8-6155] done synthesizing module 'Reg_File' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/Reg_File.v:4]
-INFO: [Synth 8-6157] synthesizing module 'PL_IFID' [/home/user/CIS4900/8-bit-RISC-RNS/PL_IFID.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'Reg_File' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/Reg_File.v:4]
+INFO: [Synth 8-6157] synthesizing module 'PL_IFID' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_IFID.v:5]
 	Parameter PROG_CTR_WID bound to: 10 - type: integer 
 	Parameter NUM_DOMAINS bound to: 2 - type: integer 
-INFO: [Synth 8-6155] done synthesizing module 'PL_IFID' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/PL_IFID.v:5]
-INFO: [Synth 8-6157] synthesizing module 'PL_EX' [/home/user/CIS4900/8-bit-RISC-RNS/PL_EX.v:4]
+INFO: [Synth 8-6155] done synthesizing module 'PL_IFID' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_IFID.v:5]
+INFO: [Synth 8-6157] synthesizing module 'PL_EX' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_EX.v:4]
 	Parameter NUM_DOMAINS bound to: 2 - type: integer 
 	Parameter PROG_CTR_WID bound to: 10 - type: integer 
-INFO: [Synth 8-6157] synthesizing module 'PL_ALU_RNS' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:93]
+INFO: [Synth 8-6157] synthesizing module 'PL_ALU_RNS' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:93]
 	Parameter modulus bound to: 9'b010000001 
-INFO: [Synth 8-6157] synthesizing module 'RNS_fit_129' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:69]
-INFO: [Synth 8-6155] done synthesizing module 'RNS_fit_129' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:69]
-INFO: [Synth 8-6157] synthesizing module 'RNS_complement' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:4]
-INFO: [Synth 8-6155] done synthesizing module 'RNS_complement' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:4]
-INFO: [Synth 8-6157] synthesizing module 'RNS_adder' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:26]
-INFO: [Synth 8-6155] done synthesizing module 'RNS_adder' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:26]
-INFO: [Synth 8-6157] synthesizing module 'RNS_sub' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:37]
+INFO: [Synth 8-6157] synthesizing module 'RNS_fit_129' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:69]
+INFO: [Synth 8-6155] done synthesizing module 'RNS_fit_129' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:69]
+INFO: [Synth 8-6157] synthesizing module 'RNS_complement' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:4]
+INFO: [Synth 8-6155] done synthesizing module 'RNS_complement' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:4]
+INFO: [Synth 8-6157] synthesizing module 'RNS_adder' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:26]
+INFO: [Synth 8-6155] done synthesizing module 'RNS_adder' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:26]
+INFO: [Synth 8-6157] synthesizing module 'RNS_sub' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:37]
 	Parameter modulus bound to: 9'b010000001 
-INFO: [Synth 8-6155] done synthesizing module 'RNS_sub' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:37]
-INFO: [Synth 8-6157] synthesizing module 'RNS_multiplier' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:54]
-INFO: [Synth 8-6155] done synthesizing module 'RNS_multiplier' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:54]
-INFO: [Synth 8-6155] done synthesizing module 'PL_ALU_RNS' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:93]
-INFO: [Synth 8-6157] synthesizing module 'PL_ALU_RNS__parameterized0' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:93]
+INFO: [Synth 8-6155] done synthesizing module 'RNS_sub' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:37]
+INFO: [Synth 8-6157] synthesizing module 'RNS_multiplier' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:54]
+INFO: [Synth 8-6155] done synthesizing module 'RNS_multiplier' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:54]
+INFO: [Synth 8-6155] done synthesizing module 'PL_ALU_RNS' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:93]
+INFO: [Synth 8-6157] synthesizing module 'PL_ALU_RNS__parameterized0' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:93]
 	Parameter modulus bound to: 9'b100000000 
-INFO: [Synth 8-6157] synthesizing module 'RNS_fit_256' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:84]
-INFO: [Synth 8-6155] done synthesizing module 'RNS_fit_256' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:84]
-INFO: [Synth 8-6157] synthesizing module 'RNS_sub__parameterized0' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:37]
+INFO: [Synth 8-6157] synthesizing module 'RNS_fit_256' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:84]
+INFO: [Synth 8-6155] done synthesizing module 'RNS_fit_256' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:84]
+INFO: [Synth 8-6157] synthesizing module 'RNS_sub__parameterized0' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:37]
 	Parameter modulus bound to: 9'b100000000 
-INFO: [Synth 8-6155] done synthesizing module 'RNS_sub__parameterized0' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:37]
-INFO: [Synth 8-6155] done synthesizing module 'PL_ALU_RNS__parameterized0' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:93]
-INFO: [Synth 8-6157] synthesizing module 'PL_ALU' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU.v:90]
-INFO: [Synth 8-6157] synthesizing module 'complement' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU.v:5]
-INFO: [Synth 8-6155] done synthesizing module 'complement' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU.v:5]
-INFO: [Synth 8-6157] synthesizing module 'adder' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU.v:32]
-INFO: [Synth 8-6155] done synthesizing module 'adder' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU.v:32]
-INFO: [Synth 8-6157] synthesizing module 'shift' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU.v:45]
-INFO: [Synth 8-6155] done synthesizing module 'shift' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU.v:45]
-INFO: [Synth 8-6157] synthesizing module 'logical' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU.v:60]
-INFO: [Synth 8-6155] done synthesizing module 'logical' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU.v:60]
-INFO: [Synth 8-6155] done synthesizing module 'PL_ALU' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU.v:90]
-INFO: [Synth 8-6155] done synthesizing module 'PL_EX' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/PL_EX.v:4]
-INFO: [Synth 8-6157] synthesizing module 'PL_MEMWB' [/home/user/CIS4900/8-bit-RISC-RNS/PL_MEMWB.v:3]
+INFO: [Synth 8-6155] done synthesizing module 'RNS_sub__parameterized0' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:37]
+INFO: [Synth 8-6155] done synthesizing module 'PL_ALU_RNS__parameterized0' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:93]
+INFO: [Synth 8-6157] synthesizing module 'PL_ALU' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:90]
+INFO: [Synth 8-6157] synthesizing module 'complement' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'complement' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:5]
+INFO: [Synth 8-6157] synthesizing module 'adder' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:32]
+INFO: [Synth 8-6155] done synthesizing module 'adder' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:32]
+INFO: [Synth 8-6157] synthesizing module 'shift' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:45]
+INFO: [Synth 8-6155] done synthesizing module 'shift' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:45]
+INFO: [Synth 8-6157] synthesizing module 'logical' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:60]
+INFO: [Synth 8-6155] done synthesizing module 'logical' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:60]
+INFO: [Synth 8-6155] done synthesizing module 'PL_ALU' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:90]
+INFO: [Synth 8-6155] done synthesizing module 'PL_EX' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_EX.v:4]
+INFO: [Synth 8-6157] synthesizing module 'PL_MEMWB' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_MEMWB.v:3]
 	Parameter NUM_DOMAINS bound to: 2 - type: integer 
 	Parameter PROG_CTR_WID bound to: 10 - type: integer 
-INFO: [Synth 8-6155] done synthesizing module 'PL_MEMWB' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/PL_MEMWB.v:3]
-INFO: [Synth 8-6157] synthesizing module 'Forwarding' [/home/user/CIS4900/8-bit-RISC-RNS/ctrl_Forward.v:3]
+INFO: [Synth 8-6155] done synthesizing module 'PL_MEMWB' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_MEMWB.v:3]
+INFO: [Synth 8-6157] synthesizing module 'Forwarding' [C:/code-projs/CIS4900/8-bit-RISC-RNS/ctrl_Forward.v:3]
 	Parameter NUM_DOMAINS bound to: 2 - type: integer 
-INFO: [Synth 8-6155] done synthesizing module 'Forwarding' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/ctrl_Forward.v:3]
-INFO: [Synth 8-6157] synthesizing module 'ctrl_BranchPred' [/home/user/CIS4900/8-bit-RISC-RNS/ctrl_BranchPred.v:3]
-INFO: [Synth 8-6155] done synthesizing module 'ctrl_BranchPred' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/ctrl_BranchPred.v:3]
-INFO: [Synth 8-6155] done synthesizing module 'processor_top' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/processor_top.v:4]
-INFO: [Synth 8-6157] synthesizing module 'rs232_uart' [/home/user/CIS4900/8-bit-RISC-RNS/UART/rs232_uart.v:24]
-INFO: [Synth 8-6157] synthesizing module 'uart_tx6' [/home/user/CIS4900/8-bit-RISC-RNS/UART/uart_tx6.v:74]
-INFO: [Synth 8-6157] synthesizing module 'SRL16E' [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:133863]
+INFO: [Synth 8-6155] done synthesizing module 'Forwarding' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/ctrl_Forward.v:3]
+INFO: [Synth 8-6157] synthesizing module 'ctrl_BranchPred' [C:/code-projs/CIS4900/8-bit-RISC-RNS/ctrl_BranchPred.v:3]
+INFO: [Synth 8-6155] done synthesizing module 'ctrl_BranchPred' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/ctrl_BranchPred.v:3]
+INFO: [Synth 8-6155] done synthesizing module 'processor_top' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/processor_top.v:4]
+INFO: [Synth 8-6157] synthesizing module 'rs232_uart' [C:/code-projs/CIS4900/8-bit-RISC-RNS/UART/rs232_uart.v:24]
+INFO: [Synth 8-6157] synthesizing module 'uart_tx6' [C:/code-projs/CIS4900/8-bit-RISC-RNS/UART/uart_tx6.v:74]
+INFO: [Synth 8-6157] synthesizing module 'SRL16E' [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:133737]
 	Parameter INIT bound to: 16'b0000000000000000 
-INFO: [Synth 8-6155] done synthesizing module 'SRL16E' (0#1) [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:133863]
-INFO: [Synth 8-6157] synthesizing module 'FD' [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:40764]
-INFO: [Synth 8-6155] done synthesizing module 'FD' (0#1) [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:40764]
-INFO: [Synth 8-6157] synthesizing module 'LUT6' [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
+INFO: [Synth 8-6155] done synthesizing module 'SRL16E' (0#1) [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:133737]
+INFO: [Synth 8-6157] synthesizing module 'FD' [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:40764]
+INFO: [Synth 8-6155] done synthesizing module 'FD' (0#1) [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:40764]
+INFO: [Synth 8-6157] synthesizing module 'LUT6' [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
 	Parameter INIT bound to: 64'b1111111100000000111111100000000011111111100000001111111100000000 
-INFO: [Synth 8-6155] done synthesizing module 'LUT6' (0#1) [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
-INFO: [Synth 8-6157] synthesizing module 'FDR' [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:40992]
-INFO: [Synth 8-6155] done synthesizing module 'FDR' (0#1) [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:40992]
-INFO: [Synth 8-6157] synthesizing module 'LUT6__parameterized0' [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
+INFO: [Synth 8-6155] done synthesizing module 'LUT6' (0#1) [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
+INFO: [Synth 8-6157] synthesizing module 'FDR' [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:40992]
+INFO: [Synth 8-6155] done synthesizing module 'FDR' (0#1) [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:40992]
+INFO: [Synth 8-6157] synthesizing module 'LUT6__parameterized0' [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
 	Parameter INIT bound to: 64'b1111000011110000111000011110000011111000011110001111000011110000 
-INFO: [Synth 8-6155] done synthesizing module 'LUT6__parameterized0' (0#1) [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
-INFO: [Synth 8-6157] synthesizing module 'LUT6_2' [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
+INFO: [Synth 8-6155] done synthesizing module 'LUT6__parameterized0' (0#1) [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
+INFO: [Synth 8-6157] synthesizing module 'LUT6_2' [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
 	Parameter INIT bound to: 64'b1100110010010000011000001100110010101010010100000101000010101010 
-INFO: [Synth 8-6155] done synthesizing module 'LUT6_2' (0#1) [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
-INFO: [Synth 8-6157] synthesizing module 'LUT6_2__parameterized0' [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
+INFO: [Synth 8-6155] done synthesizing module 'LUT6_2' (0#1) [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
+INFO: [Synth 8-6157] synthesizing module 'LUT6_2__parameterized0' [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
 	Parameter INIT bound to: 64'b1111010011111100111101001111110000000100000000000000010011000000 
-INFO: [Synth 8-6155] done synthesizing module 'LUT6_2__parameterized0' (0#1) [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
-INFO: [Synth 8-6157] synthesizing module 'LUT6_2__parameterized1' [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
+INFO: [Synth 8-6155] done synthesizing module 'LUT6_2__parameterized0' (0#1) [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
+INFO: [Synth 8-6157] synthesizing module 'LUT6_2__parameterized1' [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
 	Parameter INIT bound to: 64'b0000000000000001000000000000000010000000000000000000000000000000 
-INFO: [Synth 8-6155] done synthesizing module 'LUT6_2__parameterized1' (0#1) [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
-INFO: [Synth 8-6157] synthesizing module 'LUT6__parameterized1' [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
+INFO: [Synth 8-6155] done synthesizing module 'LUT6_2__parameterized1' (0#1) [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
+INFO: [Synth 8-6157] synthesizing module 'LUT6__parameterized1' [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
 	Parameter INIT bound to: 64'b1111111100000000111100001111000011001100110011001010101010101010 
-INFO: [Synth 8-6155] done synthesizing module 'LUT6__parameterized1' (0#1) [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
-INFO: [Synth 8-6157] synthesizing module 'LUT6_2__parameterized2' [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
+INFO: [Synth 8-6155] done synthesizing module 'LUT6__parameterized1' (0#1) [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
+INFO: [Synth 8-6157] synthesizing module 'LUT6_2__parameterized2' [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
 	Parameter INIT bound to: 64'b1100111110101010110011000000111100001111111111111111111111111111 
-INFO: [Synth 8-6155] done synthesizing module 'LUT6_2__parameterized2' (0#1) [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
-INFO: [Synth 8-6157] synthesizing module 'LUT6__parameterized2' [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
+INFO: [Synth 8-6155] done synthesizing module 'LUT6_2__parameterized2' (0#1) [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
+INFO: [Synth 8-6157] synthesizing module 'LUT6__parameterized2' [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
 	Parameter INIT bound to: 64'b1000010101010000000000000000000010101010101010101010101010101010 
-INFO: [Synth 8-6155] done synthesizing module 'LUT6__parameterized2' (0#1) [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
-INFO: [Synth 8-6157] synthesizing module 'LUT6__parameterized3' [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
+INFO: [Synth 8-6155] done synthesizing module 'LUT6__parameterized2' (0#1) [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
+INFO: [Synth 8-6157] synthesizing module 'LUT6__parameterized3' [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
 	Parameter INIT bound to: 64'b0010011001100001000000000000000011001100110011001100110011001100 
-INFO: [Synth 8-6155] done synthesizing module 'LUT6__parameterized3' (0#1) [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
-INFO: [Synth 8-6157] synthesizing module 'LUT6__parameterized4' [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
+INFO: [Synth 8-6155] done synthesizing module 'LUT6__parameterized3' (0#1) [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
+INFO: [Synth 8-6157] synthesizing module 'LUT6__parameterized4' [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
 	Parameter INIT bound to: 64'b1000100001110000000000000000000011110000111100001111000011110000 
-INFO: [Synth 8-6155] done synthesizing module 'LUT6__parameterized4' (0#1) [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
-INFO: [Synth 8-6157] synthesizing module 'LUT6__parameterized5' [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
+INFO: [Synth 8-6155] done synthesizing module 'LUT6__parameterized4' (0#1) [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
+INFO: [Synth 8-6157] synthesizing module 'LUT6__parameterized5' [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
 	Parameter INIT bound to: 64'b1000011101000100000000000000000011111111000000001111111100000000 
-INFO: [Synth 8-6155] done synthesizing module 'LUT6__parameterized5' (0#1) [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
-INFO: [Synth 8-6157] synthesizing module 'LUT6_2__parameterized3' [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
+INFO: [Synth 8-6155] done synthesizing module 'LUT6__parameterized5' (0#1) [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
+INFO: [Synth 8-6157] synthesizing module 'LUT6_2__parameterized3' [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
 	Parameter INIT bound to: 64'b0110110000000000000000000000000001011010000000000000000000000000 
-INFO: [Synth 8-6155] done synthesizing module 'LUT6_2__parameterized3' (0#1) [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
-INFO: [Synth 8-6157] synthesizing module 'LUT6_2__parameterized4' [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
+INFO: [Synth 8-6155] done synthesizing module 'LUT6_2__parameterized3' (0#1) [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
+INFO: [Synth 8-6157] synthesizing module 'LUT6_2__parameterized4' [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
 	Parameter INIT bound to: 64'b0111111110000000111111110000000001111000011110001111000011110000 
-INFO: [Synth 8-6155] done synthesizing module 'LUT6_2__parameterized4' (0#1) [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
-INFO: [Synth 8-6157] synthesizing module 'LUT6_2__parameterized5' [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
+INFO: [Synth 8-6155] done synthesizing module 'LUT6_2__parameterized4' (0#1) [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
+INFO: [Synth 8-6157] synthesizing module 'LUT6_2__parameterized5' [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
 	Parameter INIT bound to: 64'b0000000000000000000000000000000010000000000000000000000000000000 
-INFO: [Synth 8-6155] done synthesizing module 'LUT6_2__parameterized5' (0#1) [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
-INFO: [Synth 8-6155] done synthesizing module 'uart_tx6' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/UART/uart_tx6.v:74]
-INFO: [Synth 8-6157] synthesizing module 'uart_rx6' [/home/user/CIS4900/8-bit-RISC-RNS/UART/uart_rx6.v:73]
-INFO: [Synth 8-6157] synthesizing module 'LUT6_2__parameterized6' [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
+INFO: [Synth 8-6155] done synthesizing module 'LUT6_2__parameterized5' (0#1) [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
+INFO: [Synth 8-6155] done synthesizing module 'uart_tx6' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/UART/uart_tx6.v:74]
+INFO: [Synth 8-6157] synthesizing module 'uart_rx6' [C:/code-projs/CIS4900/8-bit-RISC-RNS/UART/uart_rx6.v:73]
+INFO: [Synth 8-6157] synthesizing module 'LUT6_2__parameterized6' [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
 	Parameter INIT bound to: 64'b1100110011110000000000000000000010101010110011000000000000000000 
-INFO: [Synth 8-6155] done synthesizing module 'LUT6_2__parameterized6' (0#1) [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
-INFO: [Synth 8-6157] synthesizing module 'LUT6_2__parameterized7' [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
+INFO: [Synth 8-6155] done synthesizing module 'LUT6_2__parameterized6' (0#1) [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
+INFO: [Synth 8-6157] synthesizing module 'LUT6_2__parameterized7' [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
 	Parameter INIT bound to: 64'b1100101011111111110010101111111100000000000000001100000011000000 
-INFO: [Synth 8-6155] done synthesizing module 'LUT6_2__parameterized7' (0#1) [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
-INFO: [Synth 8-6157] synthesizing module 'LUT6_2__parameterized8' [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
+INFO: [Synth 8-6155] done synthesizing module 'LUT6_2__parameterized7' (0#1) [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
+INFO: [Synth 8-6157] synthesizing module 'LUT6_2__parameterized8' [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
 	Parameter INIT bound to: 64'b1111000011001100111111111111111111001100101010101111111111111111 
-INFO: [Synth 8-6155] done synthesizing module 'LUT6_2__parameterized8' (0#1) [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
-INFO: [Synth 8-6157] synthesizing module 'LUT6__parameterized6' [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
+INFO: [Synth 8-6155] done synthesizing module 'LUT6_2__parameterized8' (0#1) [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
+INFO: [Synth 8-6157] synthesizing module 'LUT6__parameterized6' [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
 	Parameter INIT bound to: 64'b0010111100101111101011111010111100000000000000001111111100000000 
-INFO: [Synth 8-6155] done synthesizing module 'LUT6__parameterized6' (0#1) [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
-INFO: [Synth 8-6157] synthesizing module 'LUT6__parameterized7' [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
+INFO: [Synth 8-6155] done synthesizing module 'LUT6__parameterized6' (0#1) [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
+INFO: [Synth 8-6157] synthesizing module 'LUT6__parameterized7' [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
 	Parameter INIT bound to: 64'b0010001000100010000000001111000000000000000000000000000000000000 
-INFO: [Synth 8-6155] done synthesizing module 'LUT6__parameterized7' (0#1) [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
-INFO: [Synth 8-6157] synthesizing module 'LUT6_2__parameterized9' [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
+INFO: [Synth 8-6155] done synthesizing module 'LUT6__parameterized7' (0#1) [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81503]
+INFO: [Synth 8-6157] synthesizing module 'LUT6_2__parameterized9' [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
 	Parameter INIT bound to: 64'b0110110011001100000000000000000001011010101010100000000000000000 
-INFO: [Synth 8-6155] done synthesizing module 'LUT6_2__parameterized9' (0#1) [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
-INFO: [Synth 8-6157] synthesizing module 'LUT6_2__parameterized10' [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
+INFO: [Synth 8-6155] done synthesizing module 'LUT6_2__parameterized9' (0#1) [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
+INFO: [Synth 8-6157] synthesizing module 'LUT6_2__parameterized10' [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
 	Parameter INIT bound to: 64'b0000000010000000000000000000000010001000100010001000100010001000 
-INFO: [Synth 8-6155] done synthesizing module 'LUT6_2__parameterized10' (0#1) [/home/user/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
-INFO: [Synth 8-6155] done synthesizing module 'uart_rx6' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/UART/uart_rx6.v:73]
-INFO: [Synth 8-6155] done synthesizing module 'rs232_uart' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/UART/rs232_uart.v:24]
-INFO: [Synth 8-6155] done synthesizing module 'top' (0#1) [/home/user/CIS4900/8-bit-RISC-RNS/top.v:4]
-WARNING: [Synth 8-3848] Net read_from_UART in module/entity top does not have driver. [/home/user/CIS4900/8-bit-RISC-RNS/top.v:41]
+INFO: [Synth 8-6155] done synthesizing module 'LUT6_2__parameterized10' (0#1) [F:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:81549]
+INFO: [Synth 8-6155] done synthesizing module 'uart_rx6' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/UART/uart_rx6.v:73]
+INFO: [Synth 8-6155] done synthesizing module 'rs232_uart' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/UART/rs232_uart.v:24]
+INFO: [Synth 8-6155] done synthesizing module 'top' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/top.v:4]
 WARNING: [Synth 8-7129] Port ALU_ctrl[5] in module PL_ALU is either unconnected or has no load
 WARNING: [Synth 8-7129] Port ALU_ctrl[9] in module PL_ALU is either unconnected or has no load
 WARNING: [Synth 8-7129] Port en_complement in module RNS_complement is either unconnected or has no load
@@ -223,70 +222,69 @@ WARNING: [Synth 8-7129] Port IFID_reg[22] in module PL_EX is either unconnected 
 WARNING: [Synth 8-7129] Port reset in module Reg_File is either unconnected or has no load
 WARNING: [Synth 8-7129] Port wr_addr[3] in module Reg_File is either unconnected or has no load
 WARNING: [Synth 8-7129] Port reset in module Data_Mem is either unconnected or has no load
-WARNING: [Synth 8-7129] Port clk in module Instr_Mem is either unconnected or has no load
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2693.520 ; gain = 500.281 ; free physical = 591 ; free virtual = 4719
+Finished RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1483.387 ; gain = 560.738
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2711.543 ; gain = 518.305 ; free physical = 583 ; free virtual = 4711
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1483.387 ; gain = 560.738
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2711.543 ; gain = 518.305 ; free physical = 583 ; free virtual = 4711
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1483.387 ; gain = 560.738
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2718.328 ; gain = 0.059 ; free physical = 568 ; free virtual = 4697
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.010 . Memory (MB): peak = 1483.387 ; gain = 0.000
 INFO: [Netlist 29-17] Analyzing 67 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
 Initializing timing engine
-Parsing XDC File [/home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc] for cell 'clock_wizard'
-Finished Parsing XDC File [/home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc] for cell 'clock_wizard'
-Parsing XDC File [/home/user/CIS4900/Cmod-A7-Master.xdc]
-Finished Parsing XDC File [/home/user/CIS4900/Cmod-A7-Master.xdc]
-INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [/home/user/CIS4900/Cmod-A7-Master.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/top_propImpl.xdc].
+Parsing XDC File [c:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc] for cell 'clock_wizard'
+Finished Parsing XDC File [c:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc] for cell 'clock_wizard'
+Parsing XDC File [C:/code-projs/CIS4900/Cmod-A7-Master.xdc]
+Finished Parsing XDC File [C:/code-projs/CIS4900/Cmod-A7-Master.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/code-projs/CIS4900/Cmod-A7-Master.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/top_propImpl.xdc].
 Resolution: To avoid this warning, move constraints listed in [.Xil/top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2860.938 ; gain = 0.000 ; free physical = 468 ; free virtual = 4612
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1589.633 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
   A total of 67 instances were transformed.
   FD => FDRE: 38 instances
   FDR => FDRE: 10 instances
   LUT6_2 => LUT6_2 (LUT5, LUT6): 19 instances
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2863.188 ; gain = 0.000 ; free physical = 453 ; free virtual = 4597
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 1589.633 ; gain = 0.000
 INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
 INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 2863.188 ; gain = 669.949 ; free physical = 433 ; free virtual = 4577
+Finished Constraint Validation : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 1589.633 ; gain = 666.984
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a35tcpg236-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 2863.188 ; gain = 669.949 ; free physical = 432 ; free virtual = 4577
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 1589.633 ; gain = 666.984
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
-Applied set_property IO_BUFFER_TYPE = NONE for clk. (constraint file  /home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc, line 3).
-Applied set_property CLOCK_BUFFER_TYPE = NONE for clk. (constraint file  /home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc, line 4).
+Applied set_property IO_BUFFER_TYPE = NONE for clk. (constraint file  c:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc, line 3).
+Applied set_property CLOCK_BUFFER_TYPE = NONE for clk. (constraint file  c:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc, line 4).
 Applied set_property KEEP_HIERARCHY = SOFT for clock_wizard. (constraint file  auto generated constraint).
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 2863.188 ; gain = 669.949 ; free physical = 432 ; free virtual = 4577
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:12 ; elapsed = 00:00:13 . Memory (MB): peak = 1589.633 ; gain = 666.984
 ---------------------------------------------------------------------------------
-WARNING: [Synth 8-327] inferring latch for variable 'nxt_prog_ctr_reg' [/home/user/CIS4900/8-bit-RISC-RNS/PL_IFID.v:184]
-WARNING: [Synth 8-327] inferring latch for variable 'op1_reg' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:18]
-WARNING: [Synth 8-327] inferring latch for variable 'op2_reg' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:19]
-WARNING: [Synth 8-327] inferring latch for variable 'op1_reg' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU.v:16]
-WARNING: [Synth 8-327] inferring latch for variable 'op2_reg' [/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU.v:18]
+WARNING: [Synth 8-327] inferring latch for variable 'nxt_prog_ctr_reg' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_IFID.v:184]
+WARNING: [Synth 8-327] inferring latch for variable 'op1_reg' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:18]
+WARNING: [Synth 8-327] inferring latch for variable 'op2_reg' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:19]
+WARNING: [Synth 8-327] inferring latch for variable 'op1_reg' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:16]
+WARNING: [Synth 8-327] inferring latch for variable 'op2_reg' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:18]
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 2863.188 ; gain = 669.949 ; free physical = 426 ; free virtual = 4571
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:12 ; elapsed = 00:00:13 . Memory (MB): peak = 1589.633 ; gain = 666.984
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -300,25 +298,28 @@ Detailed RTL Component Info :
 +---Registers : 
 	               16 Bit    Registers := 5     
 	               10 Bit    Registers := 4     
-	                8 Bit    Registers := 3     
+	                8 Bit    Registers := 4     
 	                6 Bit    Registers := 1     
 	                5 Bit    Registers := 1     
 	                4 Bit    Registers := 5     
 	                3 Bit    Registers := 2     
-	                1 Bit    Registers := 3     
+	                1 Bit    Registers := 4     
 +---RAMs : 
 	              128 Bit	(8 X 16 bit)          RAMs := 1     
 	               64 Bit	(8 X 8 bit)          RAMs := 1     
 +---Muxes : 
 	   2 Input   42 Bit        Muxes := 1     
-	   2 Input   16 Bit        Muxes := 13    
+	   2 Input   16 Bit        Muxes := 14    
 	   2 Input   10 Bit        Muxes := 1     
-	   2 Input    8 Bit        Muxes := 12    
+	   2 Input    8 Bit        Muxes := 16    
+	   4 Input    8 Bit        Muxes := 1     
 	  28 Input    3 Bit        Muxes := 1     
 	   2 Input    3 Bit        Muxes := 1     
 	  28 Input    1 Bit        Muxes := 31    
-	   2 Input    1 Bit        Muxes := 2     
+	   2 Input    1 Bit        Muxes := 4     
+	   7 Input    1 Bit        Muxes := 1     
 	   5 Input    1 Bit        Muxes := 1     
+	   4 Input    1 Bit        Muxes := 1     
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
 ---------------------------------------------------------------------------------
@@ -345,6 +346,59 @@ WARNING: [Synth 8-3332] Sequential element (processor/stage_IFID/nxt_prog_ctr_re
 WARNING: [Synth 8-3332] Sequential element (processor/stage_IFID/nxt_prog_ctr_reg[7]) is unused and will be removed from module top.
 WARNING: [Synth 8-3332] Sequential element (processor/stage_IFID/nxt_prog_ctr_reg[6]) is unused and will be removed from module top.
 WARNING: [Synth 8-3332] Sequential element (processor/stage_IFID/nxt_prog_ctr_reg[5]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_IFID/nxt_prog_ctr_reg[4]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_IFID/nxt_prog_ctr_reg[3]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_IFID/nxt_prog_ctr_reg[2]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_IFID/nxt_prog_ctr_reg[1]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_IFID/nxt_prog_ctr_reg[0]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op1_reg[7]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op1_reg[6]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op1_reg[5]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op1_reg[4]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op1_reg[3]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op1_reg[2]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op1_reg[1]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op1_reg[0]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op2_reg[7]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op2_reg[6]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op2_reg[5]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op2_reg[4]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op2_reg[3]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op2_reg[2]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op2_reg[1]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op2_reg[0]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op1_reg[7]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op1_reg[6]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op1_reg[5]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op1_reg[4]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op1_reg[3]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op1_reg[2]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op1_reg[1]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op1_reg[0]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op2_reg[7]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op2_reg[6]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op2_reg[5]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op2_reg[4]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op2_reg[3]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op2_reg[2]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op2_reg[1]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op2_reg[0]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU/comp_inst/op1_reg[7]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU/comp_inst/op1_reg[6]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU/comp_inst/op1_reg[5]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU/comp_inst/op1_reg[4]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU/comp_inst/op1_reg[3]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU/comp_inst/op1_reg[2]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU/comp_inst/op1_reg[1]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU/comp_inst/op1_reg[0]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU/comp_inst/op2_reg[7]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU/comp_inst/op2_reg[6]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU/comp_inst/op2_reg[5]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU/comp_inst/op2_reg[4]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU/comp_inst/op2_reg[3]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU/comp_inst/op2_reg[2]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU/comp_inst/op2_reg[1]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU/comp_inst/op2_reg[0]) is unused and will be removed from module top.
 WARNING: [Synth 8-3332] Sequential element (UART/receiver/pointer3_flop) is unused and will be removed from module top.
 WARNING: [Synth 8-3332] Sequential element (UART/receiver/pointer2_flop) is unused and will be removed from module top.
 WARNING: [Synth 8-3332] Sequential element (UART/receiver/pointer1_flop) is unused and will be removed from module top.
@@ -370,39 +424,20 @@ WARNING: [Synth 8-3332] Sequential element (UART/receiver/div2_flop) is unused a
 WARNING: [Synth 8-3332] Sequential element (UART/receiver/div3_flop) is unused and will be removed from module top.
 WARNING: [Synth 8-3332] Sequential element (UART/receiver/sample_input_flop) is unused and will be removed from module top.
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2863.188 ; gain = 669.949 ; free physical = 412 ; free virtual = 4558
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 1589.633 ; gain = 666.984
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
 ---------------------------------------------------------------------------------
 
 ROM: Preliminary Mapping Report
-+------------+------------+---------------+----------------+
-|Module Name | RTL Object | Depth x Width | Implemented As | 
-+------------+------------+---------------+----------------+
-|Instr_Mem   | instr_mem  | 32x16         | LUT            | 
-|top         | p_0_out    | 32x16         | LUT            | 
-+------------+------------+---------------+----------------+
++------------+-------------------------------------------+---------------+----------------+
+|Module Name | RTL Object                                | Depth x Width | Implemented As | 
++------------+-------------------------------------------+---------------+----------------+
+|Instr_Mem   | instr_mem_out                             | 1024x16       | LUT            | 
+|top         | processor/programcounter/prog_ctr_reg_rep | 1024x16       | Block RAM      | 
++------------+-------------------------------------------+---------------+----------------+
 
-
-Block RAM: Preliminary Mapping Report (see note below)
-+------------+------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
-|Module Name | RTL Object                         | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | 
-+------------+------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
-|top         | processor/data_mem/memory_file_reg | 64 K x 8(READ_FIRST)   | W |   | 64 K x 8(WRITE_FIRST)  |   | R | Port A and B     | 0      | 16     | 
-+------------+------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
-
-Note: The table above is a preliminary report that shows the Block RAMs at the current stage of the synthesis flow. Some Block RAMs may be reimplemented as non Block RAM primitives later in the synthesis flow. Multiple instantiated Block RAMs are reported only once. 
-
-Distributed RAM: Preliminary Mapping Report (see note below)
-+------------+-------------------------------------+-----------+----------------------+-------------+
-|Module Name | RTL Object                          | Inference | Size (Depth x Width) | Primitives  | 
-+------------+-------------------------------------+-----------+----------------------+-------------+
-|top         | processor/reg_file/reg_file_reg     | Implied   | 8 x 8                | RAM32M x 6  | 
-|top         | processor/reg_file/RNS_reg_file_reg | Implied   | 8 x 16               | RAM32M x 6  | 
-+------------+-------------------------------------+-----------+----------------------+-------------+
-
-Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
 ---------------------------------------------------------------------------------
 Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 ---------------------------------------------------------------------------------
@@ -410,51 +445,19 @@ Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:15 ; elapsed = 00:00:16 . Memory (MB): peak = 2882.203 ; gain = 688.965 ; free physical = 391 ; free virtual = 4542
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 1589.633 ; gain = 666.984
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 2882.203 ; gain = 688.965 ; free physical = 388 ; free virtual = 4539
----------------------------------------------------------------------------------
----------------------------------------------------------------------------------
-Start ROM, RAM, DSP, Shift Register and Retiming Reporting
----------------------------------------------------------------------------------
-
-Block RAM: Final Mapping Report
-+------------+------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
-|Module Name | RTL Object                         | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | 
-+------------+------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
-|top         | processor/data_mem/memory_file_reg | 64 K x 8(READ_FIRST)   | W |   | 64 K x 8(WRITE_FIRST)  |   | R | Port A and B     | 0      | 16     | 
-+------------+------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
-
-
-Distributed RAM: Final Mapping Report
-+------------+-------------------------------------+-----------+----------------------+-------------+
-|Module Name | RTL Object                          | Inference | Size (Depth x Width) | Primitives  | 
-+------------+-------------------------------------+-----------+----------------------+-------------+
-|top         | processor/reg_file/reg_file_reg     | Implied   | 8 x 8                | RAM32M x 6  | 
-|top         | processor/reg_file/RNS_reg_file_reg | Implied   | 8 x 16               | RAM32M x 6  | 
-+------------+-------------------------------------+-----------+----------------------+-------------+
-
----------------------------------------------------------------------------------
-Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+Finished Timing Optimization : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 1589.633 ; gain = 666.984
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-4765] Removing register instance (\processor/stage_IFID/IFID_reg_reg[1] ) from module (top) as it is equivalent to (\processor/stage_IFID/IFID_reg_reg[1]__0 ) and driving same net [/home/user/CIS4900/8-bit-RISC-RNS/PL_IFID.v:394]
-INFO: [Synth 8-7052] The timing for the instance processor/data_mem/memory_file_reg_1_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
-INFO: [Synth 8-7052] The timing for the instance processor/data_mem/memory_file_reg_1_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
-INFO: [Synth 8-7052] The timing for the instance processor/data_mem/memory_file_reg_1_2 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
-INFO: [Synth 8-7052] The timing for the instance processor/data_mem/memory_file_reg_1_3 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
-INFO: [Synth 8-7052] The timing for the instance processor/data_mem/memory_file_reg_1_4 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
-INFO: [Synth 8-7052] The timing for the instance processor/data_mem/memory_file_reg_1_5 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
-INFO: [Synth 8-7052] The timing for the instance processor/data_mem/memory_file_reg_1_6 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
-INFO: [Synth 8-7052] The timing for the instance processor/data_mem/memory_file_reg_1_7 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 2882.203 ; gain = 688.965 ; free physical = 388 ; free virtual = 4539
+Finished Technology Mapping : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 1589.633 ; gain = 666.984
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -472,37 +475,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:19 ; elapsed = 00:00:20 . Memory (MB): peak = 2882.203 ; gain = 688.965 ; free physical = 386 ; free virtual = 4537
+Finished IO Insertion : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 1589.633 ; gain = 666.984
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:19 ; elapsed = 00:00:20 . Memory (MB): peak = 2882.203 ; gain = 688.965 ; free physical = 386 ; free virtual = 4537
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 1589.633 ; gain = 666.984
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:19 ; elapsed = 00:00:20 . Memory (MB): peak = 2882.203 ; gain = 688.965 ; free physical = 387 ; free virtual = 4538
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 1589.633 ; gain = 666.984
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:19 ; elapsed = 00:00:20 . Memory (MB): peak = 2882.203 ; gain = 688.965 ; free physical = 387 ; free virtual = 4538
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 1589.633 ; gain = 666.984
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:19 ; elapsed = 00:00:20 . Memory (MB): peak = 2882.203 ; gain = 688.965 ; free physical = 387 ; free virtual = 4538
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 1589.633 ; gain = 666.984
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:19 ; elapsed = 00:00:20 . Memory (MB): peak = 2882.203 ; gain = 688.965 ; free physical = 387 ; free virtual = 4538
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 1589.633 ; gain = 666.984
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -516,60 +519,48 @@ Report BlackBoxes:
 +------+--------------+----------+
 
 Report Cell Usage: 
-+------+---------+------+
-|      |Cell     |Count |
-+------+---------+------+
-|1     |clk_wiz  |     1|
-|2     |BUFG     |     1|
-|3     |CARRY4   |    33|
-|4     |LUT1     |     6|
-|5     |LUT2     |   109|
-|6     |LUT3     |    57|
-|7     |LUT4     |    70|
-|8     |LUT5     |   130|
-|9     |LUT6     |   185|
-|11    |RAM32M   |     9|
-|12    |RAM32X1D |     6|
-|13    |RAMB36E1 |    16|
-|15    |SRL16E   |     8|
-|16    |FD       |    19|
-|17    |FDR      |     5|
-|18    |FDRE     |   167|
-|19    |LD       |    53|
-|20    |IBUF     |     1|
-|21    |OBUF     |     2|
-+------+---------+------+
++------+--------+------+
+|      |Cell    |Count |
++------+--------+------+
+|1     |clk_wiz |     1|
+|2     |LUT1    |     1|
+|3     |LUT2    |     2|
+|4     |LUT3    |     1|
+|5     |LUT4    |     2|
+|6     |LUT5    |     3|
+|7     |LUT6    |    22|
+|9     |SRL16E  |     8|
+|10    |FD      |    19|
+|11    |FDR     |     5|
+|12    |FDRE    |    11|
+|13    |IBUF    |     1|
+|14    |OBUF    |     3|
++------+--------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:19 ; elapsed = 00:00:20 . Memory (MB): peak = 2882.203 ; gain = 688.965 ; free physical = 387 ; free virtual = 4538
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 1589.633 ; gain = 666.984
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 37 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:17 ; elapsed = 00:00:18 . Memory (MB): peak = 2882.203 ; gain = 537.320 ; free physical = 385 ; free virtual = 4536
-Synthesis Optimization Complete : Time (s): cpu = 00:00:19 ; elapsed = 00:00:20 . Memory (MB): peak = 2882.203 ; gain = 688.965 ; free physical = 385 ; free virtual = 4536
+Synthesis finished with 0 errors, 0 critical warnings and 90 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:14 ; elapsed = 00:00:21 . Memory (MB): peak = 1589.633 ; gain = 560.738
+Synthesis Optimization Complete : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 1589.633 ; gain = 666.984
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2882.203 ; gain = 0.000 ; free physical = 618 ; free virtual = 4774
-INFO: [Netlist 29-17] Analyzing 148 Unisim elements for replacement
-INFO: [Netlist 29-28] Unisim Transformation completed in 4 CPU seconds
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1589.633 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 31 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
-INFO: [Opt 31-138] Pushed 1 inverter(s) to 16 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2882.203 ; gain = 0.000 ; free physical = 757 ; free virtual = 4914
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1589.633 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
-  A total of 99 instances were transformed.
+  A total of 31 instances were transformed.
   FD => FDRE: 19 instances
   FDR => FDRE: 5 instances
-  LD => LDCE: 37 instances
-  LD => LDCE (inverted pins: G): 16 instances
   LUT6_2 => LUT6_2 (LUT5, LUT6): 7 instances
-  RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 9 instances
-  RAM32X1D => RAM32X1D (RAMD32(x2)): 6 instances
 
-Synth Design complete | Checksum: 37b1707d
+Synth Design complete | Checksum: 7f007413
 INFO: [Common 17-83] Releasing license: Synthesis
-141 Infos, 85 Warnings, 0 Critical Warnings and 0 Errors encountered.
+132 Infos, 136 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:26 ; elapsed = 00:00:25 . Memory (MB): peak = 2882.203 ; gain = 1054.301 ; free physical = 755 ; free virtual = 4912
-INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 2431.036; main = 1894.405; forked = 566.998
-INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 5139.402; main = 2861.152; forked = 2278.250
-Write ShapeDB Complete: Time (s): cpu = 00:00:00.04 ; elapsed = 00:00:00.04 . Memory (MB): peak = 2882.203 ; gain = 0.000 ; free physical = 754 ; free virtual = 4911
-INFO: [Common 17-1381] The checkpoint '/home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.runs/synth_1/top.dcp' has been generated.
+synth_design: Time (s): cpu = 00:00:25 ; elapsed = 00:00:27 . Memory (MB): peak = 1589.633 ; gain = 1055.859
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1589.633 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'C:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.runs/synth_1/top.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file top_utilization_synth.rpt -pb top_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Sun Jul 20 01:35:07 2025...
+INFO: [Common 17-206] Exiting Vivado at Tue Jul 22 21:15:43 2025...

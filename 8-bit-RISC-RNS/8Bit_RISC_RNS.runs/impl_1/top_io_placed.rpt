@@ -1,8 +1,8 @@
-Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
-| Tool Version              : Vivado v.2023.2.2 (lin64) Build 4126759 Thu Feb  8 23:52:05 MST 2024
-| Date                      : Sun Jul 20 01:35:42 2025
-| Host                      : 99b7c0ba68ac running 64-bit Ubuntu 22.04.5 LTS
+| Tool Version              : Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
+| Date                      : Tue Jul 22 21:16:17 2025
+| Host                      : BEN-DESKTOP running 64-bit major release  (build 9200)
 | Command                   : report_io -file top_io_placed.rpt
 | Design                    : top
 | Device                    : xc7a35t
@@ -25,7 +25,7 @@ Table of Contents
 +---------------+
 | Total User IO |
 +---------------+
-|             5 |
+|             6 |
 +---------------+
 
 
@@ -51,7 +51,7 @@ Table of Contents
 | A14        |             | High Range | IO_L6P_T0_16                 | User IO       |             |      16 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
 | A15        |             | High Range | IO_L6N_T0_VREF_16            | User IO       |             |      16 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
 | A16        |             | High Range | IO_L12P_T1_MRCC_16           | User IO       |             |      16 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
-| A17        | PLL_LOCK    | High Range | IO_L12N_T1_MRCC_16           | OUTPUT        | LVCMOS33    |      16 |         12 | SLOW |                     |            FP_VTT_50 |         | FIXED      |           |          |      | NONE             |              |                   |              |
+| A17        | led[0]      | High Range | IO_L12N_T1_MRCC_16           | OUTPUT        | LVCMOS33    |      16 |         12 | SLOW |                     |            FP_VTT_50 |         | FIXED      |           |          |      | NONE             |              |                   |              |
 | A18        | reset       | High Range | IO_L19N_T3_VREF_16           | INPUT         | LVCMOS33    |      16 |            |      |                     |                 NONE |         | FIXED      |           |          |      | NONE             |              |                   |              |
 | A19        |             |            | GND                          | GND           |             |         |            |      |                     |                      |     0.0 |            |           |          |      |                  |              |                   |              |
 | B1         |             |            | MGTAVTT                      | Gigabit Power |             |         |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
@@ -88,7 +88,7 @@ Table of Contents
 | C13        |             | Dedicated  | VCCADC_0                     | XADC          |             |       0 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
 | C14        |             | High Range | VCCO_16                      | VCCO          |             |      16 |            |      |                     |                      |    3.30 |            |           |          |      |                  |              |                   |              |
 | C15        |             | High Range | IO_L11P_T1_SRCC_16           | User IO       |             |      16 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
-| C16        |             | High Range | IO_L13P_T2_MRCC_16           | User IO       |             |      16 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
+| C16        | led[1]      | High Range | IO_L13P_T2_MRCC_16           | OUTPUT        | LVCMOS33    |      16 |         12 | SLOW |                     |            FP_VTT_50 |         | FIXED      |           |          |      | NONE             |              |                   |              |
 | C17        |             | High Range | IO_L14P_T2_SRCC_16           | User IO       |             |      16 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
 | C18        |             | High Range | VCCO_16                      | VCCO          |             |      16 |            |      |                     |                      |    3.30 |            |           |          |      |                  |              |                   |              |
 | C19        |             |            | GND                          | GND           |             |         |            |      |                     |                      |     0.0 |            |           |          |      |                  |              |                   |              |

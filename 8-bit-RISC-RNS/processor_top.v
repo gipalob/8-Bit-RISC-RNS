@@ -161,7 +161,6 @@ module processor_top #(parameter NUM_DOMAINS = 2, parameter [9 * NUM_DOMAINS - 1
         .destination_reg_addr(destination_reg_addr),                //destination register address, to be pulled from EX pipeline reg)
         .operation_result(operation_result),
         .IO_port_ID(IO_port_ID),                    
-        .IO_read_data(IO_read_data),
         .pred_nxt_prog_ctr_EX(pred_nxt_prog_ctr_EX)                //predicted next program counter value to be pulled from EX pipeline reg
     );
 
@@ -180,6 +179,7 @@ module processor_top #(parameter NUM_DOMAINS = 2, parameter [9 * NUM_DOMAINS - 1
         .reg_wr_en(reg_wr_en),                      //register write enable signal
         .destination_RNS(destination_RNS),          //whether rd is in RNS domain, used to determine which reg file is written to
         .wr_data(wr_data),                          //data to be written to reg || datamem 
+        .IO_read_data(IO_read_data),          //data read from input port
         .IO_write_data(IO_write_data),         
         .IO_write_strobe(IO_write_strobe),         
         .IO_read_strobe(IO_read_strobe)            

@@ -1,7 +1,7 @@
 -------------------------------------
-| Tool Version : Vivado v.2023.2.2
-| Date         : Sun Jul 20 01:35:39 2025
-| Host         : 99b7c0ba68ac
+| Tool Version : Vivado v.2023.2
+| Date         : Tue Jul 22 21:16:16 2025
+| Host         : BEN-DESKTOP
 | Design       : design_1
 | Device       : xc7a35t-cpg236-1--
 -------------------------------------

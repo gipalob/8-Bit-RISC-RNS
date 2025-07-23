@@ -4,6 +4,7 @@ module PL_MEMWB #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10) (
     input clk, reset,
     //Pipeline registers from EX
     input [NUM_DOMAINS*8 - 1:0] operation_result, // { [7:0] Domain1, [7:0] Domain2, ... }
+    input [7:0] IO_read_data,
     input [0:9] EX_reg,
     input [0:4] branch_conds_EX,
 
@@ -37,7 +38,7 @@ module PL_MEMWB #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10) (
         inp_op                      (1)    [9]
     }
 */
-    assign wr_data =            EX_reg[4] ? {8'b0, dmem_dout} : operation_result;
+    assign wr_data =            (EX_reg[9] == 1'b1) ? {8'b0, IO_read_data} : ((EX_reg[4]==1'b1) ? {8'b0, dmem_dout} : operation_result);
     assign invalidate_instr =   (EX_reg[3] || EX_reg[5] || EX_reg[6]);
     assign mem_wr_en =          (EX_reg[0] && !invalidate_instr);
     assign reg_wr_en =          (EX_reg[1] && !invalidate_instr);

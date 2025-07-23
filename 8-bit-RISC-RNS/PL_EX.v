@@ -6,7 +6,6 @@ module PL_EX #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10, [9 * NUM_DOMAINS-1:
     //Pipeline registers from IFID
     input [NUM_DOMAINS*8 - 1:0]     op1, op2,               // { [7:0] Domain1, [7:0] Domain2, ... }
     input [7:0]                     op3,
-    input [7:0]                     IO_read_data, //data read from input port
     input [2:0]                     res_addr,               // result address for regfile write
     input [PROG_CTR_WID-1:0]        pred_nxt_prog_ctr,      // next program counter value from IFID
     input [0:41]                    IFID_reg,               // IFID pipeline register out
@@ -136,8 +135,7 @@ module PL_EX #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10, [9 * NUM_DOMAINS-1:
         end else if (IFID_reg[40]) begin
             operation_result <= #1 {8'b0, op3};             //OUTPUT will hold data to be placed on output port in op3
             IO_port_ID <= #1 imm;
-        end else if (IFID_reg[41]) begin
-            operation_result <= #1 {8'b0, IO_read_data};
+        end else if (IFID_reg[41]) begin                    //INPUT data is read in MEMWB, as that's where the read strobe is raised
             IO_port_ID <= #1 imm;
         end else begin
             operation_result <= #1 {8'b0, ALU_dout};            // else use ALU output

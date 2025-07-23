@@ -127,9 +127,9 @@ class ASMtoBin:
             elif inst_line.strip().endswith(':'):
                 self.label_lines.append((index, inst_line))
                 label = inst_line.strip()[:-1].upper()
-                num_labels += 1
+                self.num_labels += 1
                 if label not in self.label_addresses:
-                    self.label_addresses[label] = bin(index + 1 - num_labels)[2:].zfill(10)
+                    self.label_addresses[label] = bin(index + 1 - self.num_labels)[2:].zfill(10)
             # Now, check for comments. First, the 'easy' way
             elif (inst_line.startswith('#')): 
                 continue
@@ -200,7 +200,9 @@ class ASMtoBin:
             "RLLM": "11001"
         }
         self.I_type_opcodes = {
-            "LDI": "10010"
+            "LDI": "10010",
+            "OUTPUT": "11010",
+            "INPUT": "11011"
         }
         
         self.rm_labels_comments()
@@ -234,14 +236,14 @@ class BinToV:
             
             self.case_lines.insert(
                 self.start_case_insert + instAddr,
-                f"\t\t10'h{hexToInt(instAddr, self.max_int_val, self.hex_addr_len)}: instruction <= 16'h{self.hexInsts[instAddr]};"
+                f"\t\t10'h{hexToInt(instAddr, self.max_int_val, self.hex_addr_len)}: instr_mem_out <= 16'h{self.hexInsts[instAddr]};"
             )
             
         #for when len(hexInsts) < 2**prog_ctr_wid
         for instAddr in range(curInst + 1, self.max_int_val):
             self.case_lines.insert(
                 self.start_case_insert + instAddr,
-                f"\t\t10'h{hexToInt(instAddr, self.max_int_val, self.hex_addr_len)}: instruction <= 16'h0000;"
+                f"\t\t10'h{hexToInt(instAddr, self.max_int_val, self.hex_addr_len)}: instr_mem_out <= 16'h0000;"
             )
             
         return self.case_lines
@@ -281,13 +283,13 @@ class BinToV:
         self.header = [
             f"module Instr_Mem #(parameter PROG_CTR_WID = {prog_ctr_wid}) (",
             f"\tinput [PROG_CTR_WID-1:0] prog_ctr,",
-            f"\toutput reg [15:0] instruction",
+            f"\toutput reg [15:0] instr_mem_out",
             f");"
         ]
         self.case_lines = [
             f"always @(*) begin",
             f"\tcase (prog_ctr)",
-            f"\t\tdefault: instruction <= 16'h0000;",
+            f"\t\tdefault: instr_mem_out <= 16'h0000;",
             f"\tendcase",
             f"end"
         ]
