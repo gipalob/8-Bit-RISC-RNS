@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="3,181.816 ns"></ZoomEndTime>
-      <Cursor1Time time="50.000 ns"></Cursor1Time>
+      <ZoomStartTime time="278.180 ns"></ZoomStartTime>
+      <ZoomEndTime time="404.381 ns"></ZoomEndTime>
+      <Cursor1Time time="375.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="176"></NameColumnWidth>
+      <NameColumnWidth column_width="171"></NameColumnWidth>
       <ValueColumnWidth column_width="79"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="40" />
+   <WVObjectSize size="36" />
    <wvobject type="logic" fp_name="/testbench/clk100">
       <obj_property name="ElementShortName">clk100</obj_property>
       <obj_property name="ObjectShortName">clk100</obj_property>
@@ -31,6 +31,10 @@
    <wvobject type="array" fp_name="/testbench/prog_ctr">
       <obj_property name="ElementShortName">prog_ctr[9:0]</obj_property>
       <obj_property name="ObjectShortName">prog_ctr[9:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/testbench/IO_read_data">
+      <obj_property name="ElementShortName">IO_read_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">IO_read_data[7:0]</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/testbench/IO_write_data">
       <obj_property name="ElementShortName">IO_write_data[7:0]</obj_property>
@@ -129,10 +133,6 @@
       <obj_property name="ElementShortName">unconditional_jmp</obj_property>
       <obj_property name="ObjectShortName">unconditional_jmp</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/testbench/jump_addr">
-      <obj_property name="ElementShortName">jump_addr[9:0]</obj_property>
-      <obj_property name="ObjectShortName">jump_addr[9:0]</obj_property>
-   </wvobject>
    <wvobject type="logic" fp_name="/testbench/branch_taken_EX">
       <obj_property name="ElementShortName">branch_taken_EX</obj_property>
       <obj_property name="ObjectShortName">branch_taken_EX</obj_property>
@@ -164,21 +164,5 @@
    <wvobject type="array" fp_name="/testbench/instruction">
       <obj_property name="ElementShortName">instruction[15:0]</obj_property>
       <obj_property name="ObjectShortName">instruction[15:0]</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/testbench/bp_branch_taken">
-      <obj_property name="ElementShortName">bp_branch_taken</obj_property>
-      <obj_property name="ObjectShortName">bp_branch_taken</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/testbench/bp_conds_IFID">
-      <obj_property name="ElementShortName">bp_conds_IFID[0:4]</obj_property>
-      <obj_property name="ObjectShortName">bp_conds_IFID[0:4]</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/testbench/bp_conds_EX">
-      <obj_property name="ElementShortName">bp_conds_EX[0:4]</obj_property>
-      <obj_property name="ObjectShortName">bp_conds_EX[0:4]</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/testbench/bp_conds_MEMWB">
-      <obj_property name="ElementShortName">bp_conds_MEMWB[0:3]</obj_property>
-      <obj_property name="ObjectShortName">bp_conds_MEMWB[0:3]</obj_property>
    </wvobject>
 </wave_config>

@@ -10,26 +10,18 @@ integer i, j, k;
 processor_top proc_top1(
 	clk100, reset, IO_read_data, IO_port_ID, IO_write_data, IO_write_strobe, IO_read_strobe
 );
-wire [9:0] prog_ctr, jump_addr;
-wire [3:0] IF_addr1, IF_addr2, EX_addr1, EX_addr2, dest_reg_addr_EX;
-wire [2:0] dest_reg_addr_ID;
-wire [15:0] IF_op1, IF_op2, EX_op1, EX_op2, reg_d1, reg_d2;
-wire [7:0] reg_d3, imm;
-wire [4:0] IF_opcode;
-wire reg_wr_en, invalidate_instr, invalidate_instr_IFID, unconditional_jmp, branch_taken_EX;
-wire [15:0] reg_wr_data, operation_result, RNS_dout;
-wire [0:41] IFID_reg;
-wire [7:0] op1_mod129, op2_mod129, op1_mod256, op2_mod256;
-wire [7:0] m129_out, m256_out;
-wire destination_rns;
-
-wire bp_branch_taken;
-wire [0:4] bp_conds_IFID, bp_conds_EX;
-wire [0:3] bp_conds_MEMWB;
-assign bp_branch_taken = proc_top1.branch_prediction.branch_taken;
-assign bp_conds_IFID = proc_top1.branch_prediction.conds_IFID;
-assign bp_conds_EX = proc_top1.branch_prediction.conds_EX;
-assign bp_conds_MEMWB = proc_top1.branch_prediction.conds_MEMWB;
+ wire [9:0] prog_ctr;
+ wire [3:0] IF_addr1, IF_addr2, EX_addr1, EX_addr2, dest_reg_addr_EX;
+ wire [2:0] dest_reg_addr_ID;
+ wire [15:0] IF_op1, IF_op2, EX_op1, EX_op2, reg_d1, reg_d2;
+ wire [7:0] reg_d3, imm;
+ wire [4:0] IF_opcode;
+ wire reg_wr_en, invalidate_instr, invalidate_instr_IFID, unconditional_jmp, branch_taken_EX;
+ wire [15:0] reg_wr_data, operation_result, RNS_dout;
+ wire [0:41] IFID_reg;
+ wire [7:0] op1_mod129, op2_mod129, op1_mod256, op2_mod256;
+ wire [7:0] m129_out, m256_out;
+ wire destination_rns;
 
  // wire [6:0] m129_low, m129_mid;
  // wire [1:0] m129_high;
@@ -52,10 +44,10 @@ assign instruction = proc_top1.instr_mem_out;
 // assign m129_dout = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[0].RNS_ALU.genblk1.fit_inst.op_out;
 // assign m256_dout = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[1].RNS_ALU.genblk1.fit_inst.op_out;
 
-wire op1_data_FWD_EX;
-wire [15:0] op1_data_IDtoEX;
-assign op1_data_FWD_EX = proc_top1.fwd.bypass_op1_ex_stage;
-assign op1_data_IDtoEX = proc_top1.op1_dout_IFID;
+ wire op1_data_FWD_EX;
+ wire [15:0] op1_data_IDtoEX;
+ assign op1_data_FWD_EX = proc_top1.fwd.bypass_op1_ex_stage;
+ assign op1_data_IDtoEX = proc_top1.op1_dout_IFID;
 
 assign RNS_dout = proc_top1.stage_EX.RNS_dout;
 assign destination_rns = proc_top1.destination_RNS;
@@ -86,8 +78,6 @@ assign destination_rns = proc_top1.destination_RNS;
  assign invalidate_instr = proc_top1.invalidate_instr;
  assign invalidate_instr_IFID = proc_top1.IFID_reg[1];
  assign unconditional_jmp = proc_top1.IFID_reg[22];
- assign jump_addr = proc_top1.pred_nxt_prog_ctr;
-
  assign branch_taken_EX = proc_top1.branch_taken_EX;
  assign reg_wr_en = proc_top1.reg_wr_en;
  assign reg_wr_data = proc_top1.wr_data;
@@ -95,6 +85,7 @@ assign destination_rns = proc_top1.destination_RNS;
  assign IFID_reg = proc_top1.IFID_reg;
 initial
 begin
+    IO_read_data = 8'b0;
 	clk100 = 1'b0;
 	reset = 1'b1;
 	reset = #50 1'b0;
@@ -103,7 +94,7 @@ begin
 	// Add your test cases here.
 	
 	// Simulation End
-	#950; 
+	#25000; 
 	
 	// print the register contents
 	$display("--------------------");
@@ -130,5 +121,25 @@ begin
 end
 
 always clk100 = #5 ~clk100;
+
+always @(*) begin
+    if (IO_read_strobe == 1'b1) begin
+        case (IO_port_ID) 
+            8'h01: IO_read_data <= 8'h04;
+            8'h02: IO_read_data <= 8'hFF; //RX data present always yes during sim
+            8'h03: IO_read_data <= 8'h00; //TX buff full always no during sim
+            default: IO_read_data <= 8'hFF;
+        endcase
+    end
+end 
+
+always @(IO_write_strobe) begin
+	if (IO_write_strobe == 1'b1) begin
+		case (IO_port_ID)
+			8'h01: $display("UART TX Data: %8b", IO_write_data); // Print the data being sent to UART
+			default: $display("Unknown IO Write Strobe on Port ID: %0h", IO_port_ID);
+		endcase
+	end
+end
 
 endmodule

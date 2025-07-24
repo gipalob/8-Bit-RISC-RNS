@@ -44,7 +44,7 @@ module PL_MEMWB #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10) (
     assign reg_wr_en =          (EX_reg[1] && !invalidate_instr);
     assign destination_RNS =    EX_reg[7]; //if 1, write to RNS reg file, else write to normal reg file
 
-    assign IO_write_data =        operation_result[7:0]; //output data is always the lowest 8 bits of the operation result
+    assign IO_write_data =      (EX_reg[8] == 1'b1) ? operation_result[7:0] : 8'b0; //output data is always the lowest 8 bits of the operation result
     assign IO_write_strobe =    (EX_reg[8] && !invalidate_instr); //PL_EX sets IO_port_ID to val from imm and operation_result to op3. MEMWB raises strobe as soon as EX PL reg populated 
     assign IO_read_strobe =     (EX_reg[9] && !invalidate_instr); // PL_EX sets IO_port_ID to val from imm and operation_result to data held on input port. MEMWB raises strobe as soon as EX PL reg populated
 
@@ -53,18 +53,18 @@ module PL_MEMWB #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10) (
 	begin                                
         if (reset == 1'b1)                     
         begin
-            branch_conds_MEMWB <= #1 4'b0;
+            branch_conds_MEMWB <=  4'b0;
         end
         else begin
-            branch_conds_MEMWB <= #1 4'b0; //reset branch conditions
+            branch_conds_MEMWB <=  4'b0; //reset branch conditions
             if ((EX_reg[2] && !invalidate_instr) == 1'b1)
-                branch_conds_MEMWB[3] <= #1 branch_conds_EX[3]; //does this always get reset to X or 0? 
+                branch_conds_MEMWB[3] <=  branch_conds_EX[3]; //does this always get reset to X or 0? 
 
             if ((branch_conds_EX[4] && !invalidate_instr) == 1'b1) //if compare_true && not invalidate_instr
             begin
-                branch_conds_MEMWB[0] <= #1 branch_conds_EX[0];
-                branch_conds_MEMWB[1] <= #1 branch_conds_EX[1];
-                branch_conds_MEMWB[2] <= #1 branch_conds_EX[2];
+                branch_conds_MEMWB[0] <=  branch_conds_EX[0];
+                branch_conds_MEMWB[1] <=  branch_conds_EX[1];
+                branch_conds_MEMWB[2] <=  branch_conds_EX[2];
             end
         end
 	end

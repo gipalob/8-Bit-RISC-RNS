@@ -14,6 +14,6 @@ module Instr_Mem_Sim #(parameter PROG_CTR_WID=10) (
 	end
 
     always @(posedge clk) //is this an okay trigger? seems to mitigate some of the branching issues
-		instr_mem_out <=  #1 instr_mem[prog_ctr];
+		instr_mem_out <=   instr_mem[prog_ctr];
         
 endmodule

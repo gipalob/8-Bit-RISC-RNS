@@ -380,11 +380,11 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 			IFID_reg[1] 	  <= 1'b0; //invalidate_decode_instr
 		end else
 		begin
-			op1_addr_out_IFID <= #1 op1_addr_IFID; //op1 address out for IFID pipeline register
-   			op2_addr_out_IFID <= #1 op2_addr_IFID; //op2 address out for IFID pipeline register
-			op3_addr_out_IFID <= #1 op3_addr_IFID; //op2 address out for IFID pipeline register
-   			res_addr_out_IFID <= #1 store_true ? 3'b0 : res_addr; //destination register address out for IFID pipeline register
-   			IFID_reg[1]       <= #1 branch_taken_EX; //invalidate fetch instruction if branch is taken
+			op1_addr_out_IFID <=  op1_addr_IFID; //op1 address out for IFID pipeline register
+   			op2_addr_out_IFID <=  op2_addr_IFID; //op2 address out for IFID pipeline register
+			op3_addr_out_IFID <=  op3_addr_IFID; //op2 address out for IFID pipeline register
+   			res_addr_out_IFID <=  store_true ? 3'b0 : res_addr; //destination register address out for IFID pipeline register
+   			IFID_reg[1]       <=  branch_taken_EX; //invalidate fetch instruction if branch is taken
 		end
 	end
 
@@ -393,18 +393,18 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
         if (rst == 1'b1) begin
             IFID_reg <= 64'b0;
         end else begin
-            pred_nxt_prog_ctr   <= #1 nxt_prog_ctr; //next program counter value
-			op1_dout_IFID 	    <= #1 op1_data; //op1 data out for IFID pipeline register
-			op2_dout_IFID 	    <= #1 op2_data; //op2 data out for IFID pipeline register
-			op3_dout_IFID 	    <= #1 op3_data; //op2 data out for IFID pipeline register
-			IFID_reg[0] 	    <= #1 invalidate_fetch_instr; //invalidate fetch instruction if branch is taken
+            pred_nxt_prog_ctr   <=  nxt_prog_ctr; //next program counter value
+			op1_dout_IFID 	    <=  op1_data; //op1 data out for IFID pipeline register
+			op2_dout_IFID 	    <=  op2_data; //op2 data out for IFID pipeline register
+			op3_dout_IFID 	    <=  op3_data; //op2 data out for IFID pipeline register
+			IFID_reg[0] 	    <=  invalidate_fetch_instr; //invalidate fetch instruction if branch is taken
 			if (branch_taken_EX == 1'b1) begin //even though this just means invalidate_decode_instruction == branch_taken_EX, the original has it this way so we'll keep it
 				//if branch is taken, invalidate decode instruction
-				IFID_reg[1] <= #1 1'b1; //invalidate decode instruction
+				IFID_reg[1] <=  1'b1; //invalidate decode instruction
 			end else begin
-				IFID_reg[1] <= #1 1'b0; //otherwise, do not invalidate decode instruction
+				IFID_reg[1] <=  1'b0; //otherwise, do not invalidate decode instruction
 			end
-            IFID_reg[2:41] <= #1 {   //og arr | len | IFID_reg idx 
+            IFID_reg[2:41] <=  {   //og arr | len | IFID_reg idx 
                 add_op_true,            //      (1)    [2]
                 or_op_true,             //      (1)    [3]
                 not_op_true,            //      (1)    [4]

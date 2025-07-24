@@ -124,14 +124,16 @@ class ASMtoBin:
             inst_line = inst_line.strip()
             # Here, we're checking for labels and storing their addresses
             if not inst_line:
+                self.num_invalid += 1
                 continue
             elif (inst_line.startswith('#')): 
+                self.num_invalid += 1
                 continue
             elif inst_line.strip().endswith(':'):
                 self.label_lines.append((index, inst_line))
                 label = inst_line.strip()[:-1].upper()
                 self.num_labels += 1
-                addr = bin(index + 1 - self.num_labels)[2:].zfill(10)
+                addr = bin(index + 1 - self.num_labels - self.num_invalid)[2:].zfill(10)
                 
                 
                 self.print_jumps[index] = [addr, inst_line.strip().upper(), None]
@@ -153,7 +155,7 @@ class ASMtoBin:
                     if not inst_line: # just for safety
                         continue
                     
-                addr = bin(index - self.num_labels)[2:].zfill(10)
+                addr = bin(index - self.num_labels - self.num_invalid)[2:].zfill(10)
                 self.print_jumps[index] = [addr, inst_line, None]
                 
                 self.file_lines.append((inst_line, index)) # to maintain the original line numbers
@@ -179,6 +181,7 @@ class ASMtoBin:
         self.file_lines = []
         self.label_lines = []
         self.num_labels = 0
+        self.num_invalid = 0 #number of lines in og file that are either whitespace or comments
         self.label_addresses = {}
         self.hex_prog = []
         self.bin_prog = []
