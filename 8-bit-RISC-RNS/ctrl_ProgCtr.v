@@ -12,15 +12,15 @@ module ctrl_ProgCtr #(parameter PROG_CTR_WID=10) (
 	begin
 	    if (reset == 1'b1)
 		begin
-	        prog_ctr <= #1 10'b0;
+	        prog_ctr <= 10'b0;
 		end 
 		else begin
 			if (branch_taken_EX == 1) //update in store res stage
 			begin                             
-					prog_ctr <= #1 nxt_prog_ctr_EX;
+					prog_ctr <= nxt_prog_ctr_EX;
 			end else
 			begin
-					prog_ctr <= #1 prog_ctr + 1'b1;
+					prog_ctr <= prog_ctr + 1'b1;
 			end
 		end
 	end

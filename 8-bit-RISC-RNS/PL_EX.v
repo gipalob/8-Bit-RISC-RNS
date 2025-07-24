@@ -162,6 +162,7 @@ module PL_EX #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10, [9 * NUM_DOMAINS-1:
         begin
             EX_reg[0:3] <= #1 4'b0;
             destination_reg_addr <= 4'b0;
+            branch_taken_EX <= 1'b0; //reset branch taken EX reg
         end
         else begin
             branch_taken_EX <= #1 branch_taken && !branch_taken_EX && !IFID_reg[0]; 

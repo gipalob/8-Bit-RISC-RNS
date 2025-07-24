@@ -404,7 +404,7 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 			end else begin
 				IFID_reg[1] <= #1 1'b0; //otherwise, do not invalidate decode instruction
 			end
-            IFID_reg[2:39] <= #1 {   //og arr | len | IFID_reg idx 
+            IFID_reg[2:41] <= #1 {   //og arr | len | IFID_reg idx 
                 add_op_true,            //      (1)    [2]
                 or_op_true,             //      (1)    [3]
                 not_op_true,            //      (1)    [4]

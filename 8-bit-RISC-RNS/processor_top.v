@@ -87,6 +87,11 @@ module processor_top #(parameter NUM_DOMAINS = 2, parameter [9 * NUM_DOMAINS - 1
         .prog_ctr(prog_ctr),
         .instr_mem_out(instr_mem_out)
     );
+    // Instr_Mem_Sim #(PROG_CTR_WID) instr_mem (
+    //     .clk(clk100),
+    //     .prog_ctr(prog_ctr),
+    //     .instr_mem_out(instr_mem_out)
+    // );
 
     /*
         Data mem is byte-addressable with 16b addr

@@ -112,6 +112,7 @@ class ASMtoBin:
                 inst = self.get_I_bin(parts, opcode)
             elif optype == 'J':
                 inst = self.get_J_bin(parts, opcode)
+                self.print_jumps[inst_line][2] = inst[6:]
             elif optype == 'R':
                 inst = self.get_R_bin(parts, opcode)
             
@@ -124,15 +125,21 @@ class ASMtoBin:
             # Here, we're checking for labels and storing their addresses
             if not inst_line:
                 continue
+            elif (inst_line.startswith('#')): 
+                continue
             elif inst_line.strip().endswith(':'):
                 self.label_lines.append((index, inst_line))
                 label = inst_line.strip()[:-1].upper()
                 self.num_labels += 1
+                addr = bin(index + 1 - self.num_labels)[2:].zfill(10)
+                
+                
+                self.print_jumps[index] = [addr, inst_line.strip().upper(), None]
+                
                 if label not in self.label_addresses:
-                    self.label_addresses[label] = bin(index + 1 - self.num_labels)[2:].zfill(10)
+                    self.label_addresses[label] = addr
             # Now, check for comments. First, the 'easy' way
-            elif (inst_line.startswith('#')): 
-                continue
+            
             else:
                 found_comment = False
                 comment_start = 0
@@ -146,6 +153,9 @@ class ASMtoBin:
                     if not inst_line: # just for safety
                         continue
                     
+                addr = bin(index - self.num_labels)[2:].zfill(10)
+                self.print_jumps[index] = [addr, inst_line, None]
+                
                 self.file_lines.append((inst_line, index)) # to maintain the original line numbers
     
     
@@ -164,6 +174,7 @@ class ASMtoBin:
         A list of the binary instructions can be obtained with ASMtoBin.getBinProg(),
         and a list of the hexadecimal instructions can be obtained with ASMtoBin.getHexProg().
         ''' 
+        self.print_jumps = {} #for printing insts with addrs / jumps for debug
         self.fileobj = fileobj
         self.file_lines = []
         self.label_lines = []
@@ -282,12 +293,13 @@ class BinToV:
         
         self.header = [
             f"module Instr_Mem #(parameter PROG_CTR_WID = {prog_ctr_wid}) (",
+            f"\tinput clk,"
             f"\tinput [PROG_CTR_WID-1:0] prog_ctr,",
             f"\toutput reg [15:0] instr_mem_out",
             f");"
         ]
         self.case_lines = [
-            f"always @(*) begin",
+            f"always @(posedge clk) begin",
             f"\tcase (prog_ctr)",
             f"\t\tdefault: instr_mem_out <= 16'h0000;",
             f"\tendcase",
@@ -307,13 +319,22 @@ class BinToV:
         
 
 if __name__ == "__main__":
+    """
+    Retrospectively, should've used dataframes or smth to manage all of the data accumulated through this process.
+    Would make it a lot more easier to debug / manage.
+    Alas...
+    """
     if len(sys.argv) < 3:
-        print("""\033[1;31mUsage: \033[22mpython ASMtoV.py <input_asm_file> <output_verilog_file>\033[0m
-        \033[1;32mAdditional optional arguments:\033[0m
-        \033[32m--pc_wid <prog_ctr_width>\033[0
-        \tSpecify a program counter width (default: 10)
-        \033[32m--bin_file_out <binary_file || 'print'>\033[0
-        \tSpecify a file to output, or print to console, the binary instructions for viewing (default: None)\033[0m
+        print("""\033[1;31mUsage: \033[22mpython ASMtoV.py <input_asm_file> <output_verilog_file>\033[0m\n
+        \033[1;32mAdditional optional arguments:\033[0m\n
+        \033[32m--pc_wid <prog_ctr_width>\033[0\n
+        \tSpecify a program counter width (default: 10)\n
+        \033[32m--bin_file_out <binary_file || 'print'>\033[0\n
+        \tSpecify a file to output, or print to console, the binary instructions for viewing (default: None)\033[0m\n
+        \033[32m--hex_file_out <dest_file>\033[0\n
+        \tOutput hex-encoded instructions to a file.
+        \033[32m--print_jumps\033[0\n
+        \tPrint instructions, bin encoding, jump targ addressses + label locations
         """)
         sys.exit(1)
     
@@ -332,6 +353,8 @@ if __name__ == "__main__":
     pc_width = 10
     print_bin = False
     bin_fout = None
+    hex_fout = None
+    print_jumps = False
 
     if (len(sys.argv) > 3):
         if ("--pc_wid" in sys.argv):
@@ -344,6 +367,14 @@ if __name__ == "__main__":
                 print_bin = True
             else:
                 bin_fout = open(sys.argv[argidx + 1], 'w')
+                
+        if ("--hex_file_out" in sys.argv):
+            argidx = sys.argv.index("--hex_file_out")
+            hex_fout = open(sys.argv[argidx + 1], 'w')
+            
+                
+        if ("--print_jumps" in sys.argv):
+            print_jumps = True
 
         #can add handling for other options here later
     
@@ -358,13 +389,44 @@ if __name__ == "__main__":
     print(f"\033[1;32mVerilog module written to {sys.argv[2]}\033[0m")
     
     if print_bin:
-        print(f"\n\033[1;32mBinary instructions:\033[0m")
+        og_insts = [(f"{inst[0] + (20 - len(inst[0])) * ' '}", inst[1]) for inst in asm_to_bin.file_lines]
         bin_prog = asm_to_bin.getBinProg()
         hex_addr_gen = (hexToInt(i, bin_to_v.max_int_val, bin_to_v.hex_addr_len) for i in range(len(bin_prog)))
         
-        [print(f"{pc_width}'h{inst_addr}: {inst}") for (inst, inst_addr) in zip(bin_prog, hex_addr_gen)]
+        print(f"\n\033[1;32mLine Num | Original Instruction | Hex Addr | Binary instruction\033[0m")
+        [
+            print(f"{line_num}\t | {og_inst} | 10'h{inst_addr}  | {bin_inst}") 
+            for ((og_inst, line_num), bin_inst, inst_addr) 
+            in zip(og_insts, bin_prog, hex_addr_gen)
+        ]
         
     if bin_fout:
         bin_fout.writelines([f"{inst}\n" for inst in asm_to_bin.getBinProg()])
         bin_fout.close()
         print(f"\033[1;32mBinary instructions written to {sys.argv[3]}\033[0m")
+        
+    if hex_fout:
+        hex_fout.writelines([f"{inst}\n" for inst in hex_prog])
+        hex_fout.close()
+        print(f"\033[1;32mHex instructions written to {sys.argv[4]}\033[0m")
+        
+    if print_jumps:
+        print(f"\n\033[1;32mLine Num | Inst Addr  | Inst / Label\t\t| Jump Target\033[0m")
+        for index in asm_to_bin.print_jumps.keys():
+            addr, inst_line, j_targ = asm_to_bin.print_jumps[index]
+            
+            out_str = f"{index}\t |"
+            
+            line_str = f"{inst_line + (23 - len(inst_line)) * ' '}"
+            
+            if ':' in inst_line: #if a label, print label in red
+                out_str += f"\033[1;31m {addr}\033[0m |"
+                out_str += f"\033[1;31m {line_str}\033[0m |"
+            else: #else just print inst
+                out_str += f" {addr} | {line_str} |"
+        
+            
+            if j_targ:
+                out_str += f"\033[1;31m {j_targ}\033[0m"
+                
+            print(out_str)

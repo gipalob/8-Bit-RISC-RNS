@@ -1,5 +1,5 @@
 module testbench;
-reg clk, reset;
+reg clk100, reset;
 wire [7:0] IO_write_data, IO_port_ID;;
 reg [7:0] IO_read_data;
 wire IO_write_strobe, IO_read_strobe;
@@ -8,20 +8,28 @@ wire IO_write_strobe, IO_read_strobe;
 integer i, j, k;
 
 processor_top proc_top1(
-	clk, reset, IO_read_data, IO_port_ID, IO_write_data, IO_write_strobe, IO_read_strobe
+	clk100, reset, IO_read_data, IO_port_ID, IO_write_data, IO_write_strobe, IO_read_strobe
 );
- wire [9:0] prog_ctr;
- wire [3:0] IF_addr1, IF_addr2, EX_addr1, EX_addr2, dest_reg_addr_EX;
- wire [2:0] dest_reg_addr_ID;
- wire [15:0] IF_op1, IF_op2, EX_op1, EX_op2, reg_d1, reg_d2;
- wire [7:0] reg_d3, imm;
- wire [4:0] IF_opcode;
- wire reg_wr_en, invalidate_instr, invalidate_instr_IFID, unconditional_jmp, branch_taken_EX;
- wire [15:0] reg_wr_data, operation_result, RNS_dout;
- wire [0:39] IFID_reg;
- wire [7:0] op1_mod129, op2_mod129, op1_mod256, op2_mod256;
- wire [7:0] m129_out, m256_out;
- wire destination_rns;
+wire [9:0] prog_ctr, jump_addr;
+wire [3:0] IF_addr1, IF_addr2, EX_addr1, EX_addr2, dest_reg_addr_EX;
+wire [2:0] dest_reg_addr_ID;
+wire [15:0] IF_op1, IF_op2, EX_op1, EX_op2, reg_d1, reg_d2;
+wire [7:0] reg_d3, imm;
+wire [4:0] IF_opcode;
+wire reg_wr_en, invalidate_instr, invalidate_instr_IFID, unconditional_jmp, branch_taken_EX;
+wire [15:0] reg_wr_data, operation_result, RNS_dout;
+wire [0:41] IFID_reg;
+wire [7:0] op1_mod129, op2_mod129, op1_mod256, op2_mod256;
+wire [7:0] m129_out, m256_out;
+wire destination_rns;
+
+wire bp_branch_taken;
+wire [0:4] bp_conds_IFID, bp_conds_EX;
+wire [0:3] bp_conds_MEMWB;
+assign bp_branch_taken = proc_top1.branch_prediction.branch_taken;
+assign bp_conds_IFID = proc_top1.branch_prediction.conds_IFID;
+assign bp_conds_EX = proc_top1.branch_prediction.conds_EX;
+assign bp_conds_MEMWB = proc_top1.branch_prediction.conds_MEMWB;
 
  // wire [6:0] m129_low, m129_mid;
  // wire [1:0] m129_high;
@@ -44,13 +52,13 @@ assign instruction = proc_top1.instr_mem_out;
 // assign m129_dout = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[0].RNS_ALU.genblk1.fit_inst.op_out;
 // assign m256_dout = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[1].RNS_ALU.genblk1.fit_inst.op_out;
 
- wire op1_data_FWD_EX;
- wire [15:0] op1_data_IDtoEX;
- assign op1_data_FWD_EX = proc_top1.fwd.bypass_op1_ex_stage;
- assign op1_data_IDtoEX = proc_top1.op1_dout_IFID;
+wire op1_data_FWD_EX;
+wire [15:0] op1_data_IDtoEX;
+assign op1_data_FWD_EX = proc_top1.fwd.bypass_op1_ex_stage;
+assign op1_data_IDtoEX = proc_top1.op1_dout_IFID;
 
-// assign RNS_dout = proc_top1.stage_EX.RNS_dout;
-// assign destination_rns = proc_top1.destination_RNS;
+assign RNS_dout = proc_top1.stage_EX.RNS_dout;
+assign destination_rns = proc_top1.destination_RNS;
 // assign op1_mod129 = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[0].RNS_ALU.op1_in;
 // assign op2_mod129 = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[0].RNS_ALU.op2_in;
 // assign op1_mod256 = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[1].RNS_ALU.op1_in;
@@ -58,7 +66,7 @@ assign instruction = proc_top1.instr_mem_out;
 // assign m129_out = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[0].RNS_ALU.dout;
 // assign m256_out = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[1].RNS_ALU.dout;
 
- assign imm = proc_top1.stage_EX.imm;
+ assign imm = proc_top1.stage_IFID.imm;
  assign dest_reg_addr_ID = proc_top1.res_addr_out_IFID;
  assign dest_reg_addr_EX = proc_top1.destination_reg_addr;
  assign operation_result = proc_top1.stage_EX.operation_result;
@@ -78,6 +86,8 @@ assign instruction = proc_top1.instr_mem_out;
  assign invalidate_instr = proc_top1.invalidate_instr;
  assign invalidate_instr_IFID = proc_top1.IFID_reg[1];
  assign unconditional_jmp = proc_top1.IFID_reg[22];
+ assign jump_addr = proc_top1.pred_nxt_prog_ctr;
+
  assign branch_taken_EX = proc_top1.branch_taken_EX;
  assign reg_wr_en = proc_top1.reg_wr_en;
  assign reg_wr_data = proc_top1.wr_data;
@@ -85,7 +95,7 @@ assign instruction = proc_top1.instr_mem_out;
  assign IFID_reg = proc_top1.IFID_reg;
 initial
 begin
-	clk = 1'b0;
+	clk100 = 1'b0;
 	reset = 1'b1;
 	reset = #50 1'b0;
 
@@ -96,17 +106,17 @@ begin
 	#950; 
 	
 	// print the register contents
-	// $display("--------------------");
-	// $display("Printing Integer Register Contents: ");
-	// for(i = 0; i < 8; i = i + 1) begin
-	// 	$display("reg_file [%0d] = %0d", i, proc_top1.reg_file.reg_file[i]);
-	// end
-	// $display("--------------------");
-	// $display("Printing RNS Domain Register Contents: ");
-	// $display("Index | D256 Bin | D129 Bin");
-	// for(j = 0; j < 8; j = j + 1) begin
-	// 	$display("%0d\t| %08b | %08b", j, proc_top1.reg_file.RNS_reg_file[j][15:8], proc_top1.reg_file.RNS_reg_file[j][7:0]);
-	// end
+	$display("--------------------");
+	$display("Printing Integer Register Contents: ");
+	for(i = 0; i < 8; i = i + 1) begin
+		$display("reg_file [%0d] = %0d", i, proc_top1.reg_file.reg_file[i]);
+	end
+	$display("--------------------");
+	$display("Printing RNS Domain Register Contents: ");
+	$display("Index | D256 Bin | D129 Bin");
+	for(j = 0; j < 8; j = j + 1) begin
+		$display("%0d\t| %08b | %08b", j, proc_top1.reg_file.RNS_reg_file[j][15:8], proc_top1.reg_file.RNS_reg_file[j][7:0]);
+	end
 	// $display("--------------------");
 	// $display("Printing Data Memory Contents: ");
 	// for(k = 0; k < 65535; k = k + 1) begin
@@ -119,6 +129,6 @@ begin
 	$stop;   // stop simulation
 end
 
-always clk = #5 ~clk;
+always clk100 = #5 ~clk100;
 
 endmodule
