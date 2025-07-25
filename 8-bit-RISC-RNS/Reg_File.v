@@ -20,13 +20,13 @@ module Reg_File #(parameter NUM_DOMAINS=1) (
     reg [7:0] reg_file [7:0];
     reg [NUM_DOMAINS*8 - 1:0] RNS_reg_file [7:0];
 
-    integer i;
-    initial begin
-        for (i = 0; i < 8; i = i + 1) begin
-            reg_file[i] = 8'b0; //initialize normal reg file to 0
-            RNS_reg_file[i] = {8'b0, 8'b0}; //initialize RNS reg file to 0 in both domains
-        end
-    end
+//    integer i;
+//    initial begin
+//        for (i = 0; i < 8; i = i + 1) begin
+//            reg_file[i] = 8'b0; //initialize normal reg file to 0
+//            RNS_reg_file[i] = {8'b0, 8'b0}; //initialize RNS reg file to 0 in both domains
+//        end
+//    end
                                             
     //below assumes two RNS domains
     always @(rd_addr1 or rd_addr2 or reset or wr_en or wr_data) 

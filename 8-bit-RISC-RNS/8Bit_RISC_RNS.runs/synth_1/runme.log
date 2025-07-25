@@ -14,7 +14,7 @@ ECHO is off.
     ** Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 
 source top.tcl -notrace
-create_project: Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 521.047 ; gain = 216.148
+create_project: Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 520.570 ; gain = 218.488
 Command: read_checkpoint -auto_incremental -incremental C:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.srcs/utils_1/imports/synth_1/testbench.dcp
 INFO: [Vivado 12-5825] Read reference checkpoint from C:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.srcs/utils_1/imports/synth_1/testbench.dcp for incremental synthesis
 INFO: [Vivado 12-7989] Please ensure there are no constraint changes
@@ -27,16 +27,14 @@ INFO: [Designutils 20-5440] No compile time benefit to using incremental synthes
 INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 43444
+INFO: [Synth 8-7075] Helper process launched with PID 27560
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 1363.320 ; gain = 440.672
+Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 1353.422 ; gain = 440.520
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-11241] undeclared symbol 'shift_left', assumed default net type 'wire' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:116]
 INFO: [Synth 8-11241] undeclared symbol 'mul_op', assumed default net type 'wire' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:106]
-WARNING: [Synth 8-11065] parameter 'PROG_CTR_WID' becomes localparam in 'processor_top' with formal parameter declaration list [C:/code-projs/CIS4900/8-bit-RISC-RNS/processor_top.v:13]
+WARNING: [Synth 8-11065] parameter 'PROG_CTR_WID' becomes localparam in 'processor_top' with formal parameter declaration list [C:/code-projs/CIS4900/8-bit-RISC-RNS/processor_top.v:14]
 INFO: [Synth 8-6157] synthesizing module 'top' [C:/code-projs/CIS4900/8-bit-RISC-RNS/top.v:4]
-INFO: [Synth 8-6157] synthesizing module 'clk_wiz_0' [C:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.runs/synth_1/.Xil/Vivado-35612-BEN-DESKTOP/realtime/clk_wiz_0_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'clk_wiz_0' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.runs/synth_1/.Xil/Vivado-35612-BEN-DESKTOP/realtime/clk_wiz_0_stub.v:6]
 INFO: [Synth 8-6157] synthesizing module 'processor_top' [C:/code-projs/CIS4900/8-bit-RISC-RNS/processor_top.v:4]
 	Parameter NUM_DOMAINS bound to: 2 - type: integer 
 	Parameter MODULI bound to: 18'b010000001100000000 
@@ -224,34 +222,33 @@ WARNING: [Synth 8-7129] Port IFID_reg[22] in module PL_EX is either unconnected 
 WARNING: [Synth 8-7129] Port reset in module Reg_File is either unconnected or has no load
 WARNING: [Synth 8-7129] Port wr_addr[3] in module Reg_File is either unconnected or has no load
 WARNING: [Synth 8-7129] Port reset in module Data_Mem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port led[0] in module top is either unconnected or has no load
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1483.387 ; gain = 560.738
+Finished RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1473.375 ; gain = 560.473
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1483.387 ; gain = 560.738
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1473.375 ; gain = 560.473
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1483.387 ; gain = 560.738
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1473.375 ; gain = 560.473
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.010 . Memory (MB): peak = 1483.387 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.011 . Memory (MB): peak = 1473.375 ; gain = 0.000
 INFO: [Netlist 29-17] Analyzing 67 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
 Initializing timing engine
-Parsing XDC File [c:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc] for cell 'clock_wizard'
-Finished Parsing XDC File [c:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc] for cell 'clock_wizard'
 Parsing XDC File [C:/code-projs/CIS4900/Cmod-A7-Master.xdc]
 Finished Parsing XDC File [C:/code-projs/CIS4900/Cmod-A7-Master.xdc]
 INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/code-projs/CIS4900/Cmod-A7-Master.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/top_propImpl.xdc].
 Resolution: To avoid this warning, move constraints listed in [.Xil/top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1589.633 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1573.020 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
   A total of 67 instances were transformed.
   FD => FDRE: 38 instances
@@ -259,35 +256,31 @@ INFO: [Project 1-111] Unisim Transformation Summary:
   LUT6_2 => LUT6_2 (LUT5, LUT6): 19 instances
 
 The system cannot find the path specified.
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 1589.633 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 1573.020 ; gain = 0.000
 INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
 INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 1589.633 ; gain = 666.984
+Finished Constraint Validation : Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 1573.020 ; gain = 660.117
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a35tcpg236-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 1589.633 ; gain = 666.984
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 1573.020 ; gain = 660.117
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
-Applied set_property IO_BUFFER_TYPE = NONE for clk. (constraint file  c:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc, line 3).
-Applied set_property CLOCK_BUFFER_TYPE = NONE for clk. (constraint file  c:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc, line 4).
-Applied set_property KEEP_HIERARCHY = SOFT for clock_wizard. (constraint file  auto generated constraint).
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:12 ; elapsed = 00:00:13 . Memory (MB): peak = 1589.633 ; gain = 666.984
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 1573.020 ; gain = 660.117
 ---------------------------------------------------------------------------------
-WARNING: [Synth 8-327] inferring latch for variable 'nxt_prog_ctr_reg' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_IFID.v:184]
 WARNING: [Synth 8-327] inferring latch for variable 'op1_reg' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:18]
 WARNING: [Synth 8-327] inferring latch for variable 'op2_reg' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:19]
 WARNING: [Synth 8-327] inferring latch for variable 'op1_reg' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:16]
 WARNING: [Synth 8-327] inferring latch for variable 'op2_reg' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:18]
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:12 ; elapsed = 00:00:13 . Memory (MB): peak = 1589.633 ; gain = 666.984
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 1573.020 ; gain = 660.117
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -299,27 +292,29 @@ Detailed RTL Component Info :
 	   2 Input    8 Bit       Adders := 3     
 	   3 Input    8 Bit       Adders := 1     
 +---Registers : 
-	               16 Bit    Registers := 5     
+	               16 Bit    Registers := 6     
 	               10 Bit    Registers := 4     
-	                8 Bit    Registers := 4     
+	                8 Bit    Registers := 5     
 	                6 Bit    Registers := 1     
 	                5 Bit    Registers := 1     
 	                4 Bit    Registers := 5     
 	                3 Bit    Registers := 2     
-	                1 Bit    Registers := 4     
+	                1 Bit    Registers := 5     
 +---RAMs : 
 	              128 Bit	(8 X 16 bit)          RAMs := 1     
 	               64 Bit	(8 X 8 bit)          RAMs := 1     
++---ROMs : 
+	                    ROMs := 1     
 +---Muxes : 
 	   2 Input   42 Bit        Muxes := 1     
 	   2 Input   16 Bit        Muxes := 14    
 	   2 Input   10 Bit        Muxes := 1     
-	   2 Input    8 Bit        Muxes := 16    
+	   2 Input    8 Bit        Muxes := 18    
 	   4 Input    8 Bit        Muxes := 1     
 	  28 Input    3 Bit        Muxes := 1     
 	   2 Input    3 Bit        Muxes := 1     
-	  28 Input    1 Bit        Muxes := 31    
-	   2 Input    1 Bit        Muxes := 4     
+	  28 Input    1 Bit        Muxes := 32    
+	   2 Input    1 Bit        Muxes := 7     
 	   7 Input    1 Bit        Muxes := 1     
 	   5 Input    1 Bit        Muxes := 1     
 	   4 Input    1 Bit        Muxes := 1     
@@ -340,94 +335,13 @@ Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
 WARNING: [Synth 8-6430] The Block RAM "top/processor/data_mem/memory_file_reg" may get memory collision error if read and write address collide. Use attribute (* rw_addr_collision= "yes" *) to avoid collision 
+WARNING: [Synth 8-7129] Port led[0] in module top is either unconnected or has no load
 RAM Pipeline Warning: Read Address Register Found For RAM processor/data_mem/memory_file_reg. We will not be able to pipeline it. This may degrade performance. 
 RAM Pipeline Warning: Read Address Register Found For RAM processor/data_mem/memory_file_reg. We will not be able to pipeline it. This may degrade performance. 
 WARNING: [Synth 8-6430] The Block RAM "top/processor/data_mem/memory_file_reg" may get memory collision error if read and write address collide. Use attribute (* rw_addr_collision= "yes" *) to avoid collision 
 RAM Pipeline Warning: Read Address Register Found For RAM processor/data_mem/memory_file_reg. We will not be able to pipeline it. This may degrade performance. 
-WARNING: [Synth 8-3332] Sequential element (processor/stage_IFID/nxt_prog_ctr_reg[9]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_IFID/nxt_prog_ctr_reg[8]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_IFID/nxt_prog_ctr_reg[7]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_IFID/nxt_prog_ctr_reg[6]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_IFID/nxt_prog_ctr_reg[5]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_IFID/nxt_prog_ctr_reg[4]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_IFID/nxt_prog_ctr_reg[3]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_IFID/nxt_prog_ctr_reg[2]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_IFID/nxt_prog_ctr_reg[1]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_IFID/nxt_prog_ctr_reg[0]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op1_reg[7]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op1_reg[6]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op1_reg[5]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op1_reg[4]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op1_reg[3]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op1_reg[2]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op1_reg[1]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op1_reg[0]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op2_reg[7]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op2_reg[6]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op2_reg[5]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op2_reg[4]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op2_reg[3]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op2_reg[2]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op2_reg[1]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[0].RNS_ALU/comp_inst/op2_reg[0]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op1_reg[7]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op1_reg[6]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op1_reg[5]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op1_reg[4]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op1_reg[3]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op1_reg[2]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op1_reg[1]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op1_reg[0]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op2_reg[7]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op2_reg[6]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op2_reg[5]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op2_reg[4]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op2_reg[3]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op2_reg[2]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op2_reg[1]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU_RNS_GENBLK[1].RNS_ALU/comp_inst/op2_reg[0]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU/comp_inst/op1_reg[7]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU/comp_inst/op1_reg[6]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU/comp_inst/op1_reg[5]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU/comp_inst/op1_reg[4]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU/comp_inst/op1_reg[3]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU/comp_inst/op1_reg[2]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU/comp_inst/op1_reg[1]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU/comp_inst/op1_reg[0]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU/comp_inst/op2_reg[7]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU/comp_inst/op2_reg[6]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU/comp_inst/op2_reg[5]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU/comp_inst/op2_reg[4]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU/comp_inst/op2_reg[3]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU/comp_inst/op2_reg[2]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU/comp_inst/op2_reg[1]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (processor/stage_EX/ALU/comp_inst/op2_reg[0]) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (UART/receiver/pointer3_flop) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (UART/receiver/pointer2_flop) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (UART/receiver/pointer1_flop) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (UART/receiver/pointer0_flop) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (UART/receiver/data_present_flop) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (UART/receiver/sample_flop) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (UART/receiver/sample_dly_flop) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (UART/receiver/buffer_write_flop) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (UART/receiver/stop_bit_flop) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (UART/receiver/data0_flop) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (UART/receiver/data1_flop) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (UART/receiver/data2_flop) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (UART/receiver/data3_flop) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (UART/receiver/data4_flop) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (UART/receiver/data5_flop) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (UART/receiver/data6_flop) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (UART/receiver/data7_flop) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (UART/receiver/run_flop) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (UART/receiver/start_bit_flop) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (UART/receiver/div0_flop) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (UART/receiver/div1_flop) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (UART/receiver/div2_flop) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (UART/receiver/div3_flop) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (UART/receiver/sample_input_flop) is unused and will be removed from module top.
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 1589.633 ; gain = 666.984
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:17 ; elapsed = 00:00:18 . Memory (MB): peak = 1573.020 ; gain = 660.117
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
@@ -437,10 +351,28 @@ ROM: Preliminary Mapping Report
 +------------+-------------------------------------------+---------------+----------------+
 |Module Name | RTL Object                                | Depth x Width | Implemented As | 
 +------------+-------------------------------------------+---------------+----------------+
-|Instr_Mem   | instr_mem_out                             | 1024x16       | LUT            | 
 |top         | processor/programcounter/prog_ctr_reg_rep | 1024x16       | Block RAM      | 
 +------------+-------------------------------------------+---------------+----------------+
 
+
+Block RAM: Preliminary Mapping Report (see note below)
++------------+------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|Module Name | RTL Object                         | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | 
++------------+------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|top         | processor/data_mem/memory_file_reg | 64 K x 8(READ_FIRST)   | W |   | 64 K x 8(WRITE_FIRST)  |   | R | Port A and B     | 0      | 16     | 
++------------+------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+
+Note: The table above is a preliminary report that shows the Block RAMs at the current stage of the synthesis flow. Some Block RAMs may be reimplemented as non Block RAM primitives later in the synthesis flow. Multiple instantiated Block RAMs are reported only once. 
+
+Distributed RAM: Preliminary Mapping Report (see note below)
++------------+-------------------------------------+-----------+----------------------+-------------+
+|Module Name | RTL Object                          | Inference | Size (Depth x Width) | Primitives  | 
++------------+-------------------------------------+-----------+----------------------+-------------+
+|top         | processor/reg_file/reg_file_reg     | Implied   | 8 x 8                | RAM32M x 6  | 
+|top         | processor/reg_file/RNS_reg_file_reg | Implied   | 8 x 16               | RAM32M x 6  | 
++------------+-------------------------------------+-----------+----------------------+-------------+
+
+Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
 ---------------------------------------------------------------------------------
 Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 ---------------------------------------------------------------------------------
@@ -448,19 +380,51 @@ Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 1589.633 ; gain = 666.984
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 1573.020 ; gain = 660.117
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 1589.633 ; gain = 666.984
+Finished Timing Optimization : Time (s): cpu = 00:00:23 ; elapsed = 00:00:24 . Memory (MB): peak = 1573.020 ; gain = 660.117
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Block RAM: Final Mapping Report
++------------+------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|Module Name | RTL Object                         | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | 
++------------+------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|top         | processor/data_mem/memory_file_reg | 64 K x 8(READ_FIRST)   | W |   | 64 K x 8(WRITE_FIRST)  |   | R | Port A and B     | 0      | 16     | 
++------------+------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+
+
+Distributed RAM: Final Mapping Report
++------------+-------------------------------------+-----------+----------------------+-------------+
+|Module Name | RTL Object                          | Inference | Size (Depth x Width) | Primitives  | 
++------------+-------------------------------------+-----------+----------------------+-------------+
+|top         | processor/reg_file/reg_file_reg     | Implied   | 8 x 8                | RAM32M x 6  | 
+|top         | processor/reg_file/RNS_reg_file_reg | Implied   | 8 x 16               | RAM32M x 6  | 
++------------+-------------------------------------+-----------+----------------------+-------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
+INFO: [Synth 8-4765] Removing register instance (\processor/stage_IFID/IFID_reg_reg[1] ) from module (top) as it is equivalent to (\processor/stage_IFID/IFID_reg_reg[1]__0 ) and driving same net [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_IFID.v:394]
+INFO: [Synth 8-7052] The timing for the instance processor/data_mem/memory_file_reg_1_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance processor/data_mem/memory_file_reg_1_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance processor/data_mem/memory_file_reg_1_2 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance processor/data_mem/memory_file_reg_1_3 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance processor/data_mem/memory_file_reg_1_4 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance processor/data_mem/memory_file_reg_1_5 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance processor/data_mem/memory_file_reg_1_6 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance processor/data_mem/memory_file_reg_1_7 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 1589.633 ; gain = 666.984
+Finished Technology Mapping : Time (s): cpu = 00:00:23 ; elapsed = 00:00:24 . Memory (MB): peak = 1573.020 ; gain = 660.117
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -478,93 +442,103 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 1589.633 ; gain = 666.984
+Finished IO Insertion : Time (s): cpu = 00:00:27 ; elapsed = 00:00:28 . Memory (MB): peak = 1573.020 ; gain = 660.117
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 1589.633 ; gain = 666.984
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:27 ; elapsed = 00:00:28 . Memory (MB): peak = 1573.020 ; gain = 660.117
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 1589.633 ; gain = 666.984
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:27 ; elapsed = 00:00:28 . Memory (MB): peak = 1573.020 ; gain = 660.117
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 1589.633 ; gain = 666.984
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:27 ; elapsed = 00:00:28 . Memory (MB): peak = 1573.020 ; gain = 660.117
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 1589.633 ; gain = 666.984
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:27 ; elapsed = 00:00:28 . Memory (MB): peak = 1573.020 ; gain = 660.117
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 1589.633 ; gain = 666.984
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:27 ; elapsed = 00:00:28 . Memory (MB): peak = 1573.020 ; gain = 660.117
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
 ---------------------------------------------------------------------------------
 
 Report BlackBoxes: 
-+------+--------------+----------+
-|      |BlackBox name |Instances |
-+------+--------------+----------+
-|1     |clk_wiz_0     |         1|
-+------+--------------+----------+
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
 
 Report Cell Usage: 
-+------+--------+------+
-|      |Cell    |Count |
-+------+--------+------+
-|1     |clk_wiz |     1|
-|2     |LUT1    |     1|
-|3     |LUT2    |     2|
-|4     |LUT3    |     1|
-|5     |LUT4    |     2|
-|6     |LUT5    |     3|
-|7     |LUT6    |    22|
-|9     |SRL16E  |     8|
-|10    |FD      |    19|
-|11    |FDR     |     5|
-|12    |FDRE    |    11|
-|13    |IBUF    |     1|
-|14    |OBUF    |     3|
-+------+--------+------+
++------+---------+------+
+|      |Cell     |Count |
++------+---------+------+
+|1     |BUFG     |     2|
+|2     |CARRY4   |    33|
+|3     |LUT1     |     6|
+|4     |LUT2     |   120|
+|5     |LUT3     |    94|
+|6     |LUT4     |    73|
+|7     |LUT5     |   100|
+|8     |LUT6     |   226|
+|10    |RAM32M   |     9|
+|11    |RAM32X1D |     6|
+|12    |RAMB18E1 |     1|
+|13    |RAMB36E1 |    16|
+|15    |SRL16E   |    16|
+|16    |FD       |    38|
+|17    |FDR      |    10|
+|18    |FDRE     |   212|
+|19    |LD       |    48|
+|20    |IBUF     |     4|
+|21    |OBUF     |    12|
+|22    |OBUFT    |     1|
++------+---------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 1589.633 ; gain = 666.984
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:27 ; elapsed = 00:00:28 . Memory (MB): peak = 1573.020 ; gain = 660.117
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 90 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:14 ; elapsed = 00:00:21 . Memory (MB): peak = 1589.633 ; gain = 560.738
-Synthesis Optimization Complete : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 1589.633 ; gain = 666.984
+Synthesis finished with 0 errors, 0 critical warnings and 8 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:19 ; elapsed = 00:00:27 . Memory (MB): peak = 1573.020 ; gain = 560.473
+Synthesis Optimization Complete : Time (s): cpu = 00:00:27 ; elapsed = 00:00:29 . Memory (MB): peak = 1573.020 ; gain = 660.117
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1589.633 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 31 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.015 . Memory (MB): peak = 1573.020 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 180 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
-INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1589.633 ; gain = 0.000
+INFO: [Opt 31-138] Pushed 1 inverter(s) to 16 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1573.020 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
-  A total of 31 instances were transformed.
-  FD => FDRE: 19 instances
-  FDR => FDRE: 5 instances
-  LUT6_2 => LUT6_2 (LUT5, LUT6): 7 instances
+  A total of 130 instances were transformed.
+  FD => FDRE: 38 instances
+  FDR => FDRE: 10 instances
+  LD => LDCE: 32 instances
+  LD => LDCE (inverted pins: G): 16 instances
+  LUT6_2 => LUT6_2 (LUT5, LUT6): 19 instances
+  RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 9 instances
+  RAM32X1D => RAM32X1D (RAMD32(x2)): 6 instances
 
 The system cannot find the path specified.
-Synth Design complete | Checksum: 7f007413
+Synth Design complete | Checksum: 679c9ae2
 INFO: [Common 17-83] Releasing license: Synthesis
-132 Infos, 136 Warnings, 0 Critical Warnings and 0 Errors encountered.
+139 Infos, 55 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:25 ; elapsed = 00:00:27 . Memory (MB): peak = 1589.633 ; gain = 1055.859
-Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1589.633 ; gain = 0.000
+synth_design: Time (s): cpu = 00:00:30 ; elapsed = 00:00:33 . Memory (MB): peak = 1573.020 ; gain = 1047.477
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 1573.020 ; gain = 0.000
 INFO: [Common 17-1381] The checkpoint 'C:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.runs/synth_1/top.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file top_utilization_synth.rpt -pb top_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Tue Jul 22 21:15:43 2025...
+INFO: [Common 17-206] Exiting Vivado at Thu Jul 24 20:45:35 2025...

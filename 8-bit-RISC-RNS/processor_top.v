@@ -8,7 +8,8 @@ module processor_top #(parameter NUM_DOMAINS = 2, parameter [9 * NUM_DOMAINS - 1
     output [7:0]    IO_port_ID,
     output [7:0]    IO_write_data,
     output          IO_write_strobe,
-    output          IO_read_strobe
+    output          IO_read_strobe,
+    output [9:0]    pc_copy
 ); 
     parameter PROG_CTR_WID = 10;
 
@@ -32,7 +33,6 @@ module processor_top #(parameter NUM_DOMAINS = 2, parameter [9 * NUM_DOMAINS - 1
     wire                        load_true_IFID;     //load instruction flag to ctrl_Forward
     wire [3:0]                  op1_addr_IFID;      //op1 address to ctrl_Forward
     wire [3:0]                  op2_addr_IFID;      //op2 address to ctrl_Forward
-    wire                        RNS_inst_IFID_fwd;
     wire [2:0]                  op3_addr_IFID;      //op2 address to ctrl_Forward
     wire [NUM_DOMAINS*8 - 1:0]  op1_din_IFID;       //op1 data IN to IFID from ctrl_Forward
     wire [NUM_DOMAINS*8 - 1:0]  op2_din_IFID;       //op1 data IN to IFID from ctrl_Forward
@@ -69,7 +69,7 @@ module processor_top #(parameter NUM_DOMAINS = 2, parameter [9 * NUM_DOMAINS - 1
     wire [0:3]                  branch_conds_MEMWB;  
     wire invalidate_instr;
     //**//                                  //**//
-
+    assign pc_copy = prog_ctr;
     //**// I/O Signals (i.e., for UART) //**//
     /*
         Although IO_port_ID comes from PL_EX, IO_write_data, IO_write_strobe, and IO_read_strobe are all by PL_MEMWB at effectively the same time, in assign statements from EX PL reg.
@@ -87,17 +87,7 @@ module processor_top #(parameter NUM_DOMAINS = 2, parameter [9 * NUM_DOMAINS - 1
         .prog_ctr(prog_ctr),
         .instr_mem_out(instr_mem_out)
     );
-    // Instr_Mem_Sim #(PROG_CTR_WID) instr_mem (
-    //     .clk(clk100),
-    //     .prog_ctr(prog_ctr),
-    //     .instr_mem_out(instr_mem_out)
-    // );
-
-    /*
-        Data mem is byte-addressable with 16b addr
-        but what data is written to it?
-            (given we have multiple bytes of data [one per domain] in register file)
-    */
+    
     Data_Mem data_mem(
         .clk(clk100), .reset(reset),
         //INPUTS

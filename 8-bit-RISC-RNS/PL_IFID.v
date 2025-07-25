@@ -56,7 +56,7 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
     reg [2:0] res_addr; //destination register address
     //reg [7:0] ld_mem_addr; //load memory address
     reg [9:0] branch_addr; //branch address
-    reg [PROG_CTR_WID-1:0] nxt_prog_ctr; //next program counter value
+    //reg [PROG_CTR_WID-1:0] nxt_prog_ctr; //next program counter value
 
 	//For custom instructions:
 	reg [7:0] imm; //8-bit immediate for LDI
@@ -181,7 +181,7 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 		//	OP_JMP:	begin
 			5'b00111: 
             begin
-					nxt_prog_ctr <= branch_addr;
+					//nxt_prog_ctr <= branch_addr;
 					jump_true	<= 1'b1;
 					unconditional_jump <= 1'b1;
 		    end
@@ -244,7 +244,7 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 		//	OP_JMPGT:	begin
 			5'b01110:	
             begin
-					nxt_prog_ctr <= branch_addr;
+					//nxt_prog_ctr <= branch_addr;
 					jump_true	<= 1'b1;
 					jump_gt <= 1'b1;
 			end
@@ -252,14 +252,14 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 		//	OP_JMPLT:	begin
 			5'b01111:	
             begin
-					nxt_prog_ctr <= branch_addr;
+					//nxt_prog_ctr <= branch_addr;
 					jump_true	<= 1'b1;
 					jump_lt <= 1'b1;
 					end
 		//	OP_JMPEQ:	begin
 			5'b10000:	
             begin
-					nxt_prog_ctr <= branch_addr;
+					//nxt_prog_ctr <= branch_addr;
 					jump_true	<= 1'b1;
 					jump_eq <= 1'b1;
 			end
@@ -267,7 +267,7 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 		//	OP_JMPC:	begin
 			5'b10001: 
             begin
-					nxt_prog_ctr <= branch_addr;
+					//nxt_prog_ctr <= branch_addr;
 					jump_true	<= 1'b1;
 					jump_carry <= 1'b1;
 			end
@@ -393,7 +393,7 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
         if (rst == 1'b1) begin
             IFID_reg <= 64'b0;
         end else begin
-            pred_nxt_prog_ctr   <=  nxt_prog_ctr; //next program counter value
+            pred_nxt_prog_ctr   <=  branch_addr; //next program counter value
 			op1_dout_IFID 	    <=  op1_data; //op1 data out for IFID pipeline register
 			op2_dout_IFID 	    <=  op2_data; //op2 data out for IFID pipeline register
 			op3_dout_IFID 	    <=  op3_data; //op2 data out for IFID pipeline register
