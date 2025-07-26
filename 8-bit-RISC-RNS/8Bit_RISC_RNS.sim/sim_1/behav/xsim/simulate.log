@@ -176,4 +176,11 @@ reg_file [7] = x
 Printing RNS Domain Register Contents: 
 Index | D256 Bin | D129 Bin
 0	| 00000000 | 00000001
-1	| 000100
+1	| 00010001 | 00010011
+2	| 10000100 | 00001101
+3	| xxxxxxxx | xxxxxxxx
+4	| xxxxxxxx | xxxxxxxx
+5	| xxxxxxxx | xxxxxxxx
+6	| xxxxxxxx | xxxxxxxx
+7	| xxxxxxxx | xxxxxxxx
+$stop called at time : 25050 ns : File "C:/code-projs/CIS4900/8-bit-RISC-RNS/tb_rns.v" Line 120

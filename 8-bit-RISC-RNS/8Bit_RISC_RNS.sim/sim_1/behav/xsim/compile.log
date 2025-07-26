@@ -9,7 +9,6 @@ INFO: [VRFC 10-311] analyzing module shift
 INFO: [VRFC 10-311] analyzing module logical
 INFO: [VRFC 10-311] analyzing module PL_ALU
 INFO: [VRFC 10-2263] Analyzing Verilog file "C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module RNS_complement
 INFO: [VRFC 10-311] analyzing module RNS_adder
 INFO: [VRFC 10-311] analyzing module RNS_sub
 INFO: [VRFC 10-311] analyzing module RNS_multiplier

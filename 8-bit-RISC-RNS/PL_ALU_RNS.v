@@ -1,34 +1,11 @@
 //Description: ALU For EX Stage, with accompanying sub-modules.
 //             This ALU handles RNS-Domain operations, and thus has no shift or logical operations
-
-module RNS_complement (
-    input RNS_ALU_EN, // Enable for RNS ALU operations
-    input [7:0] op1_in, op2_in,
-    input en_complement,    //whether to complement op2
-    input add_op, 
-    input mul_op,
-    output reg [7:0] op1, op2
-);
-    always @(op1_in or op2_in or en_complement or add_op or mul_op or RNS_ALU_EN) 
-    begin
-        if (RNS_ALU_EN == 1'b1) 
-        begin
-            //For RNS-domain operations, we always pass both operands as they are.
-            //Two's complement subtraction doesn't work in RNS 
-            op1 <= op1_in;
-            op2 <= op2_in;
-        end
-    end
-endmodule
-
-
-
 module RNS_adder (
     input [7:0] op1, op2,
     output reg [15:0] result
 );
     always @(op1 or op2) begin
-        result <= {8'b0, op1 + op2}; // 8-bit addition with carry
+        result = {8'b0, op1 + op2}; // 8-bit addition with carry
     end
 endmodule
 
@@ -45,7 +22,7 @@ module RNS_sub #(parameter [8:0] modulus = 9'd129) (
             result = (op1 - op2 + modulus) % modulus
     */
     always @(op1 or op2) begin
-        result <= {6'b0, op1 - op2 + modulus}; 
+        result = {6'b0, op1 - op2 + modulus}; 
     end
 endmodule
 
@@ -57,7 +34,7 @@ module RNS_multiplier (
 );
     always @ (op1 or op2) 
     begin
-        result <= op1 * op2;
+        result = op1 * op2;
     end
 endmodule
 
@@ -97,7 +74,6 @@ module PL_ALU_RNS #(parameter [8:0] modulus = 9'd129) ( //need to define a std v
     input RNS_ALU_EN, // Enable for RNS ALU operations
     output [7:0] dout
 );
-    wire [7:0] op1, op2;
     wire [15:0] adder_result, sub_result, mul_result, final_result;
 
     wire add_op, en_complement, mul_op_true;
@@ -106,17 +82,6 @@ module PL_ALU_RNS #(parameter [8:0] modulus = 9'd129) ( //need to define a std v
     assign mul_op        = ALU_ctrl[14];
 
     // Instantiate sub-modules
-    RNS_complement comp_inst (
-        .RNS_ALU_EN(RNS_ALU_EN),
-        .op1_in(op1_in),
-        .op2_in(op2_in),
-        .en_complement(en_complement),
-        .add_op(add_op),
-        .mul_op(mul_op),
-        .op1(op1),
-        .op2(op2)
-    );
-
     /*
         The adder and multiplier both have 16-bit outputs:
             reasoning is obvious for the multiplier,
@@ -125,20 +90,20 @@ module PL_ALU_RNS #(parameter [8:0] modulus = 9'd129) ( //need to define a std v
             Means that the % modules (fit_xxx) do less work.
     */
     RNS_adder add_inst (
-        .op1(op1),
-        .op2(op2),
+        .op1(op1_in),
+        .op2(op2_in),
         .result(adder_result)
     );
 
     RNS_sub #(modulus) sub_inst (
-        .op1(op1),
-        .op2(op2),
+        .op1(op1_in),
+        .op2(op2_in),
         .result(sub_result)
     );
 
     RNS_multiplier mul_inst (
-        .op1(op1),
-        .op2(op2),
+        .op1(op1_in),
+        .op2(op2_in),
         .result(mul_result)
     );
 

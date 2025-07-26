@@ -3,8 +3,8 @@
 # SW Build 4029153 on Fri Oct 13 20:14:34 MDT 2023
 # IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
 # SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
-# Start of session at: Thu Jul 24 20:44:53 2025
-# Process ID: 42300
+# Start of session at: Thu Jul 24 23:25:03 2025
+# Process ID: 44108
 # Current directory: C:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.runs/synth_1
 # Command line: vivado.exe -log top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source top.tcl
 # Log file: C:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.runs/synth_1/top.vds
@@ -12,11 +12,11 @@
 # Running On: BEN-DESKTOP, OS: Windows, CPU Frequency: 3000 MHz, CPU Physical cores: 16, Host memory: 34277 MB
 #-----------------------------------------------------------
 source top.tcl -notrace
-create_project: Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 520.570 ; gain = 218.488
+create_project: Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 521.281 ; gain = 218.242
 Command: read_checkpoint -auto_incremental -incremental C:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.srcs/utils_1/imports/synth_1/testbench.dcp
 INFO: [Vivado 12-5825] Read reference checkpoint from C:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.srcs/utils_1/imports/synth_1/testbench.dcp for incremental synthesis
 INFO: [Vivado 12-7989] Please ensure there are no constraint changes
-Command: synth_design -top top -part xc7a35tcpg236-1 -directive PerformanceOptimized
+Command: synth_design -top top -part xc7a35tcpg236-1 -flatten_hierarchy full
 Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7a35t'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t'
@@ -25,12 +25,12 @@ INFO: [Designutils 20-5440] No compile time benefit to using incremental synthes
 INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 27560
+INFO: [Synth 8-7075] Helper process launched with PID 19560
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 1353.422 ; gain = 440.520
+Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 1353.902 ; gain = 440.961
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-11241] undeclared symbol 'shift_left', assumed default net type 'wire' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:116]
-INFO: [Synth 8-11241] undeclared symbol 'mul_op', assumed default net type 'wire' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:106]
+INFO: [Synth 8-11241] undeclared symbol 'shift_left', assumed default net type 'wire' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:122]
+INFO: [Synth 8-11241] undeclared symbol 'mul_op', assumed default net type 'wire' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:82]
 WARNING: [Synth 8-11065] parameter 'PROG_CTR_WID' becomes localparam in 'processor_top' with formal parameter declaration list [C:/code-projs/CIS4900/8-bit-RISC-RNS/processor_top.v:14]
 INFO: [Synth 8-6157] synthesizing module 'top' [C:/code-projs/CIS4900/8-bit-RISC-RNS/top.v:4]
 INFO: [Synth 8-6157] synthesizing module 'processor_top' [C:/code-projs/CIS4900/8-bit-RISC-RNS/processor_top.v:4]
@@ -55,38 +55,36 @@ INFO: [Synth 8-6155] done synthesizing module 'PL_IFID' (0#1) [C:/code-projs/CIS
 INFO: [Synth 8-6157] synthesizing module 'PL_EX' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_EX.v:4]
 	Parameter NUM_DOMAINS bound to: 2 - type: integer 
 	Parameter PROG_CTR_WID bound to: 10 - type: integer 
-INFO: [Synth 8-6157] synthesizing module 'PL_ALU_RNS' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:93]
+INFO: [Synth 8-6157] synthesizing module 'PL_ALU_RNS' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:70]
 	Parameter modulus bound to: 9'b010000001 
-INFO: [Synth 8-6157] synthesizing module 'RNS_fit_129' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:69]
-INFO: [Synth 8-6155] done synthesizing module 'RNS_fit_129' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:69]
-INFO: [Synth 8-6157] synthesizing module 'RNS_complement' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:4]
-INFO: [Synth 8-6155] done synthesizing module 'RNS_complement' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:4]
-INFO: [Synth 8-6157] synthesizing module 'RNS_adder' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:26]
-INFO: [Synth 8-6155] done synthesizing module 'RNS_adder' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:26]
-INFO: [Synth 8-6157] synthesizing module 'RNS_sub' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:37]
+INFO: [Synth 8-6157] synthesizing module 'RNS_fit_129' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:46]
+INFO: [Synth 8-6155] done synthesizing module 'RNS_fit_129' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:46]
+INFO: [Synth 8-6157] synthesizing module 'RNS_adder' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:3]
+INFO: [Synth 8-6155] done synthesizing module 'RNS_adder' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:3]
+INFO: [Synth 8-6157] synthesizing module 'RNS_sub' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:14]
 	Parameter modulus bound to: 9'b010000001 
-INFO: [Synth 8-6155] done synthesizing module 'RNS_sub' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:37]
-INFO: [Synth 8-6157] synthesizing module 'RNS_multiplier' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:54]
-INFO: [Synth 8-6155] done synthesizing module 'RNS_multiplier' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:54]
-INFO: [Synth 8-6155] done synthesizing module 'PL_ALU_RNS' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:93]
-INFO: [Synth 8-6157] synthesizing module 'PL_ALU_RNS__parameterized0' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:93]
+INFO: [Synth 8-6155] done synthesizing module 'RNS_sub' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:14]
+INFO: [Synth 8-6157] synthesizing module 'RNS_multiplier' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:31]
+INFO: [Synth 8-6155] done synthesizing module 'RNS_multiplier' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:31]
+INFO: [Synth 8-6155] done synthesizing module 'PL_ALU_RNS' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:70]
+INFO: [Synth 8-6157] synthesizing module 'PL_ALU_RNS__parameterized0' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:70]
 	Parameter modulus bound to: 9'b100000000 
-INFO: [Synth 8-6157] synthesizing module 'RNS_fit_256' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:84]
-INFO: [Synth 8-6155] done synthesizing module 'RNS_fit_256' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:84]
-INFO: [Synth 8-6157] synthesizing module 'RNS_sub__parameterized0' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:37]
+INFO: [Synth 8-6157] synthesizing module 'RNS_fit_256' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:61]
+INFO: [Synth 8-6155] done synthesizing module 'RNS_fit_256' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:61]
+INFO: [Synth 8-6157] synthesizing module 'RNS_sub__parameterized0' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:14]
 	Parameter modulus bound to: 9'b100000000 
-INFO: [Synth 8-6155] done synthesizing module 'RNS_sub__parameterized0' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:37]
-INFO: [Synth 8-6155] done synthesizing module 'PL_ALU_RNS__parameterized0' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:93]
-INFO: [Synth 8-6157] synthesizing module 'PL_ALU' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:90]
+INFO: [Synth 8-6155] done synthesizing module 'RNS_sub__parameterized0' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:14]
+INFO: [Synth 8-6155] done synthesizing module 'PL_ALU_RNS__parameterized0' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:70]
+INFO: [Synth 8-6157] synthesizing module 'PL_ALU' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:96]
 INFO: [Synth 8-6157] synthesizing module 'complement' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:5]
 INFO: [Synth 8-6155] done synthesizing module 'complement' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:5]
-INFO: [Synth 8-6157] synthesizing module 'adder' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:32]
-INFO: [Synth 8-6155] done synthesizing module 'adder' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:32]
-INFO: [Synth 8-6157] synthesizing module 'shift' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:45]
-INFO: [Synth 8-6155] done synthesizing module 'shift' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:45]
-INFO: [Synth 8-6157] synthesizing module 'logical' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:60]
-INFO: [Synth 8-6155] done synthesizing module 'logical' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:60]
-INFO: [Synth 8-6155] done synthesizing module 'PL_ALU' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:90]
+INFO: [Synth 8-6157] synthesizing module 'adder' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:34]
+INFO: [Synth 8-6155] done synthesizing module 'adder' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:34]
+INFO: [Synth 8-6157] synthesizing module 'shift' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:47]
+INFO: [Synth 8-6155] done synthesizing module 'shift' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:47]
+INFO: [Synth 8-6157] synthesizing module 'logical' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:66]
+INFO: [Synth 8-6155] done synthesizing module 'logical' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:66]
+INFO: [Synth 8-6155] done synthesizing module 'PL_ALU' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:96]
 INFO: [Synth 8-6155] done synthesizing module 'PL_EX' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_EX.v:4]
 INFO: [Synth 8-6157] synthesizing module 'PL_MEMWB' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_MEMWB.v:3]
 	Parameter NUM_DOMAINS bound to: 2 - type: integer 
@@ -177,9 +175,6 @@ INFO: [Synth 8-6155] done synthesizing module 'rs232_uart' (0#1) [C:/code-projs/
 INFO: [Synth 8-6155] done synthesizing module 'top' (0#1) [C:/code-projs/CIS4900/8-bit-RISC-RNS/top.v:4]
 WARNING: [Synth 8-7129] Port ALU_ctrl[5] in module PL_ALU is either unconnected or has no load
 WARNING: [Synth 8-7129] Port ALU_ctrl[9] in module PL_ALU is either unconnected or has no load
-WARNING: [Synth 8-7129] Port en_complement in module RNS_complement is either unconnected or has no load
-WARNING: [Synth 8-7129] Port add_op in module RNS_complement is either unconnected or has no load
-WARNING: [Synth 8-7129] Port mul_op in module RNS_complement is either unconnected or has no load
 WARNING: [Synth 8-7129] Port op_in[15] in module RNS_fit_256 is either unconnected or has no load
 WARNING: [Synth 8-7129] Port op_in[14] in module RNS_fit_256 is either unconnected or has no load
 WARNING: [Synth 8-7129] Port op_in[13] in module RNS_fit_256 is either unconnected or has no load
@@ -188,6 +183,7 @@ WARNING: [Synth 8-7129] Port op_in[11] in module RNS_fit_256 is either unconnect
 WARNING: [Synth 8-7129] Port op_in[10] in module RNS_fit_256 is either unconnected or has no load
 WARNING: [Synth 8-7129] Port op_in[9] in module RNS_fit_256 is either unconnected or has no load
 WARNING: [Synth 8-7129] Port op_in[8] in module RNS_fit_256 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ALU_ctrl[0] in module PL_ALU_RNS__parameterized0 is either unconnected or has no load
 WARNING: [Synth 8-7129] Port ALU_ctrl[1] in module PL_ALU_RNS__parameterized0 is either unconnected or has no load
 WARNING: [Synth 8-7129] Port ALU_ctrl[2] in module PL_ALU_RNS__parameterized0 is either unconnected or has no load
 WARNING: [Synth 8-7129] Port ALU_ctrl[3] in module PL_ALU_RNS__parameterized0 is either unconnected or has no load
@@ -200,6 +196,8 @@ WARNING: [Synth 8-7129] Port ALU_ctrl[10] in module PL_ALU_RNS__parameterized0 i
 WARNING: [Synth 8-7129] Port ALU_ctrl[11] in module PL_ALU_RNS__parameterized0 is either unconnected or has no load
 WARNING: [Synth 8-7129] Port ALU_ctrl[12] in module PL_ALU_RNS__parameterized0 is either unconnected or has no load
 WARNING: [Synth 8-7129] Port ALU_ctrl[13] in module PL_ALU_RNS__parameterized0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port RNS_ALU_EN in module PL_ALU_RNS__parameterized0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ALU_ctrl[0] in module PL_ALU_RNS is either unconnected or has no load
 WARNING: [Synth 8-7129] Port ALU_ctrl[1] in module PL_ALU_RNS is either unconnected or has no load
 WARNING: [Synth 8-7129] Port ALU_ctrl[2] in module PL_ALU_RNS is either unconnected or has no load
 WARNING: [Synth 8-7129] Port ALU_ctrl[3] in module PL_ALU_RNS is either unconnected or has no load
@@ -212,6 +210,7 @@ WARNING: [Synth 8-7129] Port ALU_ctrl[10] in module PL_ALU_RNS is either unconne
 WARNING: [Synth 8-7129] Port ALU_ctrl[11] in module PL_ALU_RNS is either unconnected or has no load
 WARNING: [Synth 8-7129] Port ALU_ctrl[12] in module PL_ALU_RNS is either unconnected or has no load
 WARNING: [Synth 8-7129] Port ALU_ctrl[13] in module PL_ALU_RNS is either unconnected or has no load
+WARNING: [Synth 8-7129] Port RNS_ALU_EN in module PL_ALU_RNS is either unconnected or has no load
 WARNING: [Synth 8-7129] Port IFID_reg[18] in module PL_EX is either unconnected or has no load
 WARNING: [Synth 8-7129] Port IFID_reg[19] in module PL_EX is either unconnected or has no load
 WARNING: [Synth 8-7129] Port IFID_reg[20] in module PL_EX is either unconnected or has no load
@@ -220,20 +219,19 @@ WARNING: [Synth 8-7129] Port IFID_reg[22] in module PL_EX is either unconnected 
 WARNING: [Synth 8-7129] Port reset in module Reg_File is either unconnected or has no load
 WARNING: [Synth 8-7129] Port wr_addr[3] in module Reg_File is either unconnected or has no load
 WARNING: [Synth 8-7129] Port reset in module Data_Mem is either unconnected or has no load
-WARNING: [Synth 8-7129] Port led[0] in module top is either unconnected or has no load
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1473.375 ; gain = 560.473
+Finished RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 1473.312 ; gain = 560.371
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1473.375 ; gain = 560.473
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 1473.312 ; gain = 560.371
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1473.375 ; gain = 560.473
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 1473.312 ; gain = 560.371
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.011 . Memory (MB): peak = 1473.375 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.012 . Memory (MB): peak = 1473.312 ; gain = 0.000
 INFO: [Netlist 29-17] Analyzing 67 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
@@ -246,38 +244,34 @@ INFO: [Project 1-236] Implementation specific constraints were found while readi
 Resolution: To avoid this warning, move constraints listed in [.Xil/top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1573.020 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1577.484 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
   A total of 67 instances were transformed.
   FD => FDRE: 38 instances
   FDR => FDRE: 10 instances
   LUT6_2 => LUT6_2 (LUT5, LUT6): 19 instances
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 1573.020 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 1577.484 ; gain = 0.000
 INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
 INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 1573.020 ; gain = 660.117
+Finished Constraint Validation : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 1577.484 ; gain = 664.543
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a35tcpg236-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 1573.020 ; gain = 660.117
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 1577.484 ; gain = 664.543
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 1573.020 ; gain = 660.117
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 1577.484 ; gain = 664.543
 ---------------------------------------------------------------------------------
-WARNING: [Synth 8-327] inferring latch for variable 'op1_reg' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:18]
-WARNING: [Synth 8-327] inferring latch for variable 'op2_reg' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v:19]
-WARNING: [Synth 8-327] inferring latch for variable 'op1_reg' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:16]
-WARNING: [Synth 8-327] inferring latch for variable 'op2_reg' [C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v:18]
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 1573.020 ; gain = 660.117
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:13 ; elapsed = 00:00:15 . Memory (MB): peak = 1577.484 ; gain = 664.543
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -290,13 +284,14 @@ Detailed RTL Component Info :
 	   3 Input    8 Bit       Adders := 1     
 +---Registers : 
 	               16 Bit    Registers := 6     
-	               10 Bit    Registers := 4     
-	                8 Bit    Registers := 5     
+	               10 Bit    Registers := 5     
+	                8 Bit    Registers := 4     
 	                6 Bit    Registers := 1     
 	                5 Bit    Registers := 1     
 	                4 Bit    Registers := 5     
 	                3 Bit    Registers := 2     
-	                1 Bit    Registers := 5     
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 4     
 +---RAMs : 
 	              128 Bit	(8 X 16 bit)          RAMs := 1     
 	               64 Bit	(8 X 8 bit)          RAMs := 1     
@@ -306,7 +301,7 @@ Detailed RTL Component Info :
 	   2 Input   42 Bit        Muxes := 1     
 	   2 Input   16 Bit        Muxes := 14    
 	   2 Input   10 Bit        Muxes := 1     
-	   2 Input    8 Bit        Muxes := 18    
+	   2 Input    8 Bit        Muxes := 21    
 	   4 Input    8 Bit        Muxes := 1     
 	  28 Input    3 Bit        Muxes := 1     
 	   2 Input    3 Bit        Muxes := 1     
@@ -332,13 +327,12 @@ Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
 WARNING: [Synth 8-6430] The Block RAM "top/processor/data_mem/memory_file_reg" may get memory collision error if read and write address collide. Use attribute (* rw_addr_collision= "yes" *) to avoid collision 
-WARNING: [Synth 8-7129] Port led[0] in module top is either unconnected or has no load
 RAM Pipeline Warning: Read Address Register Found For RAM processor/data_mem/memory_file_reg. We will not be able to pipeline it. This may degrade performance. 
 RAM Pipeline Warning: Read Address Register Found For RAM processor/data_mem/memory_file_reg. We will not be able to pipeline it. This may degrade performance. 
 WARNING: [Synth 8-6430] The Block RAM "top/processor/data_mem/memory_file_reg" may get memory collision error if read and write address collide. Use attribute (* rw_addr_collision= "yes" *) to avoid collision 
 RAM Pipeline Warning: Read Address Register Found For RAM processor/data_mem/memory_file_reg. We will not be able to pipeline it. This may degrade performance. 
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:17 ; elapsed = 00:00:18 . Memory (MB): peak = 1573.020 ; gain = 660.117
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:19 ; elapsed = 00:00:20 . Memory (MB): peak = 1577.484 ; gain = 664.543
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
@@ -377,13 +371,13 @@ Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 1573.020 ; gain = 660.117
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:23 ; elapsed = 00:00:25 . Memory (MB): peak = 1577.484 ; gain = 664.543
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:23 ; elapsed = 00:00:24 . Memory (MB): peak = 1573.020 ; gain = 660.117
+Finished Timing Optimization : Time (s): cpu = 00:00:28 ; elapsed = 00:00:29 . Memory (MB): peak = 1577.484 ; gain = 664.543
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
@@ -421,7 +415,7 @@ INFO: [Synth 8-7052] The timing for the instance processor/data_mem/memory_file_
 INFO: [Synth 8-7052] The timing for the instance processor/data_mem/memory_file_reg_1_6 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
 INFO: [Synth 8-7052] The timing for the instance processor/data_mem/memory_file_reg_1_7 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:23 ; elapsed = 00:00:24 . Memory (MB): peak = 1573.020 ; gain = 660.117
+Finished Technology Mapping : Time (s): cpu = 00:00:28 ; elapsed = 00:00:29 . Memory (MB): peak = 1583.750 ; gain = 670.809
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -439,37 +433,19 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:27 ; elapsed = 00:00:28 . Memory (MB): peak = 1573.020 ; gain = 660.117
+Finished IO Insertion : Time (s): cpu = 00:00:32 ; elapsed = 00:00:33 . Memory (MB): peak = 1583.750 ; gain = 670.809
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:27 ; elapsed = 00:00:28 . Memory (MB): peak = 1573.020 ; gain = 660.117
----------------------------------------------------------------------------------
----------------------------------------------------------------------------------
-Start Rebuilding User Hierarchy
----------------------------------------------------------------------------------
----------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:27 ; elapsed = 00:00:28 . Memory (MB): peak = 1573.020 ; gain = 660.117
----------------------------------------------------------------------------------
----------------------------------------------------------------------------------
-Start Renaming Generated Ports
----------------------------------------------------------------------------------
----------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:27 ; elapsed = 00:00:28 . Memory (MB): peak = 1573.020 ; gain = 660.117
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:32 ; elapsed = 00:00:33 . Memory (MB): peak = 1583.750 ; gain = 670.809
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:27 ; elapsed = 00:00:28 . Memory (MB): peak = 1573.020 ; gain = 660.117
----------------------------------------------------------------------------------
----------------------------------------------------------------------------------
-Start Renaming Generated Nets
----------------------------------------------------------------------------------
----------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:27 ; elapsed = 00:00:28 . Memory (MB): peak = 1573.020 ; gain = 660.117
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:32 ; elapsed = 00:00:33 . Memory (MB): peak = 1583.750 ; gain = 670.809
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -485,14 +461,14 @@ Report Cell Usage:
 +------+---------+------+
 |      |Cell     |Count |
 +------+---------+------+
-|1     |BUFG     |     2|
+|1     |BUFG     |     1|
 |2     |CARRY4   |    33|
-|3     |LUT1     |     6|
-|4     |LUT2     |   120|
-|5     |LUT3     |    94|
-|6     |LUT4     |    73|
-|7     |LUT5     |   100|
-|8     |LUT6     |   226|
+|3     |LUT1     |    41|
+|4     |LUT2     |   131|
+|5     |LUT3     |    85|
+|6     |LUT4     |    85|
+|7     |LUT5     |   127|
+|8     |LUT6     |   231|
 |10    |RAM32M   |     9|
 |11    |RAM32X1D |     6|
 |12    |RAMB18E1 |     1|
@@ -500,41 +476,39 @@ Report Cell Usage:
 |15    |SRL16E   |    16|
 |16    |FD       |    38|
 |17    |FDR      |    10|
-|18    |FDRE     |   212|
-|19    |LD       |    48|
-|20    |IBUF     |     4|
-|21    |OBUF     |    12|
-|22    |OBUFT    |     1|
+|18    |FDRE     |   215|
+|19    |IBUF     |     4|
+|20    |OBUF     |    12|
+|21    |OBUFT    |     1|
 +------+---------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:27 ; elapsed = 00:00:28 . Memory (MB): peak = 1573.020 ; gain = 660.117
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:32 ; elapsed = 00:00:33 . Memory (MB): peak = 1583.750 ; gain = 670.809
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 8 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:19 ; elapsed = 00:00:27 . Memory (MB): peak = 1573.020 ; gain = 560.473
-Synthesis Optimization Complete : Time (s): cpu = 00:00:27 ; elapsed = 00:00:29 . Memory (MB): peak = 1573.020 ; gain = 660.117
+Synthesis finished with 0 errors, 0 critical warnings and 3 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:24 ; elapsed = 00:00:31 . Memory (MB): peak = 1583.750 ; gain = 566.637
+Synthesis Optimization Complete : Time (s): cpu = 00:00:32 ; elapsed = 00:00:33 . Memory (MB): peak = 1583.750 ; gain = 670.809
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.015 . Memory (MB): peak = 1573.020 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 180 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.008 . Memory (MB): peak = 1584.605 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 132 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+WARNING: [Netlist 29-101] Netlist 'top' is not ideal for floorplanning, since the cellview 'top' contains a large number of primitives.  Please consider enabling hierarchy in synthesis if you want to do floorplanning.
 INFO: [Project 1-570] Preparing netlist for logic optimization
-INFO: [Opt 31-138] Pushed 1 inverter(s) to 16 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1573.020 ; gain = 0.000
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1599.242 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
-  A total of 130 instances were transformed.
+  A total of 82 instances were transformed.
   FD => FDRE: 38 instances
   FDR => FDRE: 10 instances
-  LD => LDCE: 32 instances
-  LD => LDCE (inverted pins: G): 16 instances
   LUT6_2 => LUT6_2 (LUT5, LUT6): 19 instances
   RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 9 instances
   RAM32X1D => RAM32X1D (RAMD32(x2)): 6 instances
 
-Synth Design complete | Checksum: 679c9ae2
+Synth Design complete | Checksum: c9e45d57
 INFO: [Common 17-83] Releasing license: Synthesis
-139 Infos, 55 Warnings, 0 Critical Warnings and 0 Errors encountered.
+137 Infos, 51 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:30 ; elapsed = 00:00:33 . Memory (MB): peak = 1573.020 ; gain = 1047.477
-Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 1573.020 ; gain = 0.000
+synth_design: Time (s): cpu = 00:00:36 ; elapsed = 00:00:38 . Memory (MB): peak = 1599.242 ; gain = 1074.012
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 1599.242 ; gain = 0.000
 INFO: [Common 17-1381] The checkpoint 'C:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.runs/synth_1/top.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file top_utilization_synth.rpt -pb top_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Thu Jul 24 20:45:35 2025...
+INFO: [Common 17-206] Exiting Vivado at Thu Jul 24 23:25:50 2025...

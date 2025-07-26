@@ -6,8 +6,8 @@ module top(
     input wire [1:0] btn,
     input wire UART_RX_in,
     output wire UART_TX_out,
-    output wire [1:0] led,
-    output wire [9:0] pio
+    output reg [1:0] led,
+    output reg [9:0] pio
 );
     // Parameters
     parameter NUM_DOMAINS = 2; // Number of RNS domains; Integer domain remains.
@@ -70,14 +70,14 @@ module top(
         Port 0x02: Processor input, RX data present
         Port 0x03: Processor input, TX buffer full
     */
-    assign led[1] = RX_data_present;
-    assign pio = pc_copy; //output data from processor to GPIO
 //    assign pio[0] = RX_data_present;
 //    assign pio[1] = TX_buffer_full;
 //    assign pio[2] = read_from_UART;
 //    assign pio[3] = write_to_UART;
 
     always @(posedge clk) begin
+        led[1] <= RX_data_present;
+        pio <= pc_copy;
         read_from_UART <= 1'b0;
         if (reset) begin
             IO_read_data <= 8'b0; // Reset IO read data

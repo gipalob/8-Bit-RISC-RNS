@@ -11,17 +11,19 @@ module complement (
 );
     always @(op1_in or op2_in or en_complement or store_true or ALU_EN) 
     begin
+        op1 = 8'b0;
+        op2 = 8'b0;
         if (ALU_EN == 1'b1)
         begin
-            op1 <= op1_in; //always passed as-is
+            op1 = op1_in; //always passed as-is
             if (store_true) begin //if store operation
-                op2 <= 8'b0;
+                op2 = 8'b0;
             end 
             else if (en_complement) begin //if complement operation
-                op2 <= ~op2_in;
+                op2 = ~op2_in;
             end
             else begin
-                op2 <= op2_in;
+                op2 = op2_in;
             end
         end
     end
@@ -36,7 +38,7 @@ module adder (
     output reg carry_out
 );
     always @(op1 or op2 or carry_in) begin
-        {carry_out, result} <= op1 + op2 + carry_in; // 8-bit addition with carry
+        {carry_out, result} = op1 + op2 + carry_in; // 8-bit addition with carry
     end
 endmodule
 
@@ -48,10 +50,14 @@ module shift (
     output reg [7:0] result,
     output reg       carry_out
 );
-    always @(posedge shift_en)
+    always @(op1 or shift_en)
     begin
-        carry_out <= op1[7]; // Capture the MSB before shifting
-        result <= {op1[6:0], 1'b0}; // Shift left
+        carry_out = 1'b0;
+        result = 8'b0;
+        if (shift_en == 1'b1) begin
+            carry_out = op1[7]; // Capture the MSB before shifting
+            result = {op1[6:0], 1'b0}; // Shift left
+        end
     end 
 endmodule
 
@@ -62,25 +68,25 @@ module logical (
     input and_op, and_bitwise, or_op, or_bitwise, not_op,
     output reg [7:0] result
 );
-    always @(*) begin
+    always @(op1 or op2 or and_op or and_bitwise or or_op or or_bitwise or not_op) begin
         if (and_op == 1'b1) 
         begin
-            result <= op1 && op2; // Logical AND
+            result = op1 && op2; // Logical AND
         end else if (and_bitwise == 1'b1) 
         begin
-            result <= op1 & op2; // Bitwise AND
+            result = op1 & op2; // Bitwise AND
         end else if (or_op == 1'b1) 
         begin
-            result <= op1 || op2; // Logical OR
+            result = op1 || op2; // Logical OR
         end else if (or_bitwise == 1'b1) 
         begin
-            result <= op1 | op2; // Bitwise OR
+            result = op1 | op2; // Bitwise OR
         end else if (not_op == 1'b1) 
         begin
-            result <= !op1; // NOT operation
+            result = !op1; // NOT operation
         end else 
         begin
-            result <= 8'b0; // Default case
+            result = 8'b0; // Default case
         end
     end
 endmodule 

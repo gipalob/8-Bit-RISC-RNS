@@ -51,10 +51,10 @@ assign instruction = proc_top1.instr_mem_out;
 
 assign RNS_dout = proc_top1.stage_EX.RNS_dout;
 assign destination_rns = proc_top1.destination_RNS;
-// assign op1_mod129 = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[0].RNS_ALU.op1_in;
-// assign op2_mod129 = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[0].RNS_ALU.op2_in;
-// assign op1_mod256 = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[1].RNS_ALU.op1_in;
-// assign op2_mod256 = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[1].RNS_ALU.op2_in;
+assign op1_mod129 = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[0].RNS_ALU.op1_in;
+assign op2_mod129 = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[0].RNS_ALU.op2_in;
+assign op1_mod256 = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[1].RNS_ALU.op1_in;
+assign op2_mod256 = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[1].RNS_ALU.op2_in;
 // assign m129_out = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[0].RNS_ALU.dout;
 // assign m256_out = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[1].RNS_ALU.dout;
 

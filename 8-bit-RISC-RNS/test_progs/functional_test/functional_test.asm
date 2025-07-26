@@ -1,5 +1,74 @@
 #Full function testing-
 #Jumping, RNS Domain instructions (incl rolling / unrolling), I/O operations incl UART.
+LDI x6, 0x3F
+LDI x7, 0x0D
+NOP
+NOP
+OUTPUT x6, 0x01
+OUTPUT x7, 0x01
+NOP
+NOP
+NOP
+OUTPUT x6, 0x01
+OUTPUT x7, 0x01
+NOP
+NOP
+NOP
+OUTPUT x6, 0x01
+OUTPUT x7, 0x01
+NOP
+NOP
+NOP
+OUTPUT x6, 0x01
+OUTPUT x7, 0x01
+NOP
+NOP
+NOP
+OUTPUT x6, 0x01
+OUTPUT x7, 0x01
+NOP
+NOP
+NOP
+OUTPUT x6, 0x01
+OUTPUT x7, 0x01
+NOP
+NOP
+NOP
+OUTPUT x6, 0x01
+OUTPUT x7, 0x01
+NOP
+NOP
+NOP
+OUTPUT x6, 0x01
+OUTPUT x7, 0x01
+NOP
+NOP
+NOP
+OUTPUT x6, 0x01
+OUTPUT x7, 0x01
+NOP
+NOP
+NOP
+OUTPUT x6, 0x01
+OUTPUT x7, 0x01
+NOP
+NOP
+NOP
+OUTPUT x6, 0x01
+OUTPUT x7, 0x01
+NOP
+NOP
+NOP
+OUTPUT x6, 0x01
+OUTPUT x7, 0x01
+NOP
+NOP
+NOP
+OUTPUT x6, 0x01
+OUTPUT x7, 0x01
+NOP
+NOP
+NOP
 
 LDI x0, 0x11
 LDI x1, 0x22
@@ -26,6 +95,19 @@ LDI x0, 0x01
 LDI x1, 0x01
 LDI x2, 0x81 #129
 LDI x6, 0xFF
+#output FF a whole bunch for serial log in HW testing
+OUTPUT x6, 0x01
+OUTPUT x6, 0x01
+OUTPUT x6, 0x01
+OUTPUT x6, 0x01
+OUTPUT x6, 0x01
+OUTPUT x6, 0x01
+OUTPUT x6, 0x01
+OUTPUT x6, 0x01
+OUTPUT x6, 0x01
+OUTPUT x6, 0x01
+OUTPUT x6, 0x01
+
 
 #square every number in range 1-129, in modular domain outputting data to UART
 

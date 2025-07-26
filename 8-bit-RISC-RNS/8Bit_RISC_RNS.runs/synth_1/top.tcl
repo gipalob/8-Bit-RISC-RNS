@@ -122,7 +122,7 @@ read_checkpoint -auto_incremental -incremental C:/code-projs/CIS4900/8-bit-RISC-
 close [open __synthesis_is_running__ w]
 
 OPTRACE "synth_design" START { }
-synth_design -top top -part xc7a35tcpg236-1 -directive PerformanceOptimized
+synth_design -top top -part xc7a35tcpg236-1 -flatten_hierarchy full
 OPTRACE "synth_design" END { }
 if { [get_msg_config -count -severity {CRITICAL WARNING}] > 0 } {
  send_msg_id runtcl-6 info "Synthesis results are not added to the cache due to CRITICAL_WARNING"

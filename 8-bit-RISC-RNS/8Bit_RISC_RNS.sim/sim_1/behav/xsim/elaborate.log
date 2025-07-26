@@ -16,7 +16,6 @@ Compiling module xil_defaultlib.Instr_Mem
 Compiling module xil_defaultlib.Data_Mem
 Compiling module xil_defaultlib.Reg_File(NUM_DOMAINS=2)
 Compiling module xil_defaultlib.PL_IFID(NUM_DOMAINS=2)
-Compiling module xil_defaultlib.RNS_complement
 Compiling module xil_defaultlib.RNS_adder
 Compiling module xil_defaultlib.RNS_sub
 Compiling module xil_defaultlib.RNS_multiplier
