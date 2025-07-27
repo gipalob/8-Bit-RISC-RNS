@@ -109,6 +109,7 @@ module PL_EX #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10, [9 * NUM_DOMAINS-1:
     always @(posedge clk)
 	begin
         IO_port_ID <=  8'b0; //reset IO port ID
+        operation_result <= 16'b0;
         
         //Combined pipeline register elements
         EX_reg[4:9] <=  {

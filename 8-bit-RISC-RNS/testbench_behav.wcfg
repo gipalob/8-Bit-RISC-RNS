@@ -12,14 +12,14 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="232.488 ns"></ZoomEndTime>
-      <Cursor1Time time="85.000 ns"></Cursor1Time>
+      <ZoomEndTime time="271.011 ns"></ZoomEndTime>
+      <Cursor1Time time="175.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="171"></NameColumnWidth>
-      <ValueColumnWidth column_width="71"></ValueColumnWidth>
+      <NameColumnWidth column_width="164"></NameColumnWidth>
+      <ValueColumnWidth column_width="58"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="40" />
+   <WVObjectSize size="52" />
    <wvobject fp_name="/testbench/clk100" type="logic">
       <obj_property name="ElementShortName">clk100</obj_property>
       <obj_property name="ObjectShortName">clk100</obj_property>
@@ -64,6 +64,10 @@
       <obj_property name="ElementShortName">IF_addr2[3:0]</obj_property>
       <obj_property name="ObjectShortName">IF_addr2[3:0]</obj_property>
    </wvobject>
+   <wvobject fp_name="/testbench/IF_addr3" type="array">
+      <obj_property name="ElementShortName">IF_addr3[2:0]</obj_property>
+      <obj_property name="ObjectShortName">IF_addr3[2:0]</obj_property>
+   </wvobject>
    <wvobject fp_name="/testbench/EX_addr1" type="array">
       <obj_property name="ElementShortName">EX_addr1[3:0]</obj_property>
       <obj_property name="ObjectShortName">EX_addr1[3:0]</obj_property>
@@ -72,14 +76,42 @@
       <obj_property name="ElementShortName">EX_addr2[3:0]</obj_property>
       <obj_property name="ObjectShortName">EX_addr2[3:0]</obj_property>
    </wvobject>
+   <wvobject fp_name="/testbench/EX_addr3" type="array">
+      <obj_property name="ElementShortName">EX_addr3[2:0]</obj_property>
+      <obj_property name="ObjectShortName">EX_addr3[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/reg_addr3" type="array">
+      <obj_property name="ElementShortName">reg_addr3[2:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_addr3[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/reg_rd_en" type="logic">
+      <obj_property name="ElementShortName">reg_rd_en</obj_property>
+      <obj_property name="ObjectShortName">reg_rd_en</obj_property>
+   </wvobject>
    <wvobject fp_name="/testbench/dest_reg_addr_EX" type="array">
       <obj_property name="ElementShortName">dest_reg_addr_EX[3:0]</obj_property>
       <obj_property name="ObjectShortName">dest_reg_addr_EX[3:0]</obj_property>
-      <obj_property name="isExpanded"></obj_property>
    </wvobject>
    <wvobject fp_name="/testbench/dest_reg_addr_ID" type="array">
       <obj_property name="ElementShortName">dest_reg_addr_ID[2:0]</obj_property>
       <obj_property name="ObjectShortName">dest_reg_addr_ID[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/IF_opcode" type="array">
+      <obj_property name="ElementShortName">IF_opcode[4:0]</obj_property>
+      <obj_property name="ObjectShortName">IF_opcode[4:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/bypass_op1_dcd" type="logic">
+      <obj_property name="ElementShortName">bypass_op1_dcd</obj_property>
+      <obj_property name="ObjectShortName">bypass_op1_dcd</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/bypass_op2_dcd" type="logic">
+      <obj_property name="ElementShortName">bypass_op2_dcd</obj_property>
+      <obj_property name="ObjectShortName">bypass_op2_dcd</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/bypass_op3_dcd" type="logic">
+      <obj_property name="ElementShortName">bypass_op3_dcd</obj_property>
+      <obj_property name="ObjectShortName">bypass_op3_dcd</obj_property>
    </wvobject>
    <wvobject fp_name="/testbench/IF_op1" type="array">
       <obj_property name="ElementShortName">IF_op1[15:0]</obj_property>
@@ -89,6 +121,22 @@
       <obj_property name="ElementShortName">IF_op2[15:0]</obj_property>
       <obj_property name="ObjectShortName">IF_op2[15:0]</obj_property>
    </wvobject>
+   <wvobject fp_name="/testbench/IF_op3" type="array">
+      <obj_property name="ElementShortName">IF_op3[7:0]</obj_property>
+      <obj_property name="ObjectShortName">IF_op3[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/bypass_op1_ex" type="logic">
+      <obj_property name="ElementShortName">bypass_op1_ex</obj_property>
+      <obj_property name="ObjectShortName">bypass_op1_ex</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/bypass_op2_ex" type="logic">
+      <obj_property name="ElementShortName">bypass_op2_ex</obj_property>
+      <obj_property name="ObjectShortName">bypass_op2_ex</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/bypass_op3_ex" type="logic">
+      <obj_property name="ElementShortName">bypass_op3_ex</obj_property>
+      <obj_property name="ObjectShortName">bypass_op3_ex</obj_property>
+   </wvobject>
    <wvobject fp_name="/testbench/EX_op1" type="array">
       <obj_property name="ElementShortName">EX_op1[15:0]</obj_property>
       <obj_property name="ObjectShortName">EX_op1[15:0]</obj_property>
@@ -96,6 +144,10 @@
    <wvobject fp_name="/testbench/EX_op2" type="array">
       <obj_property name="ElementShortName">EX_op2[15:0]</obj_property>
       <obj_property name="ObjectShortName">EX_op2[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/EX_op3" type="array">
+      <obj_property name="ElementShortName">EX_op3[7:0]</obj_property>
+      <obj_property name="ObjectShortName">EX_op3[7:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/testbench/reg_d1" type="array">
       <obj_property name="ElementShortName">reg_d1[15:0]</obj_property>
@@ -113,11 +165,6 @@
       <obj_property name="ElementShortName">imm[7:0]</obj_property>
       <obj_property name="ObjectShortName">imm[7:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/IF_opcode" type="array">
-      <obj_property name="ElementShortName">IF_opcode[4:0]</obj_property>
-      <obj_property name="ObjectShortName">IF_opcode[4:0]</obj_property>
-      <obj_property name="Radix">BINARYRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/testbench/reg_wr_en" type="logic">
       <obj_property name="ElementShortName">reg_wr_en</obj_property>

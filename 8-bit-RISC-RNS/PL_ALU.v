@@ -38,6 +38,8 @@ module adder (
     output reg carry_out
 );
     always @(op1 or op2 or carry_in) begin
+        result = 8'b0;
+        carry_out = 1'b0;
         {carry_out, result} = op1 + op2 + carry_in; // 8-bit addition with carry
     end
 endmodule

@@ -1,7 +1,7 @@
 // Description: Top module for 8-bit RISC RNS processor. 
 //              Defines parameters for dynamic var widths, instantiates all submodules / pipeline stages
 
-module processor_top #(parameter NUM_DOMAINS = 2, parameter [9 * NUM_DOMAINS - 1 : 0] MODULI = {9'd129, 9'd256}) (
+module processor_top #(parameter PROG_CTR_WID = 10, parameter NUM_DOMAINS = 2, parameter [9 * NUM_DOMAINS - 1 : 0] MODULI = {9'd129, 9'd256}) (
     input wire      clk100, 
     input wire      reset,
     input  [7:0]    IO_read_data,
@@ -9,17 +9,18 @@ module processor_top #(parameter NUM_DOMAINS = 2, parameter [9 * NUM_DOMAINS - 1
     output [7:0]    IO_write_data,
     output          IO_write_strobe,
     output          IO_read_strobe,
-    output [9:0]    pc_copy
-); 
-    parameter PROG_CTR_WID = 10;
+    output [9:0]    pc_copy,
+    output [4:0] opcode,
+    output [15:0] inst_dup
+);
 
     wire [PROG_CTR_WID-1:0]     prog_ctr;           //next program counter value
     wire                        branch_taken_EX;    //indicate branch was taken in EX stage
     wire [15:0]                 instr_mem_out;      //instruction fetched from memory
+
+    assign inst_dup = instr_mem_out; //duplicate instruction for debugging
     
-    wire [2:0]                  rd_addr1;
-    wire [2:0]                  rd_addr2;
-    wire [2:0]                  rd_addr3;           //for RSTORE
+    wire reg_rd_en;
 
     wire [NUM_DOMAINS*8 - 1:0]  rd_data1;           //data for op1 from regfile
     wire [NUM_DOMAINS*8 - 1:0]  rd_data2;           //data for op2 from regfile
@@ -60,7 +61,6 @@ module processor_top #(parameter NUM_DOMAINS = 2, parameter [9 * NUM_DOMAINS - 1
     wire [0:4] brnch_conds_EX;
     wire [0:4]                  branch_conds_EX;        //branch conditions in EX stage to ctrl_Fwd
     wire [3:0]                  destination_reg_addr;   //destination register address, triggered on Register write enable
-    wire destination_RNS;                               //whether rd is in RNS domain, used to determine which reg file is written to
     wire [NUM_DOMAINS*8 - 1:0]  operation_result;       //result of ALU/Shift/LGCL operation
     wire [PROG_CTR_WID-1:0]     pred_nxt_prog_ctr_EX;   //predicted next program counter value to be pulled from EX pipeline reg
     //**/////////////////////////////////////**//
@@ -102,11 +102,11 @@ module processor_top #(parameter NUM_DOMAINS = 2, parameter [9 * NUM_DOMAINS - 1
         .clk(clk100),
         .reset(reset),
         .wr_data(wr_data),              //data to be written to reg on wr_addr && wr_en, to be pulled from EX pipeline reg
+        .rd_en(reg_rd_en),          //register read enable signal
         .rd_addr1(op1_addr_IFID),       //op1 address, to be pulled from ID pipeline reg
         .rd_addr2(op2_addr_IFID),       //op2 address, to be pulled from ID pipeline reg
         .rd_addr3(op3_addr_IFID),       //op2 address, to be pulled from ID pipeline reg
         .wr_addr(destination_reg_addr), //destination register address, to be pulled from EX pipeline reg
-        .wr_RNS(destination_RNS),       //whether rd is in RNS domain, used to determine which reg file is written to
         .wr_en(reg_wr_en),              //write enable signal, to be pulled from EX pipeline reg
         .rd_data1(rd_data1),            //op1 read data, to be pulled from ID pipeline reg
         .rd_data2(rd_data2),            //op2 read data, to be pulled from ID pipeline reg
@@ -122,6 +122,7 @@ module processor_top #(parameter NUM_DOMAINS = 2, parameter [9 * NUM_DOMAINS - 1
         .op1_data(op1_din_IFID),                //data for op1 from ctrl_Forward - assignment messed up somewhere? not an OP on FWD
         .op2_data(op2_din_IFID),                //data for op2 from ctrl_Forward - assignment messed up somewhere? not an OP on FWD
         .op3_data(op3_din_IFID),                //data for op3 from ctrl_Forward - assignment messed up somewhere? not an OP on FWD
+        .reg_rd_en(reg_rd_en),                  //register read enable signal
         .op1_addr_IFID(op1_addr_IFID),  //IF-OUT: op1 address to ctrl_Forward
         .op2_addr_IFID(op2_addr_IFID),  //IF-OUT: op2 address to ctrl_Forward
         .op3_addr_IFID(op3_addr_IFID),  //IF-OUT: op2 address to ctrl_Forward
@@ -135,7 +136,8 @@ module processor_top #(parameter NUM_DOMAINS = 2, parameter [9 * NUM_DOMAINS - 1
         .op1_addr_out_IFID(op1_addr_out_IFID),
         .op2_addr_out_IFID(op2_addr_out_IFID),
         .op3_addr_out_IFID(op3_addr_out_IFID),
-        .res_addr_out_IFID(res_addr_out_IFID)
+        .res_addr_out_IFID(res_addr_out_IFID),
+        .debug_opcode(opcode) //debug opcode output
     );
 
     PL_EX #(NUM_DOMAINS, PROG_CTR_WID) stage_EX (
@@ -172,7 +174,6 @@ module processor_top #(parameter NUM_DOMAINS = 2, parameter [9 * NUM_DOMAINS - 1
         .invalidate_instr(invalidate_instr),        //invalidate instruction in IFID pipeline register
         .mem_wr_en(mem_wr_en),                      //memory write enable signal
         .reg_wr_en(reg_wr_en),                      //register write enable signal
-        .destination_RNS(destination_RNS),          //whether rd is in RNS domain, used to determine which reg file is written to
         .wr_data(wr_data),                          //data to be written to reg || datamem 
         .IO_read_data(IO_read_data),          //data read from input port
         .IO_write_data(IO_write_data),         
@@ -199,6 +200,7 @@ module processor_top #(parameter NUM_DOMAINS = 2, parameter [9 * NUM_DOMAINS - 1
 
         .destination_reg_addr(destination_reg_addr),    //destination register address, to be pulled from EX pipeline reg
         .reg_wr_en(reg_wr_en),                          //register write enable signal
+        .reg_rd_en(reg_rd_en),                          //register read enable signal
         .op1_addr_IDtoEX(op1_addr_out_IFID),            //source register 1 address in EX stage (pulled from IFID pipeline register)
         .op2_addr_IDtoEX(op2_addr_out_IFID),            //source register 2 address in EX stage (pulled from IFID pipeline register)
         .op3_addr_IDtoEX(op3_addr_out_IFID),            //source register 2 address in EX stage (pulled from IFID pipeline register)

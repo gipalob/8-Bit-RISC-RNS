@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="impl_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1753413899">
+<GenRun Id="impl_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1753587087">
   <File Type="ROUTE-PWR" Name="top_power_routed.rpt"/>
   <File Type="PA-TCL" Name="top.tcl"/>
   <File Type="ROUTE-PWR-SUM" Name="top_power_summary_routed.pb"/>
@@ -86,6 +86,13 @@
   <File Type="POSTROUTE-PHYSOPT-RQS-RPT" Name="postroute_physopt_report_qor_suggestions_0.rpt"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
     <Filter Type="Srcs"/>
+    <File Path="$PSRCDIR/sources_1/ip/clk_wiz_0/clk_wiz_0.xci">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
     <File Path="$PPRDIR/Data_Mem.v">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
@@ -198,14 +205,6 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/Instr_Mem_Sim.v">
-      <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
     <Config>
       <Option Name="DesignMode" Val="RTL"/>
       <Option Name="TopModule" Val="top"/>
@@ -243,7 +242,9 @@
       <Desc>Default settings for Implementation.</Desc>
     </StratHandle>
     <Step Id="init_design"/>
-    <Step Id="opt_design" EnableStepBool="0"/>
+    <Step Id="opt_design">
+      <Option Id="Directive">0</Option>
+    </Step>
     <Step Id="power_opt_design"/>
     <Step Id="place_design"/>
     <Step Id="post_place_power_opt_design"/>

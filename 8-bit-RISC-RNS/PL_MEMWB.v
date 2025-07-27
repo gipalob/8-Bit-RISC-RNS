@@ -16,7 +16,6 @@ module PL_MEMWB #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10) (
     output invalidate_instr,              //invalidate instruction in IFID pipeline register
     output mem_wr_en,                     
     output reg_wr_en,
-    output destination_RNS,
     output [NUM_DOMAINS*8 - 1:0] wr_data, // { [7:0] Domain1, [7:0] Domain2, ... }
     //For INPUT / OUTPUT instructions
     output [7:0] IO_write_data,
@@ -42,7 +41,6 @@ module PL_MEMWB #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10) (
     assign invalidate_instr =   (EX_reg[3] || EX_reg[5] || EX_reg[6]);
     assign mem_wr_en =          (EX_reg[0] && !invalidate_instr);
     assign reg_wr_en =          (EX_reg[1] && !invalidate_instr);
-    assign destination_RNS =    EX_reg[7]; //if 1, write to RNS reg file, else write to normal reg file
 
     assign IO_write_data =      (EX_reg[8] == 1'b1) ? operation_result[7:0] : 8'b0; //output data is always the lowest 8 bits of the operation result
     assign IO_write_strobe =    (EX_reg[8] && !invalidate_instr); //PL_EX sets IO_port_ID to val from imm and operation_result to op3. MEMWB raises strobe as soon as EX PL reg populated 

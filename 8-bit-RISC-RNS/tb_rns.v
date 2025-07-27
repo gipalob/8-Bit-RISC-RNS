@@ -12,9 +12,9 @@ processor_top proc_top1(
 );
  wire [9:0] prog_ctr;
  wire [3:0] IF_addr1, IF_addr2, EX_addr1, EX_addr2, dest_reg_addr_EX;
- wire [2:0] dest_reg_addr_ID;
+ wire [2:0] reg_addr3, IF_addr3, EX_addr3, dest_reg_addr_ID;
  wire [15:0] IF_op1, IF_op2, EX_op1, EX_op2, reg_d1, reg_d2;
- wire [7:0] reg_d3, imm;
+ wire [7:0] reg_d3, IF_op3, EX_op3, imm;
  wire [4:0] IF_opcode;
  wire reg_wr_en, invalidate_instr, invalidate_instr_IFID, unconditional_jmp, branch_taken_EX;
  wire [15:0] reg_wr_data, operation_result, RNS_dout;
@@ -22,6 +22,9 @@ processor_top proc_top1(
  wire [7:0] op1_mod129, op2_mod129, op1_mod256, op2_mod256;
  wire [7:0] m129_out, m256_out;
  wire destination_rns;
+ wire reg_rd_en;
+ wire bypass_op1_dcd, bypass_op2_dcd, bypass_op3_dcd;
+ wire bypass_op1_ex, bypass_op2_ex, bypass_op3_ex;
 
  // wire [6:0] m129_low, m129_mid;
  // wire [1:0] m129_high;
@@ -49,6 +52,15 @@ assign instruction = proc_top1.instr_mem_out;
  assign op1_data_FWD_EX = proc_top1.fwd.bypass_op1_ex_stage;
  assign op1_data_IDtoEX = proc_top1.op1_dout_IFID;
 
+assign reg_rd_en = proc_top1.reg_rd_en;
+
+assign bypass_op1_dcd = proc_top1.fwd.bypass_op1_dcd_stage;
+assign bypass_op2_dcd = proc_top1.fwd.bypass_op2_dcd_stage;
+assign bypass_op3_dcd = proc_top1.fwd.bypass_op3_dcd_stage;
+assign bypass_op1_ex = proc_top1.fwd.bypass_op1_ex_stage;
+assign bypass_op2_ex = proc_top1.fwd.bypass_op2_ex_stage;
+assign bypass_op3_ex = proc_top1.fwd.bypass_op3_ex_stage;
+
 assign RNS_dout = proc_top1.stage_EX.RNS_dout;
 assign destination_rns = proc_top1.destination_RNS;
 assign op1_mod129 = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[0].RNS_ALU.op1_in;
@@ -65,16 +77,21 @@ assign op2_mod256 = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[1].RNS_ALU.op2_in;
  assign reg_d1 = proc_top1.rd_data1;
  assign reg_d2 = proc_top1.rd_data2;
  assign reg_d3= proc_top1.rd_data3;
+ assign reg_addr3 = proc_top1.reg_file.rd_addr3;
  assign prog_ctr = proc_top1.prog_ctr;
  assign IF_opcode = proc_top1.stage_IFID.opcode;
  assign IF_addr1 = proc_top1.op1_addr_IFID;
  assign IF_addr2 = proc_top1.op2_addr_IFID;
+ assign IF_addr3 = proc_top1.op3_addr_IFID;
  assign IF_op1 = proc_top1.op1_din_IFID;
  assign IF_op2 = proc_top1.op2_din_IFID;
+ assign IF_op3 = proc_top1.op3_din_IFID;
  assign EX_addr1 = proc_top1.op1_addr_out_IFID;
  assign EX_addr2 = proc_top1.op2_addr_out_IFID;
+ assign EX_addr3 = proc_top1.op3_addr_out_IFID;
  assign EX_op1 = proc_top1.op1_din_EX;
  assign EX_op2 = proc_top1.op2_din_EX;
+ assign EX_op3 = proc_top1.op3_din_EX;
  assign invalidate_instr = proc_top1.invalidate_instr;
  assign invalidate_instr_IFID = proc_top1.IFID_reg[1];
  assign unconditional_jmp = proc_top1.IFID_reg[22];

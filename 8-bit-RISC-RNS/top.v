@@ -6,17 +6,19 @@ module top(
     input wire [1:0] btn,
     input wire UART_RX_in,
     output wire UART_TX_out,
-    output reg [1:0] led,
-    output reg [9:0] pio
+    output [1:0] led,
+    output [9:0] pio
 );
     // Parameters
     parameter NUM_DOMAINS = 2; // Number of RNS domains; Integer domain remains.
+    parameter PROG_CTR_WID = 10;
     parameter [9 * NUM_DOMAINS - 1 : 0] MODULI = {9'd129, 9'd256}; // moduli for RNS domains. 9 bits to be sure... could be optimized?
     
     /*
         The hardware targeted for testing is a Digilent Cmod A7-35T. The Cmod's oscillator is only 12MHz,
     */
-    //wire clk100; // 100MHz clock output from clock wizard
+    wire clk6; 
+    wire clk12;
     wire reset;
     assign reset = btn[0];
 
@@ -26,28 +28,33 @@ module top(
     wire IO_write_strobe; // Write strobe signal
     wire IO_read_strobe; // Effectively, processor read ACK
     wire [9:0] pc_copy;
+    wire [4:0] opcode;
+    wire [15:0] instruction; // Instruction fetched from memory
 
     wire [7:0] UART_RX_data;
     reg [7:0] UART_TX_data; 
     wire TX_buffer_full, RX_data_present;
     reg read_from_UART, write_to_UART;
 
-//    clk_wiz_0 clock_wizard(
-//        .clk_in1(clk),
-//        .reset(reset),
-//        .clk_out1(clk100),
-//        .locked(led[0])
-//    );
+    clk_wiz_0 clock_wizard(
+        .clk_in1(clk),
+        .reset(reset),
+        .clk_out1(clk6),
+        .clk_out2(clk12),
+        .locked(led[0])
+    );
 
-    processor_top #(NUM_DOMAINS, MODULI) processor (
-        .clk100(clk),
+    processor_top #(PROG_CTR_WID, NUM_DOMAINS, MODULI) processor (
+        .clk100(clk6),
         .reset(reset),
         .IO_read_data(IO_read_data),
         .IO_port_ID(IO_port_ID),
         .IO_write_data(IO_write_data),
         .IO_write_strobe(IO_write_strobe),
         .IO_read_strobe(IO_read_strobe),
-        .pc_copy(pc_copy)
+        .pc_copy(pc_copy),
+        .opcode(opcode),
+        .inst_dup(instruction)
     );
     rs232_uart UART (
         .tx_data_in(UART_TX_data),
@@ -59,9 +66,12 @@ module top(
         .rs232_tx(UART_TX_out),
         .rs232_rx(UART_RX_in),
         .reset(reset),
-        .clk(clk)
+        .clk(clk12)
     );
     
+    assign led[1] = RX_data_present;
+    //assign led[0] = TX_buffer_full;
+    assign pio[7:0] = IO_write_data;
 
     /*
         This UART implementation comes from material provided in CDA 4203, Computer System Design - Sp25, Kermani.
@@ -74,45 +84,55 @@ module top(
 //    assign pio[1] = TX_buffer_full;
 //    assign pio[2] = read_from_UART;
 //    assign pio[3] = write_to_UART;
-
-    always @(posedge clk) begin
-        led[1] <= RX_data_present;
-        pio <= pc_copy;
-        read_from_UART <= 1'b0;
-        if (reset) begin
-            IO_read_data <= 8'b0; // Reset IO read data
-        end else begin
-            read_from_UART <= 1'b0;
-            write_to_UART <= 1'b0;
-            
-            if (btn[1] == 1'b1) //for debug
-            begin
-                read_from_UART <= 1'b1;
-                UART_TX_data <= UART_RX_data;
-                write_to_UART <= 1'b1;
-            end
-            else if (IO_read_strobe == 1'b1) 
-            begin
-                case (IO_port_ID)
-                    8'h01: begin
-                        IO_read_data <= UART_RX_data; // Read data from UART if port ID matches
-                        read_from_UART <= 1'b1;
-                    end
-                    8'h02: IO_read_data <= (RX_data_present == 1'b1) ? 8'b1 : 8'b0; // Indicate if RX data is present
-                    8'h03: IO_read_data <= (TX_buffer_full == 1'b1) ? 8'b1 : 8'b0; // Indicate if TX buffer is full
-                    default: IO_read_data <= 8'b0; 
-                endcase
-            end
-            else if (IO_write_strobe == 1'b1) begin
-                IO_read_data <= 8'b0;
-                case (IO_port_ID)
-                    8'h01: begin
+    
+    
+    //for write
+    always @(posedge clk6) begin
+        write_to_UART <= 1'b0;
+        if (IO_write_strobe == 1'b1) begin
+            case (IO_port_ID)
+                8'h01: 
+                    begin
                         write_to_UART <= 1'b1;
                         UART_TX_data <= IO_write_data;
                     end
-                    default: begin
+                default: 
+                    begin
                         UART_TX_data <= 8'b0;
                     end  
+            endcase
+        end
+    end
+
+
+    always @(posedge clk6) begin
+        read_from_UART <= 1'b0;
+
+        if (reset == 1'b1) begin
+            IO_read_data <= 8'b0; // Reset IO read data
+        end else begin
+            read_from_UART <= 1'b0;
+            
+            if (IO_read_strobe == 1'b1) 
+            begin
+                case (IO_port_ID)
+                    8'h01: 
+                        begin
+                            IO_read_data <= UART_RX_data; // Read data from UART if port ID matches
+                            read_from_UART <= 1'b1;
+                        end
+                    8'h02: 
+                        begin
+                            IO_read_data <= (RX_data_present == 1'b1) ? 8'b1 : 8'b0; // Indicate if RX data is present
+                        end
+                    8'h03: 
+                        begin
+                            IO_read_data <= (TX_buffer_full == 1'b1) ? 8'b1 : 8'b0; // Indicate if TX buffer is full
+                        end
+                    default:
+                        begin
+                            IO_read_data <= 8'b0;
+                        end
                 endcase
             end
         end

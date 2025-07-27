@@ -14,7 +14,7 @@ module Forwarding #(parameter NUM_DOMAINS=1) (
     input                       load_true_IFID,             //load instruction flag from IFID
     input [3:0]                destination_reg_addr,       //destination register address from WB
     input                       reg_wr_en,                  //register write enable signal
-    
+    input                       reg_rd_en,                  //register read enable signal
 
     //Inputs specific for fwd logic for EX stage
     input [3:0]                 op1_addr_IDtoEX,            //source register 1 address in EX stage (pulled from IFID pipeline register)
@@ -59,9 +59,9 @@ module Forwarding #(parameter NUM_DOMAINS=1) (
             bypass_op3_dcd_stage <= 1'b0;
     end
 
-    assign op1_data_FWD_ID = bypass_op1_dcd_stage  ? wr_data : rd_data1;
-    assign op2_data_FWD_ID = bypass_op2_dcd_stage  ? wr_data : rd_data2;
-    assign op3_data_FWD_ID = bypass_op3_dcd_stage  ? wr_data : rd_data3;
+    assign op1_data_FWD_ID = (reg_rd_en == 1'b1) ? (bypass_op1_dcd_stage  ? wr_data : rd_data1) : 0;
+    assign op2_data_FWD_ID = (reg_rd_en == 1'b1) ? (bypass_op2_dcd_stage  ? wr_data : rd_data2) : 0;
+    assign op3_data_FWD_ID = (reg_rd_en == 1'b1) ? (bypass_op3_dcd_stage  ? wr_data : rd_data3) : 0;
     //////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////

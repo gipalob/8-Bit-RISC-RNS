@@ -12,6 +12,7 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
     input [NUM_DOMAINS*8 - 1:0]			op2_data,           //data for op2 from ctrl_Forward
 	input [7:0]							op3_data,           //data for op3 from ctrl_Forward
 
+	output reg 							reg_rd_en,      //Read enable signal for regfile
     output reg [3:0] 					op1_addr_IFID,  //ID: op1_addr to ctrl_Forward  - {RNS_file, [2:0] addr}
     output reg [3:0] 					op2_addr_IFID,  //ID: op2_addr to ctrl_Forward  - {RNS_file, [2:0] addr}
 	output reg [2:0]                    op3_addr_IFID,  //ID: op3_addr to ctrl_Forward  - always from int regfile, so no RNS flag needed
@@ -26,7 +27,8 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
     output reg [3:0]                    op1_addr_out_IFID,
     output reg [3:0]                    op2_addr_out_IFID,
 	output reg [2:0]                    op3_addr_out_IFID, //op3 is rs for RSTORE
-    output reg [2:0]                    res_addr_out_IFID
+    output reg [2:0]                    res_addr_out_IFID,
+	output [4:0] debug_opcode
 );
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -54,20 +56,27 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
     // Instruction Decode
     reg [4:0] opcode; //opcode of the instruction
     reg [2:0] res_addr; //destination register address
-    //reg [7:0] ld_mem_addr; //load memory address
+    reg [3:0] op2_addr, op1_addr;
     reg [9:0] branch_addr; //branch address
     //reg [PROG_CTR_WID-1:0] nxt_prog_ctr; //next program counter value
 
+	assign debug_opcode = opcode;
+
 	//For custom instructions:
 	reg [7:0] imm; //8-bit immediate for LDI
+	/*
+		There were some issues with the regfile having read triggered on address- 
+		So, the addresses initially obtained from the instruction are NOT sent out of IF/ID until the opcode is decoded. 
+		This also allowed for creation of a new signal, RD_EN, triggered based on opcode.		
+	*/
 
     always @(instruction) 
     begin
 		opcode	        	<= instruction[15:11];
 		res_addr	    	<= instruction[10:8];
 		imm			    	<= instruction[7:0]; //imm is used for LDI as well as INPUT and OUTPUT- acts as the port for INPUT and OUTPUT
-		op2_addr_IFID	   	<= instruction[7:4]; //bit 7 is rs2 domain flag; 1 == RNS, 0 == normal int
-		op1_addr_IFID		<= instruction[3:0]; //bit 4 is rs1 domain flag; 1 == RNS, 0 == normal int
+		op2_addr		   	<= instruction[7:4]; //bit 7 is rs2 domain flag; 1 == RNS, 0 == normal int
+		op1_addr			<= instruction[3:0]; //bit 4 is rs1 domain flag; 1 == RNS, 0 == normal int
 		branch_addr     	<= instruction[9:0];
 	end
 	/*
@@ -88,9 +97,8 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 	//custom flags:
 	reg outp_op, inp_op; 
 	reg ld_imm, mul_op_true, RNS_ALU_op, RNS_dest_reg, UNRL_op_true, UNRL_lower, RLLM_op_true;
-	reg op1_file, op2_file;
 
-    always@ (opcode or branch_addr or op1_addr_IFID or op2_addr_IFID or res_addr)        
+    always@ (opcode or branch_addr or op1_addr or op2_addr or res_addr)        
 	begin
 		add_op_true <= 1'b0;
 		and_op_true <= 1'b0;
@@ -121,10 +129,11 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 		UNRL_lower <= 1'b0;
 		RLLM_op_true <= 1'b0;
 		RNS_dest_reg <= 1'b0;
-		op1_file <= op1_addr_IFID[3];
-		op2_file <= op2_addr_IFID[3]; //RNS file flag for op1 and op2, 0 for integer, 1 for RNS
 
 		ld_imm <= 1'b0;
+		reg_rd_en <= 1'b0; //reg_rd_en is used to read from regfile in ID stage, so it is set to 1 for all instructions that read from regfile
+		op1_addr_IFID <= 4'b0; //reset op1_addr_IFID
+		op2_addr_IFID <= 4'b0; //reset op2_addr_IFID
 		op3_addr_IFID <= 3'b0; //reset op3_addr_IFID
 
 		case (opcode)
@@ -136,6 +145,10 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
             begin
 					write_to_regfile <= 1'b1;
 					add_op_true <= 1'b1;
+
+					op1_addr_IFID <= op1_addr;
+					op2_addr_IFID <= op2_addr;
+					reg_rd_en <= 1'b1;
 			end
 	
 		//	OP_SUB:	begin
@@ -145,6 +158,10 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 					carry_in	<= 1'b1;
 					en_op2_complement <= 1'b1;
 					write_to_regfile <= 1'b1;
+
+					op1_addr_IFID <= op1_addr;
+					op2_addr_IFID <= op2_addr;
+					reg_rd_en <= 1'b1;
 			end
 
 		//	OP_AND:	begin
@@ -153,6 +170,10 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 					and_op_true <= 1'b1;
 					lgcl_or_bitwse_T <= 1'b1;
 					write_to_regfile <= 1'b1;     
+
+					op1_addr_IFID <= op1_addr;
+					op2_addr_IFID <= op2_addr;
+					reg_rd_en <= 1'b1;
 			end
 
 		//	OP_OR:	begin
@@ -161,6 +182,10 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 					or_op_true <= 1'b1;
 					lgcl_or_bitwse_T <= 1'b1;
 					write_to_regfile <= 1'b1;
+
+					op1_addr_IFID <= op1_addr;
+					op2_addr_IFID <= op2_addr;
+					reg_rd_en <= 1'b1;
 			end
 
 		//	OP_NOT:	begin
@@ -169,6 +194,10 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 					not_op_true <= 1'b1;
 					lgcl_or_bitwse_T <= 1'b1;
 					write_to_regfile <= 1'b1;
+
+					op1_addr_IFID <= op1_addr;
+					op2_addr_IFID <= op2_addr;
+					reg_rd_en <= 1'b1;
 			end
 
 		//	OP_SHL	begin                  
@@ -176,6 +205,10 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
             begin
 					shift_left_true <= 1'b1;
 					write_to_regfile <= 1'b1;
+
+					op1_addr_IFID <= op1_addr;
+					op2_addr_IFID <= op2_addr;
+					reg_rd_en <= 1'b1;
 			end
 
 		//	OP_JMP:	begin
@@ -190,13 +223,20 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
             begin
 					load_true_IFID <= 1'b1;
 					write_to_regfile <= 1'b1;
+
+					op1_addr_IFID <= op1_addr;
+					op2_addr_IFID <= op2_addr;
+					reg_rd_en <= 1'b1;
 			end                      
                                                       
 		//	OP_RSTORE:	begin
 			5'b01001: //'RSTORE': Store to mem from reg 'rs'; RSTORE rs, rd1=addr[15:8], rd2=addr[7:0] where rd1 and rd2 are registers that hold the lower and upper 8b of the 16b address
             begin
                     store_true <= 1'b1;
+					op1_addr_IFID <= op1_addr;
+					op2_addr_IFID <= op2_addr;
 					op3_addr_IFID <= res_addr; //op3 is rs for RSTORE
+					reg_rd_en <= 1'b1;
             end
     /*
         FOR RLOAD AND RSTORE:
@@ -214,6 +254,10 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 					and_bitwise_true <= 1'b1;
 					lgcl_or_bitwse_T <= 1'b1;
 					write_to_regfile <= 1'b1; 
+
+					op1_addr_IFID <= op1_addr;
+					op2_addr_IFID <= op2_addr;
+					reg_rd_en <= 1'b1;
 			end
 
 		//	OP_ORBIT:	begin
@@ -222,6 +266,10 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 					or_bitwise_true <= 1'b1;
 					lgcl_or_bitwse_T <= 1'b1;
 					write_to_regfile <= 1'b1;
+
+					op1_addr_IFID <= op1_addr;
+					op2_addr_IFID <= op2_addr;
+					reg_rd_en <= 1'b1;
 			end
 
 		//	OP_NOTBIT:	begin
@@ -230,6 +278,10 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 					not_bitwise_true <= 1'b1;
 					lgcl_or_bitwse_T <= 1'b1;
 					write_to_regfile <= 1'b1;
+
+					op1_addr_IFID <= op1_addr;
+					op2_addr_IFID <= op2_addr;
+					reg_rd_en <= 1'b1;
 			end
  
 		//	OP_COMPARE: begin
@@ -239,6 +291,10 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 					compare_true <= 1'b1;	
 					carry_in	<= 1'b1;   //subtract
 					en_op2_complement <= 1'b1;
+
+					op1_addr_IFID <= op1_addr;
+					op2_addr_IFID <= op2_addr;
+					reg_rd_en <= 1'b1;
 			end
 
 		//	OP_JMPGT:	begin
@@ -286,6 +342,7 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 					write_to_regfile <= 1'b0; 
 					outp_op <= 1'b1;
 					op3_addr_IFID <= res_addr; //op3 is the register to output
+					reg_rd_en <= 1'b1; //read only op3 
 			end 
 		//  OP_INPUT: begin
 			5'b11011: //OP_INPUT: Take a value from the input port to the register
@@ -302,6 +359,10 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 					RNS_dest_reg 		<= 1'b1;
 					write_to_regfile 	<= 1'b1;
 					add_op_true 		<= 1'b1;
+
+					op1_addr_IFID <= op1_addr;
+					op2_addr_IFID <= op2_addr;
+					reg_rd_en <= 1'b1;
 			end
 		//	OP_SUBM:	begin 
 			5'b10100: 
@@ -311,7 +372,11 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 					write_to_regfile 	<= 1'b1;
 					en_op2_complement 	<= 1'b1; //indicate subtract- for the RNS ALU, this just indicates the operation is subtraction. No complement is performed
 					add_op_true 		<= 1'b1;
-					//No two's compl;ement needed for RNS subtraction, as it is done in the RNS domain
+					//No two's complement needed for RNS subtraction, as it is done in the RNS domain
+
+					op1_addr_IFID <= op1_addr;
+					op2_addr_IFID <= op2_addr;
+					reg_rd_en <= 1'b1;
 			end
 		//	OP_MULM:	begin 		
 			5'b10101: 
@@ -320,12 +385,16 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 					RNS_dest_reg 		<= 1'b1;
 					write_to_regfile 	<= 1'b1;
 					mul_op_true 		<= 1'b1;
+
+					op1_addr_IFID <= op1_addr;
+					op2_addr_IFID <= op2_addr;
+					reg_rd_en <= 1'b1;
 			end
 		
-			5'b10110: 
-			begin
+			// 5'b10110: 
+			// begin
 					
-			end
+			// end
 			/*
 				The 'UNRLx' instructions unroll an RNS register into two integer domain registers; i.e., for outputting or storing to data memory.
 				To maintain consistency / lessen complexity, unrolling is done with two instructions:
@@ -345,15 +414,21 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 			5'b10111: 
 			begin
 					UNRL_op_true 		<= 1'b1;
-					write_to_regfile 	<= op1_addr_IFID[3];
+					write_to_regfile 	<= op1_addr[3];
 					UNRL_lower 			<= 1'b1;
+
+					op1_addr_IFID <= op1_addr; //only read op1
+					reg_rd_en <= 1'b1;
 			end
 		//	OP_UNRLU:	begin
 			5'b11000: 
 			begin
 					UNRL_op_true 		<= 1'b1;
-					write_to_regfile 	<= op1_addr_IFID[3];
+					write_to_regfile 	<= op1_addr[3];
 					UNRL_lower 			<= 1'b0;
+
+					op1_addr_IFID <= op1_addr;
+					reg_rd_en <= 1'b1;
 			end
 		// OP_RLLM: 	begin      // Roll two integer domain registers into an RNS register; for example, reading two bytes from data mem (across two LOAD instructions) and rolling them into an RNS register.
 			5'b11001: 
@@ -361,6 +436,10 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 					RLLM_op_true 		<= 1'b1;
 					RNS_dest_reg 		<= 1'b1;
 					write_to_regfile 	<= 1'b1;
+
+					op1_addr_IFID <= op1_addr;
+					op2_addr_IFID <= op2_addr;
+					reg_rd_en <= 1'b1;
 			end
 
 			default: 	;			//= NOP
@@ -433,8 +512,8 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 				UNRL_op_true,			//      (1)    [34] - UNROLL operation flag
 				RLLM_op_true,			//      (1)    [35] - ROLL-MODULAR operation flag
 				RNS_dest_reg, 		 	//      (1)    [36] - RNS destination register flag
-				op1_file,				//	  	(1)    [37] - op1 file flag, 0 for integer, 1 for RNS
-				op2_file,				//	  	(1)    [38] - op2 file flag, 0 for integer, 1 for RNS
+				op1_addr_IFID[3],		//	  	(1)    [37] - op1 file flag, 0 for integer, 1 for RNS
+				op2_addr_IFID[3],		//	  	(1)    [38] - op2 file flag, 0 for integer, 1 for RNS
 				UNRL_lower,				//      (1)    [39] - Indicate whether an UNRL instruction is storing the lower or upper 8b of RNS reg
 				outp_op,				//      (1)    [40] - output operation flag
 				inp_op					//      (1)    [41] - input operation

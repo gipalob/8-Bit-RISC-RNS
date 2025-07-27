@@ -41,7 +41,7 @@ class ASMtoBin:
         Converts an I-type instruction to its binary representation.
         """
         if len(instruction) != 3:
-            raise ValueError("I-type instruction must have 3 parts: opcode, destination, and immediate value.")
+            raise ValueError(f"I-type instruction must have 3 parts: opcode, destination, and immediate value: {instruction}")
         
         destreg = self.get_reg_bin(instruction[1], src_reg=False)
         

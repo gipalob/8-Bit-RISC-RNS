@@ -15,6 +15,8 @@ module ctrl_BranchPred (
     assign eq_flag_true =       (((conds_EX[4] && !invalidate_instr) == 1'b1) && conds_EX[2]) || conds_MEMWB[2];
     assign carry_flag_true =    (((conds_EX[4] && !invalidate_instr) == 1'b1) && conds_EX[3]) || conds_MEMWB[3];
 
+
+    //Determine whether branch is taken based on what JMP inst is currently in IFID and what the result of the compare op currently in EX is
     assign branch_taken = 
         (conds_IFID[0] && gt_flag_true) || 
         (conds_IFID[1] && lt_flag_true) || 

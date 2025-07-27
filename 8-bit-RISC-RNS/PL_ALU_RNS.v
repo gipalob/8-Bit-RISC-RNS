@@ -5,6 +5,7 @@ module RNS_adder (
     output reg [15:0] result
 );
     always @(op1 or op2) begin
+        result = 16'b0;
         result = {8'b0, op1 + op2}; // 8-bit addition with carry
     end
 endmodule
@@ -22,6 +23,7 @@ module RNS_sub #(parameter [8:0] modulus = 9'd129) (
             result = (op1 - op2 + modulus) % modulus
     */
     always @(op1 or op2) begin
+        result = 16'b0;
         result = {6'b0, op1 - op2 + modulus}; 
     end
 endmodule
@@ -30,11 +32,15 @@ endmodule
 
 module RNS_multiplier (
     input [7:0] op1, op2,
+    input mul_en,
     output reg [15:0] result
 );
-    always @ (op1 or op2) 
+    always @ (op1 or op2 or mul_en) 
     begin
-        result = op1 * op2;
+        result = 16'b0;
+        if (mul_en == 1'b0) begin
+            result = op1 * op2;
+        end
     end
 endmodule
 
@@ -76,7 +82,7 @@ module PL_ALU_RNS #(parameter [8:0] modulus = 9'd129) ( //need to define a std v
 );
     wire [15:0] adder_result, sub_result, mul_result, final_result;
 
-    wire add_op, en_complement, mul_op_true;
+    wire add_op, en_complement, mul_op;
     assign add_op        = ALU_ctrl[0];
     assign en_complement = ALU_ctrl[8];
     assign mul_op        = ALU_ctrl[14];
@@ -104,12 +110,13 @@ module PL_ALU_RNS #(parameter [8:0] modulus = 9'd129) ( //need to define a std v
     RNS_multiplier mul_inst (
         .op1(op1_in),
         .op2(op2_in),
+        .mul_en(mul_op),
         .result(mul_result)
     );
 
     //if en_complement is HIGH, that means we're intended to perform a subtraction operation.
     //only reason it's still named 'en_complement' here instead of 'sub_op' or something is to retain original naming for consistency
-    assign final_result = (mul_op == 1'b1) ? mul_result : (en_complement == 1'b1) ? sub_result : adder_result;
+    assign final_result = (RNS_ALU_EN == 1'b1) ? 8'b0 : ((mul_op == 1'b1) ? mul_result : (en_complement == 1'b1) ? sub_result : adder_result);
 
     if (modulus == 9'd129) 
     begin
