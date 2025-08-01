@@ -1,112 +1,61 @@
 #Full function testing-
 #Jumping, RNS Domain instructions (incl rolling / unrolling), I/O operations incl UART.
-LDI x6, 0x3F
-LDI x7, 0x0D
-NOP
-NOP
-OUTPUT x6, 0x01
-OUTPUT x7, 0x01
-NOP
-NOP
-NOP
-OUTPUT x6, 0x01
-OUTPUT x7, 0x01
-NOP
-NOP
-NOP
-OUTPUT x6, 0x01
-OUTPUT x7, 0x01
-NOP
-NOP
-NOP
-OUTPUT x6, 0x01
-OUTPUT x7, 0x01
-NOP
-NOP
-NOP
-OUTPUT x6, 0x01
-OUTPUT x7, 0x01
-NOP
-NOP
-NOP
-OUTPUT x6, 0x01
-OUTPUT x7, 0x01
-NOP
-NOP
-NOP
-OUTPUT x6, 0x01
-OUTPUT x7, 0x01
-NOP
-NOP
-NOP
-OUTPUT x6, 0x01
-OUTPUT x7, 0x01
-NOP
-NOP
-NOP
-OUTPUT x6, 0x01
-OUTPUT x7, 0x01
-NOP
-NOP
-NOP
-OUTPUT x6, 0x01
-OUTPUT x7, 0x01
-NOP
-NOP
-NOP
-OUTPUT x6, 0x01
-OUTPUT x7, 0x01
-NOP
-NOP
-NOP
-OUTPUT x6, 0x01
-OUTPUT x7, 0x01
-NOP
-NOP
-NOP
-OUTPUT x6, 0x01
-OUTPUT x7, 0x01
-NOP
-NOP
-NOP
-
 LDI x0, 0x11
 LDI x1, 0x22
+LDI x7, 0x01
 ADDM m0, x0, x1
 SUBM m1, x1, x0
 MULM m2, x1, x1
 
 UNRLL x2, m0
+NOP
 OUTPUT x2, 0x01
 UNRLU x2, m0
+NOP
 OUTPUT x2, 0x01
 
 UNRLL x2, m1
+NOP
 OUTPUT x2, 0x01
 UNRLU x2, m1
+NOP
 OUTPUT x2, 0x01
+
+NOP
+NOP
+check_buff_l1:
+NOP
+NOP
+INPUT x4, 0x03
+NOP
+COMPARE x4, x3 #check TX buffer full
+JMPEQ check_buff_l1 #if full, wait
+NOP
+NOP
+NOP
 
 UNRLL x2, m2
 OUTPUT x2, 0x01
 UNRLU x2, m2
 OUTPUT x2, 0x01
 
+NOP
+NOP
+check_buff_l2:
+NOP
+NOP
+INPUT x4, 0x03
+NOP
+COMPARE x4, x7 #check TX buffer full
+JMPEQ check_buff_l2 #if full, wait
+NOP
+NOP
+NOP
+
 LDI x0, 0x01
 LDI x1, 0x01
 LDI x2, 0x81 #129
 LDI x6, 0xFF
-#output FF a whole bunch for serial log in HW testing
-OUTPUT x6, 0x01
-OUTPUT x6, 0x01
-OUTPUT x6, 0x01
-OUTPUT x6, 0x01
-OUTPUT x6, 0x01
-OUTPUT x6, 0x01
-OUTPUT x6, 0x01
-OUTPUT x6, 0x01
-OUTPUT x6, 0x01
-OUTPUT x6, 0x01
-OUTPUT x6, 0x01
 
 
 #square every number in range 1-129, in modular domain outputting data to UART
@@ -115,18 +64,38 @@ mod_sqr:
 MULM m0, x0, x0
 UNRLL x3, m0
 UNRLU x4, m0
+
+NOP
+NOP
+check_buff_l3:
+NOP
+NOP
+INPUT x5, 0x03
+NOP
+COMPARE x5, x7 #check TX buffer full
+JMPEQ check_buff_l3 #if full, wait
+NOP
+NOP
+NOP
+NOP
+
+
+
 OUTPUT x3, 0x01
+NOP
+NOP
+NOP
 OUTPUT x4, 0x01
 ADD x0, x0, x1
+NOP
 COMPARE x0, x2
 JMPEQ echo_loop #when we reach 129 jump to UART echo loop
 #because we have no jump/return stack, we can't have a single 'buffer wait fn'
-check_full_ms:
-INPUT x5, 0x03 #check if TX buffer is full
-NOP #NOP for safety- im unsure if forwarding will be able to fwd the data on in port
-COMPARE x5, x6
-JMPEQ check_full_ms #if full, wait
-JMP mod_sqr #if not full, jump back to mod_sqr
+NOP
+NOP
+NOP
+NOP
+JMP mod_sqr
 
 
 echo_RX_wait:

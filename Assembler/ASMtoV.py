@@ -60,7 +60,7 @@ class ASMtoBin:
         
         # We expect the jump target to be a label
         j_targ = instruction[1].strip().upper()
-        addr = self.label_addresses.get(j_targ, None)
+        addr = self.label_addresses.get(j_targ, None)[0]
         
         if addr is None:
             raise ValueError(f"Label '{j_targ}' not defined before use.")
@@ -101,7 +101,7 @@ class ASMtoBin:
         parts = [part.strip() for part in instruction.split()]
         
         if parts[0].upper() == "NOP":
-            return "0000000000000000"
+            return "0000000000000000", 'N'
         else:
             opcode, optype = self.get_opcode(parts[0])
             
@@ -110,13 +110,16 @@ class ASMtoBin:
             
             if optype == 'I':
                 inst = self.get_I_bin(parts, opcode)
+                ityp = 'I'
             elif optype == 'J':
                 inst = self.get_J_bin(parts, opcode)
+                ityp = 'J'
                 self.print_jumps[inst_line][2] = inst[6:]
             elif optype == 'R':
                 inst = self.get_R_bin(parts, opcode)
+                ityp = 'R'
             
-        return inst
+        return (inst, ityp)
     
     
     def rm_labels_comments(self):
@@ -129,20 +132,7 @@ class ASMtoBin:
             elif (inst_line.startswith('#')): 
                 self.num_invalid += 1
                 continue
-            elif inst_line.strip().endswith(':'):
-                self.label_lines.append((index, inst_line))
-                label = inst_line.strip()[:-1].upper()
-                self.num_labels += 1
-                addr = bin(index + 1 - self.num_labels - self.num_invalid)[2:].zfill(10)
-                
-                
-                self.print_jumps[index] = [addr, inst_line.strip().upper(), None]
-                
-                if label not in self.label_addresses:
-                    self.label_addresses[label] = addr
-            # Now, check for comments. First, the 'easy' way
-            
-            else:
+            elif ('#' in inst_line):
                 found_comment = False
                 comment_start = 0
                 for i, char in enumerate(inst_line):
@@ -154,15 +144,28 @@ class ASMtoBin:
                     inst_line = inst_line[:comment_start].strip()
                     if not inst_line: # just for safety
                         continue
-                    
+            #now removed all comments and whitespace, check for labels / split instructions
+            
+            if inst_line.strip().endswith(':'):
+                self.label_lines.append((index, inst_line))
+                label = inst_line.strip()[:-1].upper()
+                self.num_labels += 1
+                addr = bin(index + 1 - self.num_labels - self.num_invalid)[2:].zfill(10)
+                
+                
+                self.print_jumps[index] = [addr, inst_line.strip().upper(), None]
+                
+                if label not in self.label_addresses:
+                    self.label_addresses[label] = (addr, index - self.num_labels - self.num_invalid)
+            else:
                 addr = bin(index - self.num_labels - self.num_invalid)[2:].zfill(10)
                 self.print_jumps[index] = [addr, inst_line, None]
                 
                 self.file_lines.append((inst_line, index)) # to maintain the original line numbers
     
     
-    def getHexProg(self) -> list:
-        return self.hex_prog
+    def getProg(self) -> list:
+        return self.prog
     
     
     def getBinProg(self) -> list:
@@ -183,7 +186,7 @@ class ASMtoBin:
         self.num_labels = 0
         self.num_invalid = 0 #number of lines in og file that are either whitespace or comments
         self.label_addresses = {}
-        self.hex_prog = []
+        self.prog = {} # {<isnt addr (int): [<hex>, <text_inst>, <label>]}
         self.bin_prog = []
         
         self.J_type_opcodes = {
@@ -222,10 +225,16 @@ class ASMtoBin:
         self.rm_labels_comments()
         
         for (inst_line, index) in self.file_lines:
-            bin_line = self.get_inst_bin(inst_line, index)
+            (bin_line, ityp) = self.get_inst_bin(inst_line, index)
+
+            targ_label = [label for label in self.label_addresses.keys() if self.label_addresses[label][1] == index]
+            targ_label = targ_label[0] if len(targ_label) else None
+                
+            
             self.bin_prog.append(bin_line)
             hex_line = self.get_hex_instr(bin_line)
-            self.hex_prog.append(hex_line)
+            
+            self.prog[index] = [hex_line, inst_line, targ_label]
             
         self.fileobj.close()
         
@@ -241,25 +250,35 @@ def hexToInt(num: int, max_int_val:int, hex_addr_len:int):
 
 class BinToV:       
     def getCaseStatement(self) -> list:
+        self.case_lines = [
+            f"always @(posedge clk) begin",
+            f"\tcase (prog_ctr)"
+        ]
+        
         curInst = 0
-        for instAddr in range(0, len(self.hexInsts)):
+        for instAddr in self.prog.keys():
             curInst = instAddr
+            [hex_inst, text_inst, targ_label] = self.prog[instAddr]
             
-            if len(self.hexInsts[instAddr]) != 4:
-                raise ValueError(f"Instruction at address {instAddr} is not 4 hex digits long: {self.hexInsts[instAddr]}")
+            if len(hex_inst) != 4:
+                raise ValueError(f"Instruction at address {instAddr} is not 4 hex digits long: {hex_inst}")
+
+            case_line = f"\t\t10'h{hexToInt(instAddr, self.max_int_val, self.hex_addr_len)}: instr_mem_out <= 16'h{hex_inst}; // {text_inst}"
+            case_line = str(case_line + f" - Jump target for label: {targ_label}") if targ_label else case_line
             
-            self.case_lines.insert(
-                self.start_case_insert + instAddr,
-                f"\t\t10'h{hexToInt(instAddr, self.max_int_val, self.hex_addr_len)}: instr_mem_out <= 16'h{self.hexInsts[instAddr]};"
-            )
+            self.case_lines.append(case_line)
             
         #for when len(hexInsts) < 2**prog_ctr_wid
         for instAddr in range(curInst + 1, self.max_int_val):
-            self.case_lines.insert(
-                self.start_case_insert + instAddr,
+            self.case_lines.append(
                 f"\t\t10'h{hexToInt(instAddr, self.max_int_val, self.hex_addr_len)}: instr_mem_out <= 16'h0000;"
             )
-            
+        
+        self.case_lines.extend([
+            f"\t\tdefault: instr_mem_out <= 16'h0000;",
+            f"\tendcase",
+            f"end"
+        ])   
         return self.case_lines
         
         
@@ -267,7 +286,7 @@ class BinToV:
         """
         Get a list of the lines for the verilog file.
         """
-        if len(self.case_lines) == self.default_case_len:
+        if len(self.case_lines) == 0:
             self.getCaseStatement()
         
         verilog_lines = self.header.copy()
@@ -277,10 +296,12 @@ class BinToV:
         return verilog_lines
         
     
-    def __init__(self, hexInsts: list, prog_ctr_wid: int = 10):
+    def __init__(self, in_file_name: str, prog: dict, prog_ctr_wid: int = 10):
         '''
         This class will take a list of hex-encoded binary instructions and place them into a hard-coded verilog file,
         'Instr_Mem.v', containing module Instr_Mem.
+        This class requires inputs:
+
         The verilog module will have inputs / outputs / parameters:
             parameter PROG_CTR_WID (predef 10)
             input [PROG_CTR_WID-1:0] prog_ctr
@@ -288,28 +309,24 @@ class BinToV:
             
         Instructions are placed within a case statement, which should be placed within a LUT on synthesis.
         '''
+        self.case_lines = []
         self.hex_addr_len = (floor(prog_ctr_wid / 4) + 1) if (prog_ctr_wid % 4) else (prog_ctr_wid / 4)
         self.max_int_val = 2 ** prog_ctr_wid
         
         self.prog_ctr_wid = prog_ctr_wid
-        self.hexInsts = hexInsts 
-        
+        self.prog = prog
+
         self.header = [
+            f"/*",
+            f"\tInstruction memory module for source program {in_file_name}",
+            f"\tGenerated by ASMtoV.py",
+            f"*/",
             f"module Instr_Mem #(parameter PROG_CTR_WID = {prog_ctr_wid}) (",
             f"\tinput clk,"
             f"\tinput [PROG_CTR_WID-1:0] prog_ctr,",
             f"\toutput reg [15:0] instr_mem_out",
             f");"
         ]
-        self.case_lines = [
-            f"always @(posedge clk) begin",
-            f"\tcase (prog_ctr)",
-            f"\t\tdefault: instr_mem_out <= 16'h0000;",
-            f"\tendcase",
-            f"end"
-        ]
-        self.start_case_insert = 2
-        self.default_case_len = len(self.case_lines)
         self.footer = [
             f"endmodule"
         ]
@@ -343,6 +360,11 @@ if __name__ == "__main__":
     
     try: 
         source_file = open(sys.argv[1], 'r')
+        
+        deconst_src_fname = sys.argv[1].split('/')
+        deconstructed_src_fname = deconst_src_fname if len(deconst_src_fname) > 1 else sys.argv[1].split('\\')
+        
+        src_fname = deconstructed_src_fname[-1]
     except:
         print(f"\033[1;31mError: Could not open source file {sys.argv[1]}\033[0m")
         sys.exit(1)
@@ -382,9 +404,9 @@ if __name__ == "__main__":
         #can add handling for other options here later
     
     asm_to_bin = ASMtoBin(source_file)
-    hex_prog = asm_to_bin.getHexProg()
+    prog = asm_to_bin.getProg()
     
-    bin_to_v = BinToV(hex_prog, prog_ctr_wid=pc_width)
+    bin_to_v = BinToV(src_fname, prog, prog_ctr_wid=pc_width)
     verilog_module_lines = bin_to_v.getVerilogLines()
     
     dest_file.writelines([line + '\n' for line in verilog_module_lines])
@@ -409,7 +431,17 @@ if __name__ == "__main__":
         print(f"\033[1;32mBinary instructions written to {sys.argv[3]}\033[0m")
         
     if hex_fout:
-        hex_fout.writelines([f"{inst}\n" for inst in hex_prog])
+        hex_fout.writelines(
+            [
+                f"{inst}\n" 
+                for inst in 
+                (
+                    inst_line[0] 
+                    for inst_line in 
+                    (prog[idx] for idx in prog.keys())
+                )
+            ]
+        )
         hex_fout.close()
         print(f"\033[1;32mHex instructions written to {sys.argv[4]}\033[0m")
         

@@ -1,5 +1,5 @@
 # compile verilog/system verilog design source files
-verilog xil_defaultlib  --include "../../../../8Bit_RISC_RNS.ip_user_files/ipstatic" \
+verilog xil_defaultlib  \
 "../../../../Data_Mem.v" \
 "../../../../Instr_Mem.v" \
 "../../../../PL_ALU.v" \

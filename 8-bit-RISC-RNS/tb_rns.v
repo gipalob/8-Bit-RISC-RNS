@@ -62,7 +62,6 @@ assign bypass_op2_ex = proc_top1.fwd.bypass_op2_ex_stage;
 assign bypass_op3_ex = proc_top1.fwd.bypass_op3_ex_stage;
 
 assign RNS_dout = proc_top1.stage_EX.RNS_dout;
-assign destination_rns = proc_top1.destination_RNS;
 assign op1_mod129 = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[0].RNS_ALU.op1_in;
 assign op2_mod129 = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[0].RNS_ALU.op2_in;
 assign op1_mod256 = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[1].RNS_ALU.op1_in;

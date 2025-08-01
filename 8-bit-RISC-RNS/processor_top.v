@@ -2,7 +2,7 @@
 //              Defines parameters for dynamic var widths, instantiates all submodules / pipeline stages
 
 module processor_top #(parameter PROG_CTR_WID = 10, parameter NUM_DOMAINS = 2, parameter [9 * NUM_DOMAINS - 1 : 0] MODULI = {9'd129, 9'd256}) (
-    input wire      clk100, 
+    input wire      clk, 
     input wire      reset,
     input  [7:0]    IO_read_data,
     output [7:0]    IO_port_ID,
@@ -76,20 +76,20 @@ module processor_top #(parameter PROG_CTR_WID = 10, parameter NUM_DOMAINS = 2, p
     */
 
     ctrl_ProgCtr #(PROG_CTR_WID) programcounter(
-        .clk(clk100), .reset(reset),
+        .clk(clk), .reset(reset),
         .branch_taken_EX(branch_taken_EX),
         .nxt_prog_ctr_EX(pred_nxt_prog_ctr_EX),     //next program counter, to be pulled from EX pipeline reg ************************************
         .prog_ctr(prog_ctr)                         //current program counter value
     );
 
     Instr_Mem #(PROG_CTR_WID) instr_mem (
-        .clk(clk100),
+        .clk(clk),
         .prog_ctr(prog_ctr),
         .instr_mem_out(instr_mem_out)
     );
     
     Data_Mem data_mem(
-        .clk(clk100), .reset(reset),
+        .clk(clk), .reset(reset),
         //INPUTS
         .data_rd_addr(data_rd_addr), .data_wr_addr(data_wr_addr), //even though both will be {op1, op2} need to keep separate for timing - read triggers dout <= {mem @ addr}
         .datamem_wr_data(wr_data[7:0]), .store_to_mem(mem_wr_en),
@@ -99,7 +99,7 @@ module processor_top #(parameter PROG_CTR_WID = 10, parameter NUM_DOMAINS = 2, p
 
 
     Reg_File #(NUM_DOMAINS) reg_file (
-        .clk(clk100),
+        .clk(clk),
         .reset(reset),
         .wr_data(wr_data),              //data to be written to reg on wr_addr && wr_en, to be pulled from EX pipeline reg
         .rd_en(reg_rd_en),          //register read enable signal
@@ -115,7 +115,7 @@ module processor_top #(parameter PROG_CTR_WID = 10, parameter NUM_DOMAINS = 2, p
 
 
     PL_IFID #(PROG_CTR_WID, NUM_DOMAINS) stage_IFID (
-        .clk(clk100),
+        .clk(clk),
         .rst(reset),
         .instr_mem_out(instr_mem_out),          //instruction fetched from memory
         .branch_taken_EX(branch_taken_EX),      //indicate branch was taken in EX stage
@@ -141,7 +141,7 @@ module processor_top #(parameter PROG_CTR_WID = 10, parameter NUM_DOMAINS = 2, p
     );
 
     PL_EX #(NUM_DOMAINS, PROG_CTR_WID) stage_EX (
-        .clk(clk100), .reset(reset),
+        .clk(clk), .reset(reset),
         //Pipeline registers from IFID
         .op1(op1_din_EX),                                           //op1 din after ctrl_Forward makes decision
         .op2(op2_din_EX),                                           //op2 din after ctrl_Forward makes decision
@@ -162,7 +162,7 @@ module processor_top #(parameter PROG_CTR_WID = 10, parameter NUM_DOMAINS = 2, p
     );
 
     PL_MEMWB #(NUM_DOMAINS, PROG_CTR_WID) stage_MEMWB (
-        .clk(clk100), .reset(reset),
+        .clk(clk), .reset(reset),
         //Pipeline registers from EX
         .operation_result(operation_result),        //result of ALU/Shift/LGCL operation
         .EX_reg(EX_reg),                            //mixed EX pipeline register signals

@@ -2,12 +2,12 @@
 2020.2
 Oct 13 2023
 20:47:58
-C:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.sim/sim_1/behav/xsim/glbl.v,1752787641,verilog,,,,glbl,,,,,,,,
-C:/code-projs/CIS4900/8-bit-RISC-RNS/Data_Mem.v,1752787641,verilog,,C:/code-projs/CIS4900/8-bit-RISC-RNS/Instr_Mem.v,,Data_Mem,,,../../../../8Bit_RISC_RNS.ip_user_files/ipstatic,,,,,
-C:/code-projs/CIS4900/8-bit-RISC-RNS/Instr_Mem.v,1753572073,verilog,,C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v,,Instr_Mem,,,../../../../8Bit_RISC_RNS.ip_user_files/ipstatic,,,,,
-C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v,1753574175,verilog,,C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v,,PL_ALU;adder;complement;logical;shift,,,../../../../8Bit_RISC_RNS.ip_user_files/ipstatic,,,,,
-C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v,1753573863,verilog,,C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_EX.v,,PL_ALU_RNS;RNS_adder;RNS_fit_129;RNS_fit_256;RNS_multiplier;RNS_sub,,,../../../../8Bit_RISC_RNS.ip_user_files/ipstatic,,,,,
-C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_EX.v,1753574269,verilog,,C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_IFID.v,,PL_EX,,,../../../../8Bit_RISC_RNS.ip_user_files/ipstatic,,,,,
+C:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.sim/sim_1/behav/xsim/glbl.v,1753986090,verilog,,,,glbl,,,,,,,,
+C:/code-projs/CIS4900/8-bit-RISC-RNS/Data_Mem.v,1753586469,verilog,,C:/code-projs/CIS4900/8-bit-RISC-RNS/Instr_Mem.v,,Data_Mem,,,,,,,,
+C:/code-projs/CIS4900/8-bit-RISC-RNS/Instr_Mem.v,1754084610,verilog,,C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v,,Instr_Mem,,,,,,,,
+C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v,1753574175,verilog,,C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v,,PL_ALU;adder;complement;logical;shift,,,,,,,,
+C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v,1753573863,verilog,,C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_EX.v,,PL_ALU_RNS;RNS_adder;RNS_fit_129;RNS_fit_256;RNS_multiplier;RNS_sub,,,,,,,,
+C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_EX.v,1753987237,verilog,,C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_IFID.v,,PL_EX,,,,,,,,
 C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_IFID.v,1753577176,verilog,,C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_MEMWB.v,,PL_IFID,,,../../../../8Bit_RISC_RNS.ip_user_files/ipstatic,,,,,
 C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_MEMWB.v,1753396557,verilog,,C:/code-projs/CIS4900/8-bit-RISC-RNS/Reg_File.v,,PL_MEMWB,,,../../../../8Bit_RISC_RNS.ip_user_files/ipstatic,,,,,
 C:/code-projs/CIS4900/8-bit-RISC-RNS/Reg_File.v,1753577594,verilog,,C:/code-projs/CIS4900/8-bit-RISC-RNS/ctrl_BranchPred.v,,Reg_File,,,../../../../8Bit_RISC_RNS.ip_user_files/ipstatic,,,,,

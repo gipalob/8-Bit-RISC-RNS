@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
-| Date             : Sat Jul 26 23:34:54 2025
+| Date             : Fri Aug  1 19:10:53 2025
 | Host             : BEN-DESKTOP running 64-bit major release  (build 9200)
 | Command          : report_power -file top_power_routed.rpt -pb top_power_summary_routed.pb -rpx top_power_routed.rpx
 | Design           : top
@@ -30,14 +30,14 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 0.170        |
+| Total On-Chip Power (W)  | 0.079        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 0.097        |
-| Device Static (W)        | 0.073        |
+| Dynamic (W)              | 0.007        |
+| Device Static (W)        | 0.072        |
 | Effective TJA (C/W)      | 5.0          |
-| Max Ambient (C)          | 84.2         |
-| Junction Temperature (C) | 25.8         |
+| Max Ambient (C)          | 84.6         |
+| Junction Temperature (C) | 25.4         |
 | Confidence Level         | Medium       |
 | Setting File             | ---          |
 | Simulation Activity File | ---          |
@@ -52,20 +52,19 @@ Table of Contents
 +--------------------------+-----------+----------+-----------+-----------------+
 | On-Chip                  | Power (W) | Used     | Available | Utilization (%) |
 +--------------------------+-----------+----------+-----------+-----------------+
-| Clocks                   |    <0.001 |       10 |       --- |             --- |
-| Slice Logic              |    <0.001 |      961 |       --- |             --- |
-|   LUT as Logic           |    <0.001 |      498 |     20800 |            2.39 |
+| Clocks                   |    <0.001 |        3 |       --- |             --- |
+| Slice Logic              |    <0.001 |      859 |       --- |             --- |
+|   LUT as Logic           |    <0.001 |      388 |     20800 |            1.87 |
 |   LUT as Distributed RAM |    <0.001 |       38 |      9600 |            0.40 |
-|   Register               |    <0.001 |      284 |     41600 |            0.68 |
+|   Register               |    <0.001 |      233 |     41600 |            0.56 |
 |   CARRY4                 |    <0.001 |       12 |      8150 |            0.15 |
-|   LUT as Shift Register  |    <0.001 |        9 |      9600 |            0.09 |
-|   Others                 |     0.000 |       26 |       --- |             --- |
-| Signals                  |    <0.001 |      791 |       --- |             --- |
-| Block RAM                |     0.004 |     16.5 |        50 |           33.00 |
-| MMCM                     |     0.092 |        1 |         5 |           20.00 |
+|   LUT as Shift Register  |    <0.001 |        8 |      9600 |            0.08 |
+|   Others                 |     0.000 |       24 |       --- |             --- |
+| Signals                  |    <0.001 |      706 |       --- |             --- |
+| Block RAM                |     0.006 |     16.5 |        50 |           33.00 |
 | I/O                      |    <0.001 |       16 |       106 |           15.09 |
-| Static Power             |     0.073 |          |           |                 |
-| Total                    |     0.170 |          |           |                 |
+| Static Power             |     0.072 |          |           |                 |
+| Total                    |     0.079 |          |           |                 |
 +--------------------------+-----------+----------+-----------+-----------------+
 
 
@@ -75,8 +74,8 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) | Powerup (A) | Budget (A)  | Margin (A) |
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
-| Vccint    |       1.000 |     0.014 |       0.004 |      0.010 |       NA    | Unspecified | NA         |
-| Vccaux    |       1.800 |     0.064 |       0.051 |      0.013 |       NA    | Unspecified | NA         |
+| Vccint    |       1.000 |     0.016 |       0.006 |      0.010 |       NA    | Unspecified | NA         |
+| Vccaux    |       1.800 |     0.013 |       0.000 |      0.013 |       NA    | Unspecified | NA         |
 | Vcco33    |       3.300 |     0.001 |       0.000 |      0.001 |       NA    | Unspecified | NA         |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco18    |       1.800 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
@@ -128,18 +127,11 @@ Table of Contents
 2.2 Clock Constraints
 ---------------------
 
-+----------------------+--------------------------------------+-----------------+
-| Clock                | Domain                               | Constraint (ns) |
-+----------------------+--------------------------------------+-----------------+
-| clk                  | clk                                  |            83.3 |
-| clk_out1_clk_wiz_0   | clock_wizard/inst/clk_out1_clk_wiz_0 |           166.7 |
-| clk_out1_clk_wiz_0_1 | clock_wizard/inst/clk_out1_clk_wiz_0 |           166.7 |
-| clk_out2_clk_wiz_0   | clock_wizard/inst/clk_out2_clk_wiz_0 |            83.3 |
-| clk_out2_clk_wiz_0_1 | clock_wizard/inst/clk_out2_clk_wiz_0 |            83.3 |
-| clk_pin              | clk                                  |            83.3 |
-| clkfbout_clk_wiz_0   | clock_wizard/inst/clkfbout_clk_wiz_0 |            83.3 |
-| clkfbout_clk_wiz_0_1 | clock_wizard/inst/clkfbout_clk_wiz_0 |            83.3 |
-+----------------------+--------------------------------------+-----------------+
++---------+--------+-----------------+
+| Clock   | Domain | Constraint (ns) |
++---------+--------+-----------------+
+| clk_pin | clk    |            83.3 |
++---------+--------+-----------------+
 
 
 3. Detailed Reports
@@ -148,14 +140,12 @@ Table of Contents
 3.1 By Hierarchy
 ----------------
 
-+----------------+-----------+
-| Name           | Power (W) |
-+----------------+-----------+
-| top            |     0.097 |
-|   clock_wizard |     0.093 |
-|     inst       |     0.093 |
-|   processor    |     0.004 |
-|     data_mem   |     0.004 |
-+----------------+-----------+
++--------------+-----------+
+| Name         | Power (W) |
++--------------+-----------+
+| top          |     0.007 |
+|   processor  |     0.006 |
+|     data_mem |     0.005 |
++--------------+-----------+
 
 
