@@ -2,7 +2,7 @@
 LDI x0, 0x00
 LDI x1, 0x01
 ADDM m2, x0, x1 #set m2 to 1
-LDI x5, 0xFF
+LDI x5, 0xFD
 LDI x6, 0x00 #mem addr [15:8]
 LDI x7, 0x00 #mem addr [7:0]
 
@@ -14,8 +14,10 @@ ADDM m2, m2, x1
 UNRLU x3, m0
 RSTORE x3, x6, x7
 ADD x7, x7, x1
+NOP
+NOP
 COMPARE x7, x5 #check if we reached the end of the range
-JMPEQ add_IT_MEM_UPPER
+JMPGT add_IT_MEM_UPPER
 NOP
 NOP
 NOP
@@ -26,12 +28,14 @@ JMP ADD_LOOP
 NOP
 NOP
 NOP
-add_IT_MEM_UPPER: #always jumped to in the middle of the loop; so, we still need to store the UNRLL result
+add_IT_MEM_UPPER: #always jumped to in the middle of the loop at 0xFE; so, we still need to store the UNRLL result
 NOP
+ADD x7, x7, x1
+UNRLL x3, m0
+NOP
+RSTORE x3, x6, x7
 ADD x6, x6, x1
 LDI x7, 0x00
-UNRLL x3, m0
-RSTORE x3, x6, x7
 ADD x7, x7, x1
 LDI x0, 0x02
 COMPARE x6, x0 #we only want to add up to 512 + 512
@@ -50,8 +54,10 @@ ADDM m2, m2, x1 #m2++
 UNRLU x3, m0
 RSTORE x3, x6, x7
 ADD x7, x7, x1
+NOP
+NOP
 COMPARE x7, x5 #check if we reached the end of the range
-JMPEQ mul_IT_MEM_UPPER
+JMPGT mul_IT_MEM_UPPER
 NOP
 NOP
 NOP
@@ -64,11 +70,12 @@ NOP
 NOP
 mul_IT_MEM_UPPER: #always jumped to in the middle of the loop; so, we still need to store the UNRLL result
 NOP
+ADD x7, x7, x1
+UNRLL x3, m0
+NOP
+RSTORE x3, x6, x7
 ADD x6, x6, x1
 LDI x7, 0x00
-UNRLL x3, m0
-RSTORE x3, x6, x7
-ADD x7, x7, x1
 LDI x0, 0x05
 COMPARE x6, x0 #we only want to mul up to 512 + 512
 JMPLT MUL_LOOP
@@ -79,6 +86,7 @@ NOP
 #now we've done the mul and add storing to mem. output via UART now.
 #we should've stopped storing RNS add ops at addr before 00000010 00000001
 #and mul ops should end at 00000101 00000001
+LDI x5, 0xFF
 LDI x6, 0x00 #reset mem addr
 LDI x7, 0x00 #reset mem addr
 UART_OUT:
@@ -92,7 +100,10 @@ NOP
 COMPARE x7, x5
 JMPEQ UART_IT_MEM_UPPER
 NOP
+NOP
+NOP
 RLOAD x3, x6, x7 #load from mem
+NOP
 NOP
 OUTPUT x3, 0x01 #output to UART
 ADD x7, x7, x1 #increment mem addr
