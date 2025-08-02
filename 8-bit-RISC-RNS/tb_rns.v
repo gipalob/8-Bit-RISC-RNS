@@ -50,6 +50,18 @@ assign instruction = proc_top1.instr_mem_out;
 
  wire op1_data_FWD_EX;
  wire [15:0] op1_data_IDtoEX;
+ 
+ 
+ wire [15:0] dmem_wr_addr, dmem_rd_addr;
+ wire [7:0] dmem_wr_data, dmem_rd_data;
+ wire mem_wr_en;
+ assign mem_wr_en = proc_top1.mem_wr_en;
+ assign dmem_wr_addr = proc_top1.data_wr_addr;
+ assign dmem_rd_addr = proc_top1.data_rd_addr;
+ assign dmem_wr_data = proc_top1.data_mem.datamem_wr_data;
+ assign dmem_rd_data = proc_top1.data_mem.dmem_dout;
+ 
+ 
  assign op1_data_FWD_EX = proc_top1.fwd.bypass_op1_ex_stage;
  assign op1_data_IDtoEX = proc_top1.op1_dout_IFID;
 

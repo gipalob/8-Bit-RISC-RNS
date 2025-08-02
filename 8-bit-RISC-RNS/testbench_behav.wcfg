@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="1,989.972 ns"></ZoomStartTime>
-      <ZoomEndTime time="2,126.373 ns"></ZoomEndTime>
+      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="392.297 ns"></ZoomEndTime>
       <Cursor1Time time="2,105.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="133"></NameColumnWidth>
+      <NameColumnWidth column_width="128"></NameColumnWidth>
       <ValueColumnWidth column_width="79"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="53" />
+   <WVObjectSize size="58" />
    <wvobject type="logic" fp_name="/testbench/clk100">
       <obj_property name="ElementShortName">clk100</obj_property>
       <obj_property name="ObjectShortName">clk100</obj_property>
@@ -235,5 +235,25 @@
    <wvobject type="array" fp_name="/testbench/op2_mod256">
       <obj_property name="ElementShortName">op2_mod256[7:0]</obj_property>
       <obj_property name="ObjectShortName">op2_mod256[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/testbench/dmem_wr_addr">
+      <obj_property name="ElementShortName">dmem_wr_addr[15:0]</obj_property>
+      <obj_property name="ObjectShortName">dmem_wr_addr[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/testbench/dmem_rd_addr">
+      <obj_property name="ElementShortName">dmem_rd_addr[15:0]</obj_property>
+      <obj_property name="ObjectShortName">dmem_rd_addr[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/testbench/dmem_wr_data">
+      <obj_property name="ElementShortName">dmem_wr_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">dmem_wr_data[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/testbench/dmem_rd_data">
+      <obj_property name="ElementShortName">dmem_rd_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">dmem_rd_data[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/testbench/mem_wr_en">
+      <obj_property name="ElementShortName">mem_wr_en</obj_property>
+      <obj_property name="ObjectShortName">mem_wr_en</obj_property>
    </wvobject>
 </wave_config>
