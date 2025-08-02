@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2023.2.2 (lin64) Build 4126759 Thu Feb  8 23:52:05 MST 2024
-| Date         : Sat Aug  2 21:27:23 2025
+| Date         : Sat Aug  2 21:39:22 2025
 | Host         : 37b9771225f5 running 64-bit Ubuntu 22.04.5 LTS
 | Command      : report_control_sets -verbose -file top_control_sets_placed.rpt
 | Design       : top
@@ -58,33 +58,33 @@ Table of Contents
 +--------------+-----------------------+------------------------+-----------------+--------------+
 | Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
 +--------------+-----------------------+------------------------+-----------------+--------------+
-| No           | No                    | No                     |              68 |           30 |
+| No           | No                    | No                     |              68 |           23 |
 | No           | No                    | Yes                    |               0 |            0 |
-| No           | Yes                   | No                     |             123 |           47 |
-| Yes          | No                    | No                     |              10 |            6 |
+| No           | Yes                   | No                     |             123 |           51 |
+| Yes          | No                    | No                     |              10 |            3 |
 | Yes          | No                    | Yes                    |               0 |            0 |
-| Yes          | Yes                   | No                     |              32 |           16 |
+| Yes          | Yes                   | No                     |              32 |           13 |
 +--------------+-----------------------+------------------------+-----------------+--------------+
 
 
 4. Detailed Control Set Information
 -----------------------------------
 
-+----------------+---------------------------------------------------+-------------------------------------------------+------------------+----------------+--------------+
-|  Clock Signal  |                   Enable Signal                   |                 Set/Reset Signal                | Slice Load Count | Bel Load Count | Bels / Slice |
-+----------------+---------------------------------------------------+-------------------------------------------------+------------------+----------------+--------------+
-|  clk_IBUF_BUFG |                                                   | processor/stage_IFID/SR[0]                      |                2 |              8 |         4.00 |
-|  clk_IBUF_BUFG |                                                   | processor/stage_EX/operation_result[15]_i_1_n_0 |                3 |              8 |         2.67 |
-|  clk_IBUF_BUFG | UART/receiver/buffer_write                        |                                                 |                1 |              8 |         8.00 |
-|  clk_IBUF_BUFG | processor/stage_EX/EX_reg_reg[8]_0                |                                                 |                1 |              8 |         8.00 |
-|  clk_IBUF_BUFG |                                                   | UART/baud_count[9]_i_1_n_0                      |                2 |             10 |         5.00 |
-|  clk_IBUF_BUFG | processor/stage_IFID/pred_nxt_prog_ctr[9]_i_1_n_0 |                                                 |                6 |             10 |         1.67 |
-|  clk_IBUF_BUFG |                                                   | processor/stage_EX/data_wr_addr[15]_i_1_n_0     |                6 |             16 |         2.67 |
-|  clk_IBUF_BUFG | processor/stage_IFID/pred_nxt_prog_ctr[9]_i_1_n_0 | processor/programcounter/btn[0]                 |               16 |             32 |         2.00 |
-|  clk_IBUF_BUFG | processor/stage_EX/p_2_in__0                      |                                                 |                5 |             36 |         7.20 |
-|  clk_IBUF_BUFG | processor/stage_EX/EX_reg_reg[5]_0                |                                                 |                5 |             40 |         8.00 |
-|  clk_IBUF_BUFG |                                                   |                                                 |               30 |             68 |         2.27 |
-|  clk_IBUF_BUFG |                                                   | btn_IBUF[0]                                     |               34 |             81 |         2.38 |
-+----------------+---------------------------------------------------+-------------------------------------------------+------------------+----------------+--------------+
++----------------+---------------------------------------------------+---------------------------------------------+------------------+----------------+--------------+
+|  Clock Signal  |                   Enable Signal                   |               Set/Reset Signal              | Slice Load Count | Bel Load Count | Bels / Slice |
++----------------+---------------------------------------------------+---------------------------------------------+------------------+----------------+--------------+
+|  clk_IBUF_BUFG |                                                   | processor/stage_IFID/IFID_reg_reg[33]_1     |                4 |              8 |         2.00 |
+|  clk_IBUF_BUFG |                                                   | processor/stage_IFID/IFID_reg_reg[35]_0     |                3 |              8 |         2.67 |
+|  clk_IBUF_BUFG | processor/stage_EX/IO_port_ID_reg[1]_0            |                                             |                1 |              8 |         8.00 |
+|  clk_IBUF_BUFG | UART/receiver/buffer_write                        |                                             |                1 |              8 |         8.00 |
+|  clk_IBUF_BUFG |                                                   | UART/baud_count[9]_i_1_n_0                  |                3 |             10 |         3.33 |
+|  clk_IBUF_BUFG | processor/stage_IFID/pred_nxt_prog_ctr[3]_i_1_n_0 |                                             |                3 |             10 |         3.33 |
+|  clk_IBUF_BUFG |                                                   | processor/stage_IFID/IFID_reg_reg[15]_0     |                9 |             16 |         1.78 |
+|  clk_IBUF_BUFG | processor/stage_IFID/pred_nxt_prog_ctr[3]_i_1_n_0 | processor/programcounter/prog_ctr_reg_rep_5 |               13 |             32 |         2.46 |
+|  clk_IBUF_BUFG | processor/stage_EX/p_2_in__0                      |                                             |                5 |             36 |         7.20 |
+|  clk_IBUF_BUFG | processor/stage_EX/destination_reg_addr_reg[3]_1  |                                             |                5 |             40 |         8.00 |
+|  clk_IBUF_BUFG |                                                   |                                             |               23 |             68 |         2.96 |
+|  clk_IBUF_BUFG |                                                   | btn_IBUF[0]                                 |               32 |             81 |         2.53 |
++----------------+---------------------------------------------------+---------------------------------------------+------------------+----------------+--------------+
 
 

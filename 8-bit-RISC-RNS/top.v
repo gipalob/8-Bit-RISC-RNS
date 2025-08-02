@@ -37,7 +37,7 @@ module top(
     
     
     // PIO assigns for debugging w/ AD2
-    assign pio[9:0] = pc_copy;
+    assign pio[10:1] = pc_copy;
 
 
     processor_top #(PROG_CTR_WID, NUM_DOMAINS, MODULI) processor (
