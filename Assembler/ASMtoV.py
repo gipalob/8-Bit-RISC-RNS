@@ -1,6 +1,7 @@
 import sys
 from typing import TextIO
 from math import floor
+import json
 
 class ASMtoBin:
     def get_opcode(self, operation: str) -> str:
@@ -156,7 +157,7 @@ class ASMtoBin:
                 self.print_jumps[index] = [addr, inst_line.strip().upper(), None]
                 
                 if label not in self.label_addresses:
-                    self.label_addresses[label] = (addr, index - self.num_labels - self.num_invalid)
+                    self.label_addresses[label] = (addr, index + 1 - self.num_labels - self.num_invalid)
             else:
                 addr = bin(index - self.num_labels - self.num_invalid)[2:].zfill(10)
                 self.print_jumps[index] = [addr, inst_line, None]
@@ -165,6 +166,7 @@ class ASMtoBin:
     
     
     def getProg(self) -> list:
+        print(json.dumps(self.prog))
         return self.prog
     
     
@@ -224,17 +226,18 @@ class ASMtoBin:
         
         self.rm_labels_comments()
         
-        for (inst_line, index) in self.file_lines:
+        for newidx in range(0, len(self.file_lines)):
+            (inst_line, index) = self.file_lines[newidx]
             (bin_line, ityp) = self.get_inst_bin(inst_line, index)
 
-            targ_label = [label for label in self.label_addresses.keys() if self.label_addresses[label][1] == index]
+            targ_label = [label for label in self.label_addresses.keys() if self.label_addresses[label][1] == newidx]
             targ_label = targ_label[0] if len(targ_label) else None
                 
             
             self.bin_prog.append(bin_line)
             hex_line = self.get_hex_instr(bin_line)
             
-            self.prog[index] = [hex_line, inst_line, targ_label]
+            self.prog[newidx] = [hex_line, inst_line, targ_label]
             
         self.fileobj.close()
         
@@ -264,7 +267,16 @@ class BinToV:
                 raise ValueError(f"Instruction at address {instAddr} is not 4 hex digits long: {hex_inst}")
 
             case_line = f"\t\t10'h{hexToInt(instAddr, self.max_int_val, self.hex_addr_len)}: instr_mem_out <= 16'h{hex_inst}; // {text_inst}"
+            
             case_line = str(case_line + f" - Jump target for label: {targ_label}") if targ_label else case_line
+            
+            if 'JMP' in text_inst:
+                dest_label = text_inst.split()[-1].strip().upper()
+                dest_addr = self.label_addresses.get(dest_label, None)
+                if dest_addr is None:
+                    raise ValueError(f"Label '{dest_label}' not found for instruction {text_inst}. Error from label_addresses in BinToV.getCaseStatement()")
+                case_line += f" ###Target address is bin {dest_addr[0]}"
+                
             
             self.case_lines.append(case_line)
             
@@ -294,9 +306,9 @@ class BinToV:
         verilog_lines.extend(self.footer)
         
         return verilog_lines
-        
-    
-    def __init__(self, in_file_name: str, prog: dict, prog_ctr_wid: int = 10):
+
+
+    def __init__(self, in_file_name: str, prog: dict, label_addresses: dict, prog_ctr_wid: int = 10):
         '''
         This class will take a list of hex-encoded binary instructions and place them into a hard-coded verilog file,
         'Instr_Mem.v', containing module Instr_Mem.
@@ -310,6 +322,7 @@ class BinToV:
         Instructions are placed within a case statement, which should be placed within a LUT on synthesis.
         '''
         self.case_lines = []
+        self.label_addresses = label_addresses
         self.hex_addr_len = (floor(prog_ctr_wid / 4) + 1) if (prog_ctr_wid % 4) else (prog_ctr_wid / 4)
         self.max_int_val = 2 ** prog_ctr_wid
         
@@ -404,9 +417,11 @@ if __name__ == "__main__":
         #can add handling for other options here later
     
     asm_to_bin = ASMtoBin(source_file)
+    label_addresses = asm_to_bin.label_addresses
+    print(json.dumps(label_addresses))
     prog = asm_to_bin.getProg()
     
-    bin_to_v = BinToV(src_fname, prog, prog_ctr_wid=pc_width)
+    bin_to_v = BinToV(src_fname, prog, label_addresses, prog_ctr_wid=pc_width)
     verilog_module_lines = bin_to_v.getVerilogLines()
     
     dest_file.writelines([line + '\n' for line in verilog_module_lines])

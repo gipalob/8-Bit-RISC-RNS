@@ -4,7 +4,7 @@ LDI x1, 0x01
 ADDM m2, x0, x1 #set m2 to 1
 LDI x5, 0xFD
 LDI x6, 0x00 #mem addr [15:8]
-LDI x7, 0x00 #mem addr [7:0]
+LDI x7, 0x01 #mem addr [7:0]
 
 #add loop adds numbers to themselves a bunch and then stores to mem
 ADD_LOOP: 
@@ -43,10 +43,8 @@ JMPLT ADD_LOOP
 NOP
 NOP
 NOP
-
 LDI x0, 0x00
 ADDM m2, x0, x1 #set m2 to 1
-
 MUL_LOOP:
 NOP
 MULM m0, m2, m2 #m2*m2
@@ -88,7 +86,7 @@ NOP
 #and mul ops should end at 00000101 00000001
 LDI x5, 0xFF
 LDI x6, 0x00 #reset mem addr
-LDI x7, 0x00 #reset mem addr
+LDI x7, 0x01 #reset mem addr
 UART_OUT:
 INPUT x4, 0x03 #check if TX buffer full
 NOP

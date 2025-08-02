@@ -19,6 +19,7 @@ processor_top proc_top1(
  wire reg_wr_en, invalidate_instr, invalidate_instr_IFID, unconditional_jmp, branch_taken_EX;
  wire [15:0] reg_wr_data, operation_result, RNS_dout;
  wire [0:41] IFID_reg;
+ wire [0:9] EX_reg;
  wire [7:0] op1_mod129, op2_mod129, op1_mod256, op2_mod256;
  wire [7:0] m129_out, m256_out;
  wire destination_rns;
@@ -53,6 +54,8 @@ assign instruction = proc_top1.instr_mem_out;
  assign op1_data_IDtoEX = proc_top1.op1_dout_IFID;
 
 assign reg_rd_en = proc_top1.reg_rd_en;
+
+assign EX_reg = proc_top1.EX_reg;
 
 assign bypass_op1_dcd = proc_top1.fwd.bypass_op1_dcd_stage;
 assign bypass_op2_dcd = proc_top1.fwd.bypass_op2_dcd_stage;
@@ -96,7 +99,6 @@ assign op2_mod256 = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[1].RNS_ALU.op2_in;
  assign unconditional_jmp = proc_top1.IFID_reg[22];
  assign branch_taken_EX = proc_top1.branch_taken_EX;
  assign reg_wr_en = proc_top1.reg_wr_en;
- assign reg_wr_data = proc_top1.wr_data;
  assign reg_wr_data = proc_top1.wr_data;
  assign IFID_reg = proc_top1.IFID_reg;
 initial
