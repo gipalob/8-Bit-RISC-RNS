@@ -17,7 +17,7 @@ proc create_report { reportName command } {
   }
 }
 namespace eval ::optrace {
-  variable script "C:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.runs/impl_1/top.tcl"
+  variable script "/home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.runs/impl_1/top.tcl"
   variable category "vivado_impl"
 }
 
@@ -122,7 +122,7 @@ start_step init_design
 set ACTIVE_STEP init_design
 set rc [catch {
   create_msg_db init_design.pb
-  set_param chipscope.maxJobs 4
+  set_param chipscope.maxJobs 3
   set_param runs.launchOptions { -jobs 6  }
 OPTRACE "create in-memory project" START { }
   create_project -in_memory -part xc7a35tcpg236-1
@@ -131,15 +131,15 @@ OPTRACE "create in-memory project" START { }
   set_param project.singleFileAddWarning.threshold 0
 OPTRACE "create in-memory project" END { }
 OPTRACE "set parameters" START { }
-  set_property webtalk.parent_dir C:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.cache/wt [current_project]
-  set_property parent.project_path C:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.xpr [current_project]
-  set_property ip_output_repo C:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.cache/ip [current_project]
+  set_property webtalk.parent_dir /home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.cache/wt [current_project]
+  set_property parent.project_path /home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.xpr [current_project]
+  set_property ip_output_repo /home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.cache/ip [current_project]
   set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "set parameters" END { }
 OPTRACE "add files" START { }
-  add_files -quiet C:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.runs/synth_1/top.dcp
+  add_files -quiet /home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.runs/synth_1/top.dcp
 OPTRACE "read constraints: implementation" START { }
-  read_xdc C:/code-projs/CIS4900/Cmod-A7-Master.xdc
+  read_xdc /home/user/CIS4900/Cmod-A7-Master.xdc
 OPTRACE "read constraints: implementation" END { }
 OPTRACE "read constraints: implementation_pre" START { }
 OPTRACE "read constraints: implementation_pre" END { }

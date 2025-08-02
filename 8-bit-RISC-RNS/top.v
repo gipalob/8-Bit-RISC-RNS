@@ -7,7 +7,7 @@ module top(
     input wire UART_RX_in,
     output wire UART_TX_out,
     output [1:0] led,
-    output [9:0] pio
+    output [22:1] pio
 );
     // Parameters
     parameter NUM_DOMAINS = 2; // Number of RNS domains; Integer domain remains.
@@ -34,6 +34,10 @@ module top(
     wire [7:0] UART_TX_data; 
     wire TX_buffer_full, RX_data_present, write_to_UART;
     wire read_from_UART;
+    
+    
+    // PIO assigns for debugging w/ AD2
+    assign pio[9:0] = pc_copy;
 
 
     processor_top #(PROG_CTR_WID, NUM_DOMAINS, MODULI) processor (
@@ -63,7 +67,6 @@ module top(
     
     assign led[1] = RX_data_present;
     //assign led[0] = TX_buffer_full;
-    assign pio[7:0] = IO_write_data;
 
     /*
         This UART implementation comes from material provided in CDA 4203, Computer System Design - Sp25, Kermani.
@@ -72,10 +75,6 @@ module top(
         Port 0x02: Processor input, RX data present
         Port 0x03: Processor input, TX buffer full
     */
-//    assign pio[0] = RX_data_present;
-//    assign pio[1] = TX_buffer_full;
-//    assign pio[2] = read_from_UART;
-//    assign pio[3] = write_to_UART;
     
     
     //for write

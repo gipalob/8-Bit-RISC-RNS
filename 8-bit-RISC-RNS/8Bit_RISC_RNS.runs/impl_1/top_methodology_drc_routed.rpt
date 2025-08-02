@@ -1,8 +1,8 @@
-Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------------------------------------------------
-| Tool Version : Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
-| Date         : Fri Aug  1 19:10:53 2025
-| Host         : BEN-DESKTOP running 64-bit major release  (build 9200)
+| Tool Version : Vivado v.2023.2.2 (lin64) Build 4126759 Thu Feb  8 23:52:05 MST 2024
+| Date         : Sat Aug  2 21:27:36 2025
+| Host         : 37b9771225f5 running 64-bit Ubuntu 22.04.5 LTS
 | Command      : report_methodology -file top_methodology_drc_routed.rpt -pb top_methodology_drc_routed.pb -rpx top_methodology_drc_routed.rpx
 | Design       : top
 | Device       : xc7a35tcpg236-1
@@ -23,12 +23,12 @@ Table of Contents
           Floorplan: design_1
       Design limits: <entire design considered>
              Max violations: <unlimited>
-             Violations found: 32
+             Violations found: 22
 +-----------+----------+-------------------------------+------------+
 | Rule      | Severity | Description                   | Violations |
 +-----------+----------+-------------------------------+------------+
 | SYNTH-16  | Warning  | Address collision             | 16         |
-| TIMING-18 | Warning  | Missing input or output delay | 16         |
+| TIMING-18 | Warning  | Missing input or output delay | 6          |
 +-----------+----------+-------------------------------+------------+
 
 2. REPORT DETAILS
@@ -141,56 +141,6 @@ Related violations: <none>
 TIMING-18#6 Warning
 Missing input or output delay  
 An output delay is missing on led[1] relative to the rising and/or falling clock edge(s) of clk_pin.
-Related violations: <none>
-
-TIMING-18#7 Warning
-Missing input or output delay  
-An output delay is missing on pio[0] relative to the rising and/or falling clock edge(s) of clk_pin.
-Related violations: <none>
-
-TIMING-18#8 Warning
-Missing input or output delay  
-An output delay is missing on pio[1] relative to the rising and/or falling clock edge(s) of clk_pin.
-Related violations: <none>
-
-TIMING-18#9 Warning
-Missing input or output delay  
-An output delay is missing on pio[2] relative to the rising and/or falling clock edge(s) of clk_pin.
-Related violations: <none>
-
-TIMING-18#10 Warning
-Missing input or output delay  
-An output delay is missing on pio[3] relative to the rising and/or falling clock edge(s) of clk_pin.
-Related violations: <none>
-
-TIMING-18#11 Warning
-Missing input or output delay  
-An output delay is missing on pio[4] relative to the rising and/or falling clock edge(s) of clk_pin.
-Related violations: <none>
-
-TIMING-18#12 Warning
-Missing input or output delay  
-An output delay is missing on pio[5] relative to the rising and/or falling clock edge(s) of clk_pin.
-Related violations: <none>
-
-TIMING-18#13 Warning
-Missing input or output delay  
-An output delay is missing on pio[6] relative to the rising and/or falling clock edge(s) of clk_pin.
-Related violations: <none>
-
-TIMING-18#14 Warning
-Missing input or output delay  
-An output delay is missing on pio[7] relative to the rising and/or falling clock edge(s) of clk_pin.
-Related violations: <none>
-
-TIMING-18#15 Warning
-Missing input or output delay  
-An output delay is missing on pio[8] relative to the rising and/or falling clock edge(s) of clk_pin.
-Related violations: <none>
-
-TIMING-18#16 Warning
-Missing input or output delay  
-An output delay is missing on pio[9] relative to the rising and/or falling clock edge(s) of clk_pin.
 Related violations: <none>
 
 

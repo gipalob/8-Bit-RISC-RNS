@@ -1,8 +1,8 @@
-Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
-| Tool Version : Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
-| Date         : Fri Aug  1 19:10:35 2025
-| Host         : BEN-DESKTOP running 64-bit major release  (build 9200)
+| Tool Version : Vivado v.2023.2.2 (lin64) Build 4126759 Thu Feb  8 23:52:05 MST 2024
+| Date         : Sat Aug  2 21:27:23 2025
+| Host         : 37b9771225f5 running 64-bit Ubuntu 22.04.5 LTS
 | Command      : report_control_sets -verbose -file top_control_sets_placed.rpt
 | Design       : top
 | Device       : xc7a35t
@@ -58,12 +58,12 @@ Table of Contents
 +--------------+-----------------------+------------------------+-----------------+--------------+
 | Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
 +--------------+-----------------------+------------------------+-----------------+--------------+
-| No           | No                    | No                     |              68 |           25 |
+| No           | No                    | No                     |              68 |           30 |
 | No           | No                    | Yes                    |               0 |            0 |
-| No           | Yes                   | No                     |             123 |           45 |
-| Yes          | No                    | No                     |              10 |            4 |
+| No           | Yes                   | No                     |             123 |           47 |
+| Yes          | No                    | No                     |              10 |            6 |
 | Yes          | No                    | Yes                    |               0 |            0 |
-| Yes          | Yes                   | No                     |              32 |           11 |
+| Yes          | Yes                   | No                     |              32 |           16 |
 +--------------+-----------------------+------------------------+-----------------+--------------+
 
 
@@ -73,18 +73,18 @@ Table of Contents
 +----------------+---------------------------------------------------+-------------------------------------------------+------------------+----------------+--------------+
 |  Clock Signal  |                   Enable Signal                   |                 Set/Reset Signal                | Slice Load Count | Bel Load Count | Bels / Slice |
 +----------------+---------------------------------------------------+-------------------------------------------------+------------------+----------------+--------------+
-|  clk_IBUF_BUFG |                                                   | processor/stage_EX/operation_result[15]_i_1_n_0 |                4 |              8 |         2.00 |
-|  clk_IBUF_BUFG |                                                   | processor/stage_IFID/SR[0]                      |                3 |              8 |         2.67 |
-|  clk_IBUF_BUFG | processor/stage_EX/EX_reg_reg[8]_0                |                                                 |                1 |              8 |         8.00 |
+|  clk_IBUF_BUFG |                                                   | processor/stage_IFID/SR[0]                      |                2 |              8 |         4.00 |
+|  clk_IBUF_BUFG |                                                   | processor/stage_EX/operation_result[15]_i_1_n_0 |                3 |              8 |         2.67 |
 |  clk_IBUF_BUFG | UART/receiver/buffer_write                        |                                                 |                1 |              8 |         8.00 |
+|  clk_IBUF_BUFG | processor/stage_EX/EX_reg_reg[8]_0                |                                                 |                1 |              8 |         8.00 |
 |  clk_IBUF_BUFG |                                                   | UART/baud_count[9]_i_1_n_0                      |                2 |             10 |         5.00 |
-|  clk_IBUF_BUFG | processor/stage_IFID/pred_nxt_prog_ctr[9]_i_1_n_0 |                                                 |                4 |             10 |         2.50 |
-|  clk_IBUF_BUFG |                                                   | processor/stage_EX/data_wr_addr[15]_i_1_n_0     |                7 |             16 |         2.29 |
-|  clk_IBUF_BUFG | processor/stage_IFID/pred_nxt_prog_ctr[9]_i_1_n_0 | processor/programcounter/btn[0]                 |               11 |             32 |         2.91 |
+|  clk_IBUF_BUFG | processor/stage_IFID/pred_nxt_prog_ctr[9]_i_1_n_0 |                                                 |                6 |             10 |         1.67 |
+|  clk_IBUF_BUFG |                                                   | processor/stage_EX/data_wr_addr[15]_i_1_n_0     |                6 |             16 |         2.67 |
+|  clk_IBUF_BUFG | processor/stage_IFID/pred_nxt_prog_ctr[9]_i_1_n_0 | processor/programcounter/btn[0]                 |               16 |             32 |         2.00 |
 |  clk_IBUF_BUFG | processor/stage_EX/p_2_in__0                      |                                                 |                5 |             36 |         7.20 |
 |  clk_IBUF_BUFG | processor/stage_EX/EX_reg_reg[5]_0                |                                                 |                5 |             40 |         8.00 |
-|  clk_IBUF_BUFG |                                                   |                                                 |               25 |             68 |         2.72 |
-|  clk_IBUF_BUFG |                                                   | btn_IBUF[0]                                     |               29 |             81 |         2.79 |
+|  clk_IBUF_BUFG |                                                   |                                                 |               30 |             68 |         2.27 |
+|  clk_IBUF_BUFG |                                                   | btn_IBUF[0]                                     |               34 |             81 |         2.38 |
 +----------------+---------------------------------------------------+-------------------------------------------------+------------------+----------------+--------------+
 
 
