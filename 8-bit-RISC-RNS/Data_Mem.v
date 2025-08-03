@@ -10,24 +10,13 @@ module Data_Mem (
 );
     reg [7:0] memory_file[65535:0]; //i.e., 64Kbyte
 
-    //for loading initial data memory contents
-    //initial begin
-	//    $readmemh("",memory_file);
-	//end
-
     // get data during LOAD instruction                 
 	always @(data_rd_addr)
 	begin
 		dmem_dout <= memory_file[data_rd_addr];
-		/*
-			A possible concern with this is which domain we're going to use for the address...
-			Part of a standard assembly flow is performing arithmetic operations on the address...
-			What happens if we do, say, addr = 256 + 1? Theoretically, the assembler should never do this-
-			but overflowing the address is a possibility.
-		*/
 	end
                                                       
-    // write to data memory in STORE instruction
+    // Stores synced to clock edge
 	always @(posedge clk)
 	begin
 	    if (store_to_mem == 1'b1) 

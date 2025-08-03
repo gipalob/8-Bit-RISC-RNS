@@ -8,15 +8,14 @@ module Reg_File #(parameter NUM_DOMAINS=1) (
         input rd_en,
         input [3:0] rd_addr1, //4 bits to distinguish reg files
         input [3:0] rd_addr2, //4 bits to distinguish reg files
-        input [2:0] rd_addr3, //used exclusively for RSTORE
+        input [2:0] rd_addr3, //used exclusively for RSTORE / OUTPUT
         input [3:0] wr_addr,  //4 bits to distinguish reg files
-        input wr_en,             //write enable control signal
+        input wr_en,          
 
-        output reg [NUM_DOMAINS*8 - 1:0] rd_data1,  //data read from reg at rd_addr1
-        output reg [NUM_DOMAINS*8 - 1:0] rd_data2,  //data read from reg at rd_addr2
+        output reg [NUM_DOMAINS*8 - 1:0] rd_data1,
+        output reg [NUM_DOMAINS*8 - 1:0] rd_data2, 
         output reg [7:0] rd_data3   //data read from reg at rd_addr3 - always 8-bit int domain 
     );
-    //	register file
     reg [7:0] reg_file [7:0];
     reg [NUM_DOMAINS*8 - 1:0] RNS_reg_file [7:0];
 
@@ -40,8 +39,8 @@ module Reg_File #(parameter NUM_DOMAINS=1) (
             rd_data3 <= reg_file[rd_addr3]; 
         end else begin
             rd_data1 <= 0; //reset to 0 if not reading
-            rd_data2 <= 0; //reset to 0 if not reading
-            rd_data3 <= 0; //reset to 0 if not reading
+            rd_data2 <= 0;
+            rd_data3 <= 0;
         end
     end
 

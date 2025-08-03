@@ -111,35 +111,34 @@ module PL_EX #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10, [9 * NUM_DOMAINS-1:
         IO_port_ID <=  8'b0; //reset IO port ID
         operation_result <= 16'b0;
         
-        //Combined pipeline register elements
         EX_reg[4:9] <=  {
             IFID_reg[16],   //load_true_IFID
             IFID_reg[0],    //invalidate_fetch_instr
-            IFID_reg[1],     //invalidate_decode_instr
+            IFID_reg[1],    //invalidate_decode_instr
             IFID_reg[36],
-            IFID_reg[40], //outp_op
-            IFID_reg[41]  //inp_op
+            IFID_reg[40],   //outp_op
+            IFID_reg[41]    //inp_op
         };
         /////////////////////////////////////
         //Distinct pipeline register elements
         /////////////////////////////////////
         if (IFID_reg[33]) begin
-            operation_result <=  RNS_dout;                // if RNS operation, use RNS output
+            operation_result <=  RNS_dout;                      // if RNS operation, use RNS output
         end else if (IFID_reg[35]) begin
-            operation_result <=  {op1[7:0], op2[7:0]};    // For RLLM-Values that go into domain2, domain1 for mod-domain rd
+            operation_result <=  {op1[7:0], op2[7:0]};          // For RLLM-Values that go into domain2, domain1 for mod-domain rd
         end else if (IFID_reg[15]) begin
-            operation_result <=  {8'b0, op3};             // if store_true, use op3
+            operation_result <=  {8'b0, op3};                   // if store_true, use op3
         end else if (IFID_reg[23]) begin
-            operation_result <=  {8'b0, imm};             // if ld_imm, use immediate value
+            operation_result <=  {8'b0, imm};                   // if ld_imm, use immediate value
         end else if (IFID_reg[34]) begin                        
             operation_result <=  {8'b0, (IFID_reg[39] == 1'b1) ? op1[7:0] : op1[15:8]}; //UNRL- If UNRLL, use lower 8b, else upper 8b
         end else if (IFID_reg[40]) begin
-            operation_result <=  {8'b0, op3};             //OUTPUT will hold data to be placed on output port in op3
+            operation_result <=  {8'b0, op3};                   //OUTPUT will hold data to be placed on output port in op3
             IO_port_ID <=  imm;
-        end else if (IFID_reg[41]) begin                    //INPUT data is read in MEMWB, as that's where the read strobe is raised
+        end else if (IFID_reg[41]) begin                        //INPUT data is read in MEMWB, as that's where the read strobe is raised
             IO_port_ID <=  imm;
         end else begin
-            operation_result <=  {8'b0, ALU_dout};            // else use ALU output
+            operation_result <=  {8'b0, ALU_dout};              // else use ALU output
         end
 
         data_wr_addr <=  IFID_reg[15] ? {op1[7:0], op2[7:0]} : 16'b0; //if store_true, write to st_mem_addr_reg, else write to ld_mem_addr_reg
@@ -163,7 +162,7 @@ module PL_EX #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10, [9 * NUM_DOMAINS-1:
         begin
             EX_reg[0:3] <=  4'b0;
             destination_reg_addr <= 4'b0;
-            branch_taken_EX <= 1'b0; //reset branch taken EX reg
+            branch_taken_EX <= 1'b0;
         end
         else begin
             branch_taken_EX <=  branch_taken && !branch_taken_EX && !IFID_reg[0]; 
@@ -178,7 +177,6 @@ module PL_EX #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10, [9 * NUM_DOMAINS-1:
             };
         //  destination_reg_addr <=   {RNS_operation, [2:0] destination_reg_addr}
             destination_reg_addr <=  {IFID_reg[36], res_addr};
-            // will need to modify condition for reconstruct operation
         end
     end
 

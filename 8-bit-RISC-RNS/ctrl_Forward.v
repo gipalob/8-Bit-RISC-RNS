@@ -23,7 +23,7 @@ module Forwarding #(parameter NUM_DOMAINS=1) (
     input [NUM_DOMAINS*8 - 1:0] op1_data_IDtoEX,            //data read from register file for op1 in EX stage (pulled from IFID pipeline register)
     input [NUM_DOMAINS*8 - 1:0] op2_data_IDtoEX,            //data read from register file for op2 in EX stage (pulled from IFID pipeline register)
     input [7:0]                 op3_data_IDtoEX,            //data read from register file for op2 in EX stage (pulled from IFID pipeline register)
-    input                       load_true_EX,              //load instruction flag in EX stage
+    input                       load_true_EX,               //load instruction flag in EX stage
 
     output [NUM_DOMAINS*8 - 1:0] op1_data_FWD_ID,           //data for op1 after bypassing if needed
     output [NUM_DOMAINS*8 - 1:0] op2_data_FWD_ID,           //data for op2 after bypassing if needed

@@ -19,7 +19,8 @@
 // * Expects ACTIVE HIGH reset; reset is asynch
 // * tx_data_in is DATA to be TRANSMITTED
 // * rx_data_out is DATA that has been RECEIVED
-// * clk is 100MHz
+// * baud params for if clk is 100mhz or 12mhz are provided
+// * This UART module + submodules were originally provided by Dr. Mehran Kermani, for CDA 4203 Computer System Design Sp25
 //////////////////////////////////////////////////////////////////////////////////
 module rs232_uart(
 	tx_data_in, write_tx_data, rs232_tx, tx_buffer_full,

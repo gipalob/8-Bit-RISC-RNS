@@ -8,18 +8,12 @@ module processor_top #(parameter PROG_CTR_WID = 10, parameter NUM_DOMAINS = 2, p
     output [7:0]    IO_port_ID,
     output [7:0]    IO_write_data,
     output          IO_write_strobe,
-    output          IO_read_strobe,
-    output [9:0]    pc_copy,
-    output [4:0] opcode,
-    output [15:0] inst_dup
+    output          IO_read_strobe
 );
-
     wire [PROG_CTR_WID-1:0]     prog_ctr;           //next program counter value
     wire                        branch_taken_EX;    //indicate branch was taken in EX stage
     wire [15:0]                 instr_mem_out;      //instruction fetched from memory
 
-    assign inst_dup = instr_mem_out; //duplicate instruction for debugging
-    
     wire reg_rd_en;
 
     wire [NUM_DOMAINS*8 - 1:0]  rd_data1;           //data for op1 from regfile
@@ -69,7 +63,6 @@ module processor_top #(parameter PROG_CTR_WID = 10, parameter NUM_DOMAINS = 2, p
     wire [0:3]                  branch_conds_MEMWB;  
     wire invalidate_instr;
     //**//                                  //**//
-    assign pc_copy = prog_ctr;
     //**// I/O Signals (i.e., for UART) //**//
     /*
         Although IO_port_ID comes from PL_EX, IO_write_data, IO_write_strobe, and IO_read_strobe are all by PL_MEMWB at effectively the same time, in assign statements from EX PL reg.
@@ -136,8 +129,7 @@ module processor_top #(parameter PROG_CTR_WID = 10, parameter NUM_DOMAINS = 2, p
         .op1_addr_out_IFID(op1_addr_out_IFID),
         .op2_addr_out_IFID(op2_addr_out_IFID),
         .op3_addr_out_IFID(op3_addr_out_IFID),
-        .res_addr_out_IFID(res_addr_out_IFID),
-        .debug_opcode(opcode) //debug opcode output
+        .res_addr_out_IFID(res_addr_out_IFID)
     );
 
     PL_EX #(NUM_DOMAINS, PROG_CTR_WID) stage_EX (
@@ -220,6 +212,4 @@ module processor_top #(parameter PROG_CTR_WID = 10, parameter NUM_DOMAINS = 2, p
         .invalidate_instr(invalidate_instr),
         .branch_taken(branch_taken_in_EX)
     );
-
-
 endmodule

@@ -44,26 +44,26 @@ assign instruction = proc_top1.instr_mem_out;
 // assign m129_subout = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[0].RNS_ALU.sub_inst.result;
 // assign m256_subout = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[1].RNS_ALU.sub_inst.result;
 
- wire [7:0] m129_dout, m256_dout;
- assign m129_dout = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[0].RNS_ALU.genblk1.fit_inst.op_out;
- assign m256_dout = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[1].RNS_ALU.genblk1.fit_inst.op_out;
+wire [7:0] m129_dout, m256_dout;
+assign m129_dout = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[0].RNS_ALU.genblk1.fit_inst.op_out;
+assign m256_dout = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[1].RNS_ALU.genblk1.fit_inst.op_out;
 
- wire op1_data_FWD_EX;
- wire [15:0] op1_data_IDtoEX;
- 
- 
- wire [15:0] dmem_wr_addr, dmem_rd_addr;
- wire [7:0] dmem_wr_data, dmem_rd_data;
- wire mem_wr_en;
- assign mem_wr_en = proc_top1.mem_wr_en;
- assign dmem_wr_addr = proc_top1.data_wr_addr;
- assign dmem_rd_addr = proc_top1.data_rd_addr;
- assign dmem_wr_data = proc_top1.data_mem.datamem_wr_data;
- assign dmem_rd_data = proc_top1.data_mem.dmem_dout;
- 
- 
- assign op1_data_FWD_EX = proc_top1.fwd.bypass_op1_ex_stage;
- assign op1_data_IDtoEX = proc_top1.op1_dout_IFID;
+wire op1_data_FWD_EX;
+wire [15:0] op1_data_IDtoEX;
+
+
+wire [15:0] dmem_wr_addr, dmem_rd_addr;
+wire [7:0] dmem_wr_data, dmem_rd_data;
+wire mem_wr_en;
+assign mem_wr_en = proc_top1.mem_wr_en;
+assign dmem_wr_addr = proc_top1.data_wr_addr;
+assign dmem_rd_addr = proc_top1.data_rd_addr;
+assign dmem_wr_data = proc_top1.data_mem.datamem_wr_data;
+assign dmem_rd_data = proc_top1.data_mem.dmem_dout;
+
+
+assign op1_data_FWD_EX = proc_top1.fwd.bypass_op1_ex_stage;
+assign op1_data_IDtoEX = proc_top1.op1_dout_IFID;
 
 assign reg_rd_en = proc_top1.reg_rd_en;
 
@@ -84,35 +84,36 @@ assign op2_mod256 = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[1].RNS_ALU.op2_in;
 assign m129_dout = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[0].RNS_ALU.dout;
 assign m256_dout = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[1].RNS_ALU.dout;
 
- assign imm = proc_top1.stage_IFID.imm;
- assign dest_reg_addr_ID = proc_top1.res_addr_out_IFID;
- assign dest_reg_addr_EX = proc_top1.destination_reg_addr;
- assign operation_result = proc_top1.stage_EX.operation_result;
- assign reg_d1 = proc_top1.rd_data1;
- assign reg_d2 = proc_top1.rd_data2;
- assign reg_d3= proc_top1.rd_data3;
- assign reg_addr3 = proc_top1.reg_file.rd_addr3;
- assign prog_ctr = proc_top1.prog_ctr;
- assign IF_opcode = proc_top1.stage_IFID.opcode;
- assign IF_addr1 = proc_top1.op1_addr_IFID;
- assign IF_addr2 = proc_top1.op2_addr_IFID;
- assign IF_addr3 = proc_top1.op3_addr_IFID;
- assign IF_op1 = proc_top1.op1_din_IFID;
- assign IF_op2 = proc_top1.op2_din_IFID;
- assign IF_op3 = proc_top1.op3_din_IFID;
- assign EX_addr1 = proc_top1.op1_addr_out_IFID;
- assign EX_addr2 = proc_top1.op2_addr_out_IFID;
- assign EX_addr3 = proc_top1.op3_addr_out_IFID;
- assign EX_op1 = proc_top1.op1_din_EX;
- assign EX_op2 = proc_top1.op2_din_EX;
- assign EX_op3 = proc_top1.op3_din_EX;
- assign invalidate_instr = proc_top1.invalidate_instr;
- assign invalidate_instr_IFID = proc_top1.IFID_reg[1];
- assign unconditional_jmp = proc_top1.IFID_reg[22];
- assign branch_taken_EX = proc_top1.branch_taken_EX;
- assign reg_wr_en = proc_top1.reg_wr_en;
- assign reg_wr_data = proc_top1.wr_data;
- assign IFID_reg = proc_top1.IFID_reg;
+assign imm = proc_top1.stage_IFID.imm;
+assign dest_reg_addr_ID = proc_top1.res_addr_out_IFID;
+assign dest_reg_addr_EX = proc_top1.destination_reg_addr;
+assign operation_result = proc_top1.stage_EX.operation_result;
+assign reg_d1 = proc_top1.rd_data1;
+assign reg_d2 = proc_top1.rd_data2;
+assign reg_d3= proc_top1.rd_data3;
+assign reg_addr3 = proc_top1.reg_file.rd_addr3;
+assign prog_ctr = proc_top1.prog_ctr;
+assign IF_opcode = proc_top1.stage_IFID.opcode;
+assign IF_addr1 = proc_top1.op1_addr_IFID;
+assign IF_addr2 = proc_top1.op2_addr_IFID;
+assign IF_addr3 = proc_top1.op3_addr_IFID;
+assign IF_op1 = proc_top1.op1_din_IFID;
+assign IF_op2 = proc_top1.op2_din_IFID;
+assign IF_op3 = proc_top1.op3_din_IFID;
+assign EX_addr1 = proc_top1.op1_addr_out_IFID;
+assign EX_addr2 = proc_top1.op2_addr_out_IFID;
+assign EX_addr3 = proc_top1.op3_addr_out_IFID;
+assign EX_op1 = proc_top1.op1_din_EX;
+assign EX_op2 = proc_top1.op2_din_EX;
+assign EX_op3 = proc_top1.op3_din_EX;
+assign invalidate_instr = proc_top1.invalidate_instr;
+assign invalidate_instr_IFID = proc_top1.IFID_reg[1];
+assign unconditional_jmp = proc_top1.IFID_reg[22];
+assign branch_taken_EX = proc_top1.branch_taken_EX;
+assign reg_wr_en = proc_top1.reg_wr_en;
+assign reg_wr_data = proc_top1.wr_data;
+assign IFID_reg = proc_top1.IFID_reg;
+
 initial
 begin
     IO_read_data = 8'b0;
@@ -141,7 +142,7 @@ begin
 	$display("--------------------");
 	$display("Printing Data Memory Contents: ");
 	for(k = 0; k < 65535; k = k + 1) begin
-	   if (proc_top1.data_mem.memory_file[j] > 0) begin
+	   if (proc_top1.data_mem.memory_file[k] != 8'bXX) begin
 	       $display("data_mem [%0d] = %0d", k, proc_top1.data_mem.memory_file[k]);
 	   end
 	end

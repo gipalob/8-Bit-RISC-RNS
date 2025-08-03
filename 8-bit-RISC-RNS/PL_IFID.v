@@ -27,8 +27,7 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
     output reg [3:0]                    op1_addr_out_IFID,
     output reg [3:0]                    op2_addr_out_IFID,
 	output reg [2:0]                    op3_addr_out_IFID, //op3 is rs for RSTORE
-    output reg [2:0]                    res_addr_out_IFID,
-	output [4:0] debug_opcode
+    output reg [2:0]                    res_addr_out_IFID
 );
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -58,9 +57,6 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
     reg [2:0] res_addr; //destination register address
     reg [3:0] op2_addr, op1_addr;
     reg [9:0] branch_addr; //branch address
-    //reg [PROG_CTR_WID-1:0] nxt_prog_ctr; //next program counter value
-
-	assign debug_opcode = opcode;
 
 	//For custom instructions:
 	reg [7:0] imm; //8-bit immediate for LDI

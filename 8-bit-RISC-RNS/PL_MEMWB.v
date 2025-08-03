@@ -8,12 +8,11 @@ module PL_MEMWB #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10) (
     input [0:9] EX_reg,
     input [0:4] branch_conds_EX,
 
-    //Other
     input [7:0] dmem_dout, //data read from data memory
 
     //Outputs
     output reg [0:3] branch_conds_MEMWB,
-    output invalidate_instr,              //invalidate instruction in IFID pipeline register
+    output invalidate_instr,              //invalidate instruction currently in IFID
     output mem_wr_en,                     
     output reg_wr_en,
     output [NUM_DOMAINS*8 - 1:0] wr_data, // { [7:0] Domain1, [7:0] Domain2, ... }
@@ -44,9 +43,8 @@ module PL_MEMWB #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10) (
 
     assign IO_write_data =      (EX_reg[8] == 1'b1) ? operation_result[7:0] : 8'b0; //output data is always the lowest 8 bits of the operation result
     assign IO_write_strobe =    (EX_reg[8] && !invalidate_instr); //PL_EX sets IO_port_ID to val from imm and operation_result to op3. MEMWB raises strobe as soon as EX PL reg populated 
-    assign IO_read_strobe =     (EX_reg[9] && !invalidate_instr); // PL_EX sets IO_port_ID to val from imm and operation_result to data held on input port. MEMWB raises strobe as soon as EX PL reg populated
+    assign IO_read_strobe =     (EX_reg[9] && !invalidate_instr); //PL_EX sets IO_port_ID to val from imm and operation_result to data held on input port. MEMWB raises strobe as soon as EX PL reg populated
 
-    //Pipeline registers
     always @(posedge clk)
 	begin                                
         if (reset == 1'b1)                     
@@ -56,7 +54,7 @@ module PL_MEMWB #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10) (
         else begin
             branch_conds_MEMWB <=  4'b0; //reset branch conditions
             if ((EX_reg[2] && !invalidate_instr) == 1'b1)
-                branch_conds_MEMWB[3] <=  branch_conds_EX[3]; //does this always get reset to X or 0? 
+                branch_conds_MEMWB[3] <=  branch_conds_EX[3];
 
             if ((branch_conds_EX[4] && !invalidate_instr) == 1'b1) //if compare_true && not invalidate_instr
             begin
