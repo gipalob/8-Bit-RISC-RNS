@@ -429,7 +429,13 @@ if __name__ == "__main__":
     print(f"\033[1;32mVerilog module written to {sys.argv[2]}\033[0m")
     
     if print_bin:
-        og_insts = [(f"{inst[0] + (20 - len(inst[0])) * ' '}", inst[1]) for inst in asm_to_bin.file_lines]
+        og_insts = [
+            (
+                f"{inst[0] + (20 - len(inst[0])) * ' '}", 
+                inst[1]
+            ) 
+            for inst in asm_to_bin.file_lines
+        ]
         bin_prog = asm_to_bin.getBinProg()
         hex_addr_gen = (hexToInt(i, bin_to_v.max_int_val, bin_to_v.hex_addr_len) for i in range(len(bin_prog)))
         

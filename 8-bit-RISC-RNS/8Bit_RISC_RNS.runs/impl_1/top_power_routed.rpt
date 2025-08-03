@@ -1,8 +1,8 @@
-Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------
-| Tool Version     : Vivado v.2023.2.2 (lin64) Build 4126759 Thu Feb  8 23:52:05 MST 2024
-| Date             : Sat Aug  2 22:52:52 2025
-| Host             : 37b9771225f5 running 64-bit Ubuntu 22.04.5 LTS
+| Tool Version     : Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
+| Date             : Sun Aug  3 17:08:17 2025
+| Host             : BEN-DESKTOP running 64-bit major release  (build 9200)
 | Command          : report_power -file top_power_routed.rpt -pb top_power_summary_routed.pb -rpx top_power_routed.rpx
 | Design           : top
 | Device           : xc7a35tcpg236-1
@@ -30,7 +30,7 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 0.082        |
+| Total On-Chip Power (W)  | 0.083        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
 | Dynamic (W)              | 0.010        |
@@ -53,19 +53,18 @@ Table of Contents
 | On-Chip                  | Power (W) | Used     | Available | Utilization (%) |
 +--------------------------+-----------+----------+-----------+-----------------+
 | Clocks                   |    <0.001 |        3 |       --- |             --- |
-| Slice Logic              |    <0.001 |      875 |       --- |             --- |
-|   LUT as Logic           |    <0.001 |      394 |     20800 |            1.89 |
-|   LUT as Distributed RAM |    <0.001 |       38 |      9600 |            0.40 |
-|   Register               |    <0.001 |      233 |     41600 |            0.56 |
-|   CARRY4                 |    <0.001 |       12 |      8150 |            0.15 |
-|   F7/F8 Muxes            |    <0.001 |        7 |     32600 |            0.02 |
+| Slice Logic              |    <0.001 |     1157 |       --- |             --- |
+|   LUT as Logic           |    <0.001 |      593 |     20800 |            2.85 |
+|   LUT as Distributed RAM |    <0.001 |       42 |      9600 |            0.44 |
+|   CARRY4                 |    <0.001 |       47 |      8150 |            0.58 |
+|   Register               |    <0.001 |      241 |     41600 |            0.58 |
 |   LUT as Shift Register  |    <0.001 |        8 |      9600 |            0.08 |
-|   Others                 |     0.000 |       24 |       --- |             --- |
-| Signals                  |    <0.001 |      703 |       --- |             --- |
+|   Others                 |     0.000 |       30 |       --- |             --- |
+| Signals                  |    <0.001 |      936 |       --- |             --- |
 | Block RAM                |     0.006 |     16.5 |        50 |           33.00 |
 | I/O                      |     0.003 |       28 |       106 |           26.42 |
 | Static Power             |     0.072 |          |           |                 |
-| Total                    |     0.082 |          |           |                 |
+| Total                    |     0.083 |          |           |                 |
 +--------------------------+-----------+----------+-----------+-----------------+
 
 
@@ -145,7 +144,7 @@ Table of Contents
 | Name         | Power (W) |
 +--------------+-----------+
 | top          |     0.010 |
-|   processor  |     0.006 |
+|   processor  |     0.007 |
 |     data_mem |     0.005 |
 +--------------+-----------+
 

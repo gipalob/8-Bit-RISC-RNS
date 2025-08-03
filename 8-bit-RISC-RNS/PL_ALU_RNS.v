@@ -32,15 +32,12 @@ endmodule
 
 module RNS_multiplier (
     input [7:0] op1, op2,
-    input mul_en,
     output reg [15:0] result
 );
-    always @ (op1 or op2 or mul_en) 
+    always @ (op1 or op2) 
     begin
         result = 16'b0;
-        if (mul_en == 1'b0) begin
-            result = op1 * op2;
-        end
+        result = op1 * op2;
     end
 endmodule
 
@@ -53,15 +50,22 @@ module RNS_fit_129 (
     input [15:0] op_in,
     output [7:0] op_out
 );
-    wire [6:0] low = op_in[6:0];
-    wire [6:0] mid = op_in[13:7];
-    wire [1:0] high = op_in[15:14];
+    // wire [6:0] low = op_in[6:0];
+    // wire [6:0] mid = op_in[13:7];
+    // wire [1:0] high = op_in[15:14];
 
-    wire [8:0] step_one = low + mid + high; //fold bits together - this step has a max value of 384
+    // wire [8:0] step_one = low + mid + high; //fold bits together - this step has a max value of 384
 
-    wire [8:0] step_two = step_one[6:0] + step_one[8:7]; //fold again - this step has a max value of 130
+    // wire [8:0] step_two = step_one[6:0] + step_one[8:7]; //fold again - this step has a max value of 130
 
-    assign op_out = (step_two >= 129) ? (step_two - 129) : step_two[7:0]; // Fit into 129
+    // assign op_out = (step_two >= 129) ? (step_two - 129) : step_two[7:0]; // Fit into 129
+    reg [15:0] step_one;
+    always @ (op_in) 
+    begin
+        step_one = 8'b0;
+        step_one = op_in % 129;
+    end
+    assign op_out = step_one[7:0]; // Fit into 129
 endmodule
 
 module RNS_fit_256 (
@@ -110,13 +114,12 @@ module PL_ALU_RNS #(parameter [8:0] modulus = 9'd129) ( //need to define a std v
     RNS_multiplier mul_inst (
         .op1(op1_in),
         .op2(op2_in),
-        .mul_en(mul_op),
         .result(mul_result)
     );
 
     //if en_complement is HIGH, that means we're intended to perform a subtraction operation.
     //only reason it's still named 'en_complement' here instead of 'sub_op' or something is to retain original naming for consistency
-    assign final_result = (RNS_ALU_EN == 1'b1) ? 8'b0 : ((mul_op == 1'b1) ? mul_result : (en_complement == 1'b1) ? sub_result : adder_result);
+    assign final_result = (RNS_ALU_EN == 1'b0) ? 8'b0 : ((mul_op == 1'b1) ? mul_result : (en_complement == 1'b1) ? sub_result : adder_result);
 
     if (modulus == 9'd129) 
     begin

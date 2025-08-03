@@ -38,6 +38,7 @@ module top(
     
     // PIO assigns for debugging w/ AD2
     assign pio[10:1] = pc_copy;
+    assign pio[11] = read_from_UART; // Read from UART
 
 
     processor_top #(PROG_CTR_WID, NUM_DOMAINS, MODULI) processor (

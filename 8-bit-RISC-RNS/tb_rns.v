@@ -44,9 +44,9 @@ assign instruction = proc_top1.instr_mem_out;
 // assign m129_subout = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[0].RNS_ALU.sub_inst.result;
 // assign m256_subout = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[1].RNS_ALU.sub_inst.result;
 
-// wire [7:0] m129_dout, m256_dout;
-// assign m129_dout = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[0].RNS_ALU.genblk1.fit_inst.op_out;
-// assign m256_dout = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[1].RNS_ALU.genblk1.fit_inst.op_out;
+ wire [7:0] m129_dout, m256_dout;
+ assign m129_dout = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[0].RNS_ALU.genblk1.fit_inst.op_out;
+ assign m256_dout = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[1].RNS_ALU.genblk1.fit_inst.op_out;
 
  wire op1_data_FWD_EX;
  wire [15:0] op1_data_IDtoEX;
@@ -81,8 +81,8 @@ assign op1_mod129 = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[0].RNS_ALU.op1_in;
 assign op2_mod129 = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[0].RNS_ALU.op2_in;
 assign op1_mod256 = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[1].RNS_ALU.op1_in;
 assign op2_mod256 = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[1].RNS_ALU.op2_in;
-// assign m129_out = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[0].RNS_ALU.dout;
-// assign m256_out = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[1].RNS_ALU.dout;
+assign m129_dout = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[0].RNS_ALU.dout;
+assign m256_dout = proc_top1.stage_EX.genblk1.ALU_RNS_GENBLK[1].RNS_ALU.dout;
 
  assign imm = proc_top1.stage_IFID.imm;
  assign dest_reg_addr_ID = proc_top1.res_addr_out_IFID;
@@ -138,14 +138,14 @@ begin
 	for(j = 0; j < 8; j = j + 1) begin
 		$display("%0d\t| %08b | %08b", j, proc_top1.reg_file.RNS_reg_file[j][15:8], proc_top1.reg_file.RNS_reg_file[j][7:0]);
 	end
-	// $display("--------------------");
-	// $display("Printing Data Memory Contents: ");
-	// for(k = 0; k < 65535; k = k + 1) begin
-	//    if (proc_top1.data_mem.memory_file[j] > 0) begin
-	// 	  $display("data_mem [%0d] = %0d", k, proc_top1.data_mem.memory_file[k]);
-	// 	end
-	// end
-	// $display("--------------------");
+	$display("--------------------");
+	$display("Printing Data Memory Contents: ");
+	for(k = 0; k < 65535; k = k + 1) begin
+	   if (proc_top1.data_mem.memory_file[j] > 0) begin
+	       $display("data_mem [%0d] = %0d", k, proc_top1.data_mem.memory_file[k]);
+	   end
+	end
+	$display("--------------------");
 	
 	$stop;   // stop simulation
 end

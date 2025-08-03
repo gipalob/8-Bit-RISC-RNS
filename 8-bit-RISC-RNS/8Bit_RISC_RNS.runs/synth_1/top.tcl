@@ -4,7 +4,7 @@
 
 set TIME_start [clock seconds] 
 namespace eval ::optrace {
-  variable script "/home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.runs/synth_1/top.tcl"
+  variable script "C:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.runs/synth_1/top.tcl"
   variable category "vivado_synth"
 }
 
@@ -70,39 +70,39 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "synth_1" START { ROLLUP_AUTO }
-set_param chipscope.maxJobs 3
+set_param chipscope.maxJobs 4
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a35tcpg236-1
 
 set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
-set_property webtalk.parent_dir /home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.cache/wt [current_project]
-set_property parent.project_path /home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.xpr [current_project]
+set_property webtalk.parent_dir C:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.cache/wt [current_project]
+set_property parent.project_path C:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.xpr [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
 set_property board_part digilentinc.com:cmod_a7-35t:part0:1.2 [current_project]
-set_property ip_output_repo /home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.cache/ip [current_project]
+set_property ip_output_repo c:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
 read_verilog -library xil_defaultlib {
-  /home/user/CIS4900/8-bit-RISC-RNS/Data_Mem.v
-  /home/user/CIS4900/8-bit-RISC-RNS/Instr_Mem.v
-  /home/user/CIS4900/8-bit-RISC-RNS/PL_ALU.v
-  /home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v
-  /home/user/CIS4900/8-bit-RISC-RNS/PL_EX.v
-  /home/user/CIS4900/8-bit-RISC-RNS/PL_IFID.v
-  /home/user/CIS4900/8-bit-RISC-RNS/PL_MEMWB.v
-  /home/user/CIS4900/8-bit-RISC-RNS/Reg_File.v
-  /home/user/CIS4900/8-bit-RISC-RNS/ctrl_BranchPred.v
-  /home/user/CIS4900/8-bit-RISC-RNS/ctrl_Forward.v
-  /home/user/CIS4900/8-bit-RISC-RNS/ctrl_ProgCtr.v
-  /home/user/CIS4900/8-bit-RISC-RNS/processor_top.v
-  /home/user/CIS4900/8-bit-RISC-RNS/UART/rs232_uart.v
-  /home/user/CIS4900/8-bit-RISC-RNS/UART/uart_rx6.v
-  /home/user/CIS4900/8-bit-RISC-RNS/UART/uart_tx6.v
-  /home/user/CIS4900/8-bit-RISC-RNS/top.v
+  C:/code-projs/CIS4900/8-bit-RISC-RNS/Data_Mem.v
+  C:/code-projs/CIS4900/8-bit-RISC-RNS/Instr_Mem.v
+  C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU.v
+  C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v
+  C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_EX.v
+  C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_IFID.v
+  C:/code-projs/CIS4900/8-bit-RISC-RNS/PL_MEMWB.v
+  C:/code-projs/CIS4900/8-bit-RISC-RNS/Reg_File.v
+  C:/code-projs/CIS4900/8-bit-RISC-RNS/ctrl_BranchPred.v
+  C:/code-projs/CIS4900/8-bit-RISC-RNS/ctrl_Forward.v
+  C:/code-projs/CIS4900/8-bit-RISC-RNS/ctrl_ProgCtr.v
+  C:/code-projs/CIS4900/8-bit-RISC-RNS/processor_top.v
+  C:/code-projs/CIS4900/8-bit-RISC-RNS/UART/rs232_uart.v
+  C:/code-projs/CIS4900/8-bit-RISC-RNS/UART/uart_rx6.v
+  C:/code-projs/CIS4900/8-bit-RISC-RNS/UART/uart_tx6.v
+  C:/code-projs/CIS4900/8-bit-RISC-RNS/top.v
 }
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
@@ -113,12 +113,12 @@ OPTRACE "Adding files" END { }
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
-read_xdc /home/user/CIS4900/Cmod-A7-Master.xdc
-set_property used_in_implementation false [get_files /home/user/CIS4900/Cmod-A7-Master.xdc]
+read_xdc C:/code-projs/CIS4900/Cmod-A7-Master.xdc
+set_property used_in_implementation false [get_files C:/code-projs/CIS4900/Cmod-A7-Master.xdc]
 
 set_param ips.enableIPCacheLiteLoad 1
 
-read_checkpoint -auto_incremental -incremental /home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.srcs/utils_1/imports/synth_1/testbench.dcp
+read_checkpoint -auto_incremental -incremental C:/code-projs/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.srcs/utils_1/imports/synth_1/testbench.dcp
 close [open __synthesis_is_running__ w]
 
 OPTRACE "synth_design" START { }
