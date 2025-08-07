@@ -5,6 +5,7 @@
 module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
     input clk,
     input rst,
+	input [9:0] prog_ctr,
     //IO signals for IF
     input [15:0] 					instr_mem_out,    	//from intr_mem
     input 								branch_taken_EX,    //branch taken signal from EX stage
@@ -17,6 +18,12 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
     output reg [3:0] 					op2_addr_IFID,  //ID: op2_addr to ctrl_Forward  - {RNS_file, [2:0] addr}
 	output reg [2:0]                    op3_addr_IFID,  //ID: op3_addr to ctrl_Forward  - always from int regfile, so no RNS flag needed
     output reg 							load_true_IFID,     //ID: load instruction flag to ctrl_Forward
+
+	//control signals for call/return stack
+	input [9:0] return_addr,
+	input stack_empty,
+	output reg [9:0] stack_push_addr,
+	output reg push_stack, pop_stack,
 
     //pipeline register out to next stage
     output reg [0:41] 					IFID_reg,    		//IFID pipeline register out
@@ -57,6 +64,7 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
     reg [2:0] res_addr; //destination register address
     reg [3:0] op2_addr, op1_addr;
     reg [9:0] branch_addr; //branch address
+    reg [9:0] return_addr_reg; //register to hold return address from ctrl_CallRetStack until end of IF/ID. During PL reg population will choose which addr to set pred_nxt_prog_ctr to based on ID flags
 
 	//For custom instructions:
 	reg [7:0] imm; //8-bit immediate for LDI
@@ -92,6 +100,7 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 
 	//custom flags:
 	reg outp_op, inp_op; 
+	reg jump_return;
 	reg ld_imm, mul_op_true, RNS_ALU_op, RNS_dest_reg, UNRL_op_true, UNRL_lower, RLLM_op_true;
 
     always@ (opcode or branch_addr or op1_addr or op2_addr or res_addr)        
@@ -131,6 +140,12 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 		op1_addr_IFID <= 4'b0; //reset op1_addr_IFID
 		op2_addr_IFID <= 4'b0; //reset op2_addr_IFID
 		op3_addr_IFID <= 3'b0; //reset op3_addr_IFID
+
+		push_stack <= 1'b0;
+		pop_stack <= 1'b0;
+		jump_return <= 1'b0;
+		stack_push_addr <= 10'b0;
+		return_addr_reg <= 10'b0;
 
 		case (opcode)
 		//	OP_NOP:  
@@ -210,7 +225,6 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 		//	OP_JMP:	begin
 			5'b00111: 
             begin
-					//nxt_prog_ctr <= branch_addr;
 					jump_true	<= 1'b1;
 					unconditional_jump <= 1'b1;
 		    end
@@ -296,7 +310,6 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 		//	OP_JMPGT:	begin
 			5'b01110:	
             begin
-					//nxt_prog_ctr <= branch_addr;
 					jump_true	<= 1'b1;
 					jump_gt <= 1'b1;
 			end
@@ -304,22 +317,18 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 		//	OP_JMPLT:	begin
 			5'b01111:	
             begin
-					//nxt_prog_ctr <= branch_addr;
 					jump_true	<= 1'b1;
 					jump_lt <= 1'b1;
-					end
+			end
 		//	OP_JMPEQ:	begin
 			5'b10000:	
             begin
-					//nxt_prog_ctr <= branch_addr;
 					jump_true	<= 1'b1;
 					jump_eq <= 1'b1;
 			end
-
 		//	OP_JMPC:	begin
 			5'b10001: 
             begin
-					//nxt_prog_ctr <= branch_addr;
 					jump_true	<= 1'b1;
 					jump_carry <= 1'b1;
 			end
@@ -437,6 +446,28 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 					op2_addr_IFID <= op2_addr;
 					reg_rd_en <= 1'b1;
 			end
+		//  OP_CALL: 	begin
+		/*
+			Jump to a function, pushing current prog_ctr to stack
+			Effectively, CALL is just JMP with stack push. 
+		*/
+			5'b11110:
+			begin
+					//Can't use 'invalidate_fetch_instr' here, as that will be rasied at the same time we're generating these control signals- i.e., at eval time it'll still be 0.
+					//Instead, we're using the same signal it uses- 'branch_taken_EX'
+					jump_true				<= 1'b1;
+					unconditional_jump 		<= 1'b1;
+					stack_push_addr 		<= (branch_taken_EX || invalidate_fetch_instr) ? 10'b0 : prog_ctr;
+					push_stack 				<= (branch_taken_EX || invalidate_fetch_instr) ? 1'b0 : 1'b1;
+			end
+		//  OP_JR_RA: 	begin			//Return to Call-ee - top of stack
+			5'b11111:
+			begin
+				   jump_return <= 1'b1;
+				   unconditional_jump <= 1'b1;
+				   pop_stack <= 1'b1; //pop the stack to get the return address
+				   return_addr_reg <= return_addr; //set the next program counter to the return
+			end
 
 			default: 	;			//= NOP
 			endcase
@@ -452,14 +483,12 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 			op2_addr_out_IFID <= 3'b0;
 			op3_addr_out_IFID <= 3'b0;
 			res_addr_out_IFID <= 3'b0;
-			IFID_reg[1] 	  <= 1'b0; //invalidate_decode_instr
 		end else
 		begin
 			op1_addr_out_IFID <=  op1_addr_IFID; //op1 address out for IFID pipeline register
    			op2_addr_out_IFID <=  op2_addr_IFID; //op2 address out for IFID pipeline register
 			op3_addr_out_IFID <=  op3_addr_IFID; //op2 address out for IFID pipeline register
    			res_addr_out_IFID <=  store_true ? 3'b0 : res_addr; //destination register address out for IFID pipeline register
-   			IFID_reg[1]       <=  branch_taken_EX; //invalidate fetch instruction if branch is taken
 		end
 	end
 
@@ -468,17 +497,12 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
         if (rst == 1'b1) begin
             IFID_reg <= 64'b0;
         end else begin
-            pred_nxt_prog_ctr   <=  branch_addr; //next program counter value
+            pred_nxt_prog_ctr   <=  (jump_return == 1'b0) ? branch_addr : return_addr_reg; //next program counter value
 			op1_dout_IFID 	    <=  op1_data; //op1 data out for IFID pipeline register
 			op2_dout_IFID 	    <=  op2_data; //op2 data out for IFID pipeline register
 			op3_dout_IFID 	    <=  op3_data; //op2 data out for IFID pipeline register
 			IFID_reg[0] 	    <=  invalidate_fetch_instr; //invalidate fetch instruction if branch is taken
-			if (branch_taken_EX == 1'b1) begin //even though this just means invalidate_decode_instruction == branch_taken_EX, the original has it this way so we'll keep it
-				//if branch is taken, invalidate decode instruction
-				IFID_reg[1] <=  1'b1; //invalidate decode instruction
-			end else begin
-				IFID_reg[1] <=  1'b0; //otherwise, do not invalidate decode instruction
-			end
+			IFID_reg[1]       <=  IFID_reg[0]; //invalidate fetch instruction if branch is taken
             IFID_reg[2:41] <=  {   //og arr | len | IFID_reg idx 
                 add_op_true,            //      (1)    [2]
                 or_op_true,             //      (1)    [3]

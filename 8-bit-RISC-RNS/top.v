@@ -26,8 +26,6 @@ module top(
     wire [7:0] IO_write_data; // Data OUT from processor
     wire IO_write_strobe; // Write strobe signal
     wire IO_read_strobe; // Effectively, processor read ACK
-    wire [9:0] pc_copy;
-    wire [4:0] opcode;
     wire [15:0] instruction; // Instruction fetched from memory
 
     wire [7:0] UART_RX_data;
@@ -36,8 +34,7 @@ module top(
     wire read_from_UART;
     
     
-    // PIO assigns for debugging w/ AD2
-    assign pio[10:1] = pc_copy;
+    // PIO assigns for debugging w/ AD
     assign pio[11] = read_from_UART; // Read from UART
 
 
@@ -48,10 +45,7 @@ module top(
         .IO_port_ID(IO_port_ID),
         .IO_write_data(IO_write_data),
         .IO_write_strobe(IO_write_strobe),
-        .IO_read_strobe(IO_read_strobe),
-        .pc_copy(pc_copy),
-        .opcode(opcode),
-        .inst_dup(instruction)
+        .IO_read_strobe(IO_read_strobe)
     );
     rs232_uart UART (
         .tx_data_in(UART_TX_data),

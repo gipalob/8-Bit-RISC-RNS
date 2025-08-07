@@ -27,6 +27,20 @@ processor_top proc_top1(
  wire bypass_op1_dcd, bypass_op2_dcd, bypass_op3_dcd;
  wire bypass_op1_ex, bypass_op2_ex, bypass_op3_ex;
 
+
+ wire push_stack;
+ wire pop_stack;
+ wire [9:0] stack_push_addr, stack_ret_addr;
+ wire [9:0] jump_addr_IFID, jump_addr_EX;
+
+ assign jump_addr_IFID = proc_top1.pred_nxt_prog_ctr;
+ assign jump_addr_EX = proc_top1.pred_nxt_prog_ctr_EX;
+
+ assign push_stack = proc_top1.call_return_stack.push;
+ assign pop_stack = proc_top1.call_return_stack.pop;
+ assign stack_push_addr = proc_top1.call_return_stack.push_addr;
+ assign stack_ret_addr = proc_top1.call_return_stack.ret_addr;
+
  // wire [6:0] m129_low, m129_mid;
  // wire [1:0] m129_high;
  // wire [8:0] m129_step_one, m129_step_two;
@@ -114,6 +128,10 @@ assign reg_wr_en = proc_top1.reg_wr_en;
 assign reg_wr_data = proc_top1.wr_data;
 assign IFID_reg = proc_top1.IFID_reg;
 
+
+
+
+
 initial
 begin
     IO_read_data = 8'b0;
@@ -125,7 +143,7 @@ begin
 	// Add your test cases here.
 	
 	// Simulation End
-	#25000; 
+	#50000; 
 	
 	// print the register contents
 	$display("--------------------");
@@ -142,7 +160,7 @@ begin
 	$display("--------------------");
 	$display("Printing Data Memory Contents: ");
 	for(k = 0; k < 65535; k = k + 1) begin
-	   if (proc_top1.data_mem.memory_file[k] != 8'bXX) begin
+	   if (proc_top1.data_mem.memory_file[k]) begin
 	       $display("data_mem [%0d] = %0d", k, proc_top1.data_mem.memory_file[k]);
 	   end
 	end
@@ -152,6 +170,30 @@ begin
 end
 
 always clk100 = #5 ~clk100;
+
+
+//Debug prints for logic in ctrl_CallRetStack
+integer L;
+always @(posedge clk100) 
+begin
+    if (proc_top1.stage_IFID.push_stack == 1'b1) 
+    begin
+        $display("\n\nPushing %03h to stack ptr pos %0d. Stack contents before push:", proc_top1.prog_ctr, proc_top1.call_return_stack.sp);
+        for (L = 0; L < 8; L = L + 1)
+        begin
+            $display("%0d\t| %3h | %10b", L, proc_top1.call_return_stack.stack[L], proc_top1.call_return_stack.stack[L]);
+        end
+    end
+    else if (proc_top1.stage_IFID.pop_stack == 1'b1) 
+    begin
+        $display("\n\nPopping from stack.");
+        $display("Returning to sp pos %0d - From %03h\nStack contents:", proc_top1.call_return_stack.sp - 1, proc_top1.prog_ctr);
+        for (L = 0; L < 8; L = L + 1)
+        begin
+            $display("%0d\t | %3h | %10b", L, proc_top1.call_return_stack.stack[L], proc_top1.call_return_stack.stack[L]);
+        end
+    end
+end
 
 always @(*) begin
     if (IO_read_strobe == 1'b1) begin

@@ -1,17 +1,51 @@
 import sys
 from typing import TextIO
 from math import floor
-import json
+
+J_type_opcodes = {
+    "JMP": "00111", # 'jump to return address' will be 
+    "JMPGT": "01110",
+    "JMPLT": "01111",
+    "JMPEQ": "10000",
+    "JMPC": "10001",
+    "CALL": "11110",
+    "JR": "11111"
+}
+R_type_opcodes = {
+    "ADD": "00001",
+    "SUB": "00010",
+    "AND": "00011",
+    "OR": "00100",
+    "NOT": "00101",
+    "SHL": "00110",
+    "RLOAD": "01000",
+    "RSTORE": "01001",
+    "ANDBIT": "01010",
+    "ORBIT": "01011",
+    "NOTBIT": "01100",
+    "COMPARE": "01101",
+    "ADDM": "10011",
+    "SUBM": "10100",
+    "MULM": "10101",
+    "UNRLL": "10111",
+    "UNRLU": "11000",
+    "RLLM": "11001"
+}
+I_type_opcodes = {
+    "LDI": "10010",
+    "OUTPUT": "11010",
+    "INPUT": "11011"
+}
 
 class ASMtoBin:
     def get_opcode(self, operation: str) -> str:
         op = operation.upper()
-        if op in self.J_type_opcodes.keys():
-            return self.J_type_opcodes[op], 'J'
-        elif op in self.R_type_opcodes.keys():
-            return self.R_type_opcodes[op], 'R'
-        elif op in self.I_type_opcodes.keys():
-            return self.I_type_opcodes[op], 'I'
+        if op in J_type_opcodes.keys():
+            return J_type_opcodes[op], 'J'
+        elif op in R_type_opcodes.keys():
+            return R_type_opcodes[op], 'R'
+        elif op in I_type_opcodes.keys():
+            return I_type_opcodes[op], 'I'
         else:
             return None, None
 
@@ -61,7 +95,16 @@ class ASMtoBin:
         
         # We expect the jump target to be a label
         j_targ = instruction[1].strip().upper()
-        addr = self.label_addresses.get(j_targ, None)[0]
+        
+        addr = None
+        
+        if opcode == J_type_opcodes["JR"]:
+            if j_targ == "RA":
+                addr = "0000000000"
+            else:
+                raise ValueError(f"Error for instruction: {instruction}.\nInst JR must have RA as target.")
+        else:
+            addr = self.label_addresses.get(j_targ, None)[0]
         
         if addr is None:
             raise ValueError(f"Label '{j_targ}' not defined before use.")
@@ -166,7 +209,6 @@ class ASMtoBin:
     
     
     def getProg(self) -> list:
-        print(json.dumps(self.prog))
         return self.prog
     
     
@@ -190,39 +232,6 @@ class ASMtoBin:
         self.label_addresses = {}
         self.prog = {} # {<isnt addr (int): [<hex>, <text_inst>, <label>]}
         self.bin_prog = []
-        
-        self.J_type_opcodes = {
-            "JMP": "00111",
-            "JMPGT": "01110",
-            "JMPLT": "01111",
-            "JMPEQ": "10000",
-            "JMPC": "10001"
-        }
-        self.R_type_opcodes = {
-            "ADD": "00001",
-            "SUB": "00010",
-            "AND": "00011",
-            "OR": "00100",
-            "NOT": "00101",
-            "SHL": "00110",
-            "RLOAD": "01000",
-            "RSTORE": "01001",
-            "ANDBIT": "01010",
-            "ORBIT": "01011",
-            "NOTBIT": "01100",
-            "COMPARE": "01101",
-            "ADDM": "10011",
-            "SUBM": "10100",
-            "MULM": "10101",
-            "UNRLL": "10111",
-            "UNRLU": "11000",
-            "RLLM": "11001"
-        }
-        self.I_type_opcodes = {
-            "LDI": "10010",
-            "OUTPUT": "11010",
-            "INPUT": "11011"
-        }
         
         self.rm_labels_comments()
         
@@ -269,8 +278,8 @@ class BinToV:
             case_line = f"\t\t10'h{hexToInt(instAddr, self.max_int_val, self.hex_addr_len)}: instr_mem_out <= 16'h{hex_inst}; // {text_inst}"
             
             case_line = str(case_line + f" - Jump target for label: {targ_label}") if targ_label else case_line
-            
-            if 'JMP' in text_inst:
+
+            if len([key for key in J_type_opcodes.keys() if key in text_inst and key != "JR"]):
                 dest_label = text_inst.split()[-1].strip().upper()
                 dest_addr = self.label_addresses.get(dest_label, None)
                 if dest_addr is None:
@@ -418,7 +427,6 @@ if __name__ == "__main__":
     
     asm_to_bin = ASMtoBin(source_file)
     label_addresses = asm_to_bin.label_addresses
-    print(json.dumps(label_addresses))
     prog = asm_to_bin.getProg()
     
     bin_to_v = BinToV(src_fname, prog, label_addresses, prog_ctr_wid=pc_width)

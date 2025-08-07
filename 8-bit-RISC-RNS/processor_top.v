@@ -63,7 +63,17 @@ module processor_top #(parameter PROG_CTR_WID = 10, parameter NUM_DOMAINS = 2, p
     wire [0:3]                  branch_conds_MEMWB;  
     wire invalidate_instr;
     //**//                                  //**//
-    //**// I/O Signals (i.e., for UART) //**//
+
+    //**// Call / Return Stack signals //**//
+
+    wire push_stack, pop_stack;
+    wire [9:0] ret_addr, stack_push_addr;
+    wire stack_empty;
+
+
+
+
+    //**//                             //**//
     /*
         Although IO_port_ID comes from PL_EX, IO_write_data, IO_write_strobe, and IO_read_strobe are all by PL_MEMWB at effectively the same time, in assign statements from EX PL reg.
     */
@@ -110,6 +120,7 @@ module processor_top #(parameter PROG_CTR_WID = 10, parameter NUM_DOMAINS = 2, p
     PL_IFID #(PROG_CTR_WID, NUM_DOMAINS) stage_IFID (
         .clk(clk),
         .rst(reset),
+        .prog_ctr(prog_ctr),
         .instr_mem_out(instr_mem_out),          //instruction fetched from memory
         .branch_taken_EX(branch_taken_EX),      //indicate branch was taken in EX stage
         .op1_data(op1_din_IFID),                //data for op1 from ctrl_Forward - assignment messed up somewhere? not an OP on FWD
@@ -120,6 +131,11 @@ module processor_top #(parameter PROG_CTR_WID = 10, parameter NUM_DOMAINS = 2, p
         .op2_addr_IFID(op2_addr_IFID),  //IF-OUT: op2 address to ctrl_Forward
         .op3_addr_IFID(op3_addr_IFID),  //IF-OUT: op2 address to ctrl_Forward
         .load_true_IFID(load_true_IFID),        //load instruction flag to ctrl_Forward
+        //Stack signals
+        .stack_push_addr(stack_push_addr),
+        .push_stack(push_stack), .pop_stack(pop_stack),
+        .stack_empty(stack_empty),
+        .return_addr(ret_addr),
         //Pipeline register out to next stage
         .IFID_reg(IFID_reg),                    //IFID pipeline register out
         .pred_nxt_prog_ctr(pred_nxt_prog_ctr),  //predicted next program counter value obtained from addr in branch instruction currently in IFID
@@ -211,5 +227,13 @@ module processor_top #(parameter PROG_CTR_WID = 10, parameter NUM_DOMAINS = 2, p
         .conds_MEMWB(branch_conds_MEMWB),
         .invalidate_instr(invalidate_instr),
         .branch_taken(branch_taken_in_EX)
+    );
+
+    ctrl_CallRetStack call_return_stack (
+        .clk(clk), .reset(reset),
+        .push(push_stack), .pop(pop_stack),
+        .push_addr(stack_push_addr),
+        .ret_addr(ret_addr),
+        .empty(stack_empty)
     );
 endmodule

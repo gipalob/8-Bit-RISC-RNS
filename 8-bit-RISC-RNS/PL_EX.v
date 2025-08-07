@@ -151,7 +151,6 @@ module PL_EX #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10, [9 * NUM_DOMAINS-1:
             save_cout && cmb_cout,
             IFID_reg[12] //compare_true_EX
         };   
-
         pred_nxt_prog_ctr_EX <=  pred_nxt_prog_ctr;
 	end
 

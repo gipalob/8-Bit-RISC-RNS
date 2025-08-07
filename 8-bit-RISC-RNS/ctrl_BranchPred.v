@@ -22,6 +22,6 @@ module ctrl_BranchPred (
         (conds_IFID[1] && lt_flag_true) || 
         (conds_IFID[2] && eq_flag_true) || 
         (conds_IFID[3] && carry_flag_true) || 
-        conds_IFID[4];
+        (conds_IFID[4] && !invalidate_instr); //unconditional jump
 
 endmodule

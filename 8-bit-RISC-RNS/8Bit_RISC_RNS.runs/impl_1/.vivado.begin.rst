@@ -1,60 +1,35 @@
 <?xml version="1.0"?>
 <ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="Ben" Host="BEN-DESKTOP" Pid="50088" HostCore="16" HostMemory="034277306368">
+    <Process Command="vivado" Owner="user" Host="eddd3f79d6f5" Pid="5048" HostCore="14" HostMemory="8127076">
     </Process>
 </ProcessHandle>
 <?xml version="1.0"?>
 <ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="Ben" Host="BEN-DESKTOP" Pid="44996" HostCore="16" HostMemory="034277306368">
+    <Process Command="vivado" Owner="user" Host="eddd3f79d6f5" Pid="79375" HostCore="14" HostMemory="8127076">
     </Process>
 </ProcessHandle>
 <?xml version="1.0"?>
 <ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="Ben" Host="BEN-DESKTOP" Pid="50512" HostCore="16" HostMemory="034277306368">
+    <Process Command="vivado" Owner="user" Host="eddd3f79d6f5" Pid="77670" HostCore="14" HostMemory="8127076">
     </Process>
 </ProcessHandle>
 <?xml version="1.0"?>
 <ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="Ben" Host="BEN-DESKTOP" Pid="51956" HostCore="16" HostMemory="034277306368">
+    <Process Command="vivado" Owner="user" Host="eddd3f79d6f5" Pid="84364" HostCore="14" HostMemory="8127076">
     </Process>
 </ProcessHandle>
 <?xml version="1.0"?>
 <ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="Ben" Host="BEN-DESKTOP" Pid="2824" HostCore="16" HostMemory="034277306368">
+    <Process Command="vivado" Owner="user" Host="eddd3f79d6f5" Pid="85489" HostCore="14" HostMemory="8127076">
     </Process>
 </ProcessHandle>
 <?xml version="1.0"?>
 <ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="Ben" Host="BEN-DESKTOP" Pid="52296" HostCore="16" HostMemory="034277306368">
+    <Process Command="vivado" Owner="user" Host="eddd3f79d6f5" Pid="84713" HostCore="14" HostMemory="8127076">
     </Process>
 </ProcessHandle>
 <?xml version="1.0"?>
 <ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="Ben" Host="BEN-DESKTOP" Pid="35112" HostCore="16" HostMemory="034277306368">
-    </Process>
-</ProcessHandle>
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="Ben" Host="BEN-DESKTOP" Pid="52556" HostCore="16" HostMemory="034277306368">
-    </Process>
-</ProcessHandle>
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="Ben" Host="BEN-DESKTOP" Pid="28748" HostCore="16" HostMemory="034277306368">
-    </Process>
-</ProcessHandle>
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="Ben" Host="BEN-DESKTOP" Pid="40564" HostCore="16" HostMemory="034277306368">
-    </Process>
-</ProcessHandle>
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="Ben" Host="BEN-DESKTOP" Pid="46748" HostCore="16" HostMemory="034277306368">
-    </Process>
-</ProcessHandle>
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="Ben" Host="BEN-DESKTOP" Pid="17124" HostCore="16" HostMemory="034277306368">
+    <Process Command="vivado" Owner="user" Host="eddd3f79d6f5" Pid="85684" HostCore="14" HostMemory="8127076">
     </Process>
 </ProcessHandle>

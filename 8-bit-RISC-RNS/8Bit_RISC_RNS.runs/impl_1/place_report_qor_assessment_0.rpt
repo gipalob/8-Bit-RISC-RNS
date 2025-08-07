@@ -1,0 +1,62 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2023.2.2 (lin64) Build 4126759 Thu Feb  8 23:52:05 MST 2024
+| Date         : Thu Aug  7 02:01:28 2025
+| Host         : eddd3f79d6f5 running 64-bit Ubuntu 22.04.5 LTS
+| Command      : report_qor_assessment -max_paths 100 -file place_report_qor_assessment_0.rpt -pb place_report_qor_assessment_0.pb
+| Design       : top
+| Device       : xc7a35tcpg236-1
+| Speed File   : -1
+| Design State : Fully Placed
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Report QoR Assessment
+
+Table of Contents
+-----------------
+1. Overall Assessment Summary
+2. QoR Assessment Details
+3. Methodology Check Details
+4. ML Strategy Availability
+
+1. Overall Assessment Summary
+-----------------------------
+
++----------------------+--------------------------------------------------+
+| QoR Assessment Score | 5 - Design runs will meet timing                 |
++----------------------+--------------------------------------------------+
+| Flow Guidance        | Run report_methodology and fix or waive warnings |
+|                      | Continue to route_design                         |
++----------------------+--------------------------------------------------+
+
+
+2. QoR Assessment Details
+-------------------------
+
++-------------+-----------+--------+------+-----------+-------+--------+
+| Name        | Threshold | Actual | Used | Available | Score | Status |
++-------------+-----------+--------+------+-----------+-------+--------+
+| Utilization |           |        |      |           |   5.0 |     OK |
+| Netlist     |           |        |      |           |       |     OK |
+| Clocking    |           |        |      |           |   5.0 |     OK |
+| Congestion  |           |        |      |           |   5.0 |     OK |
+| Timing      |           |        |      |           |   5.0 |     OK |
++-------------+-----------+--------+------+-----------+-------+--------+
+* Sub-categories with prefix * do not impact score
+
+
+3. Methodology Check Details
+----------------------------
+
++-----------+-------------------------------+-------------+----------------------+
+| ID        | Description                   | Criticality | Number of Violations |
++-----------+-------------------------------+-------------+----------------------+
+| TIMING-18 | Missing input or output delay | Warning     | 28                   |
++-----------+-------------------------------+-------------+----------------------+
+
+
+4. ML Strategy Availability
+---------------------------
+
+ML Strategy is not supported for 7-series architectures.
+
