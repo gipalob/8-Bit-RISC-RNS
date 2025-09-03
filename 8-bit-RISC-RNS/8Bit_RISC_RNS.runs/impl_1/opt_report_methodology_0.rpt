@@ -1,8 +1,8 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2023.2.2 (lin64) Build 4126759 Thu Feb  8 23:52:05 MST 2024
-| Date         : Thu Aug  7 02:01:19 2025
-| Host         : eddd3f79d6f5 running 64-bit Ubuntu 22.04.5 LTS
+| Date         : Wed Aug 27 20:16:00 2025
+| Host         : b271721db919 running 64-bit Ubuntu 22.04.5 LTS
 | Command      : report_methodology -file opt_report_methodology_0.rpt -pb opt_report_methodology_0.pb -rpx opt_report_methodology_0.rpx
 | Design       : top
 | Device       : xc7a35tcpg236-1
@@ -23,96 +23,15 @@ Table of Contents
           Floorplan: design_1
       Design limits: <entire design considered>
              Max violations: <unlimited>
-             Violations found: 44
+             Violations found: 28
 +-----------+----------+-------------------------------+------------+
 | Rule      | Severity | Description                   | Violations |
 +-----------+----------+-------------------------------+------------+
-| SYNTH-16  | Warning  | Address collision             | 16         |
 | TIMING-18 | Warning  | Missing input or output delay | 28         |
 +-----------+----------+-------------------------------+------------+
 
 2. REPORT DETAILS
 -----------------
-SYNTH-16#1 Warning
-Address collision  
-Block RAM processor/data_mem/memory_file_reg_0_0 may get memory collision error if read and write address collide. Use of address collision resolution circuitry is recommended.
-Related violations: <none>
-
-SYNTH-16#2 Warning
-Address collision  
-Block RAM processor/data_mem/memory_file_reg_0_1 may get memory collision error if read and write address collide. Use of address collision resolution circuitry is recommended.
-Related violations: <none>
-
-SYNTH-16#3 Warning
-Address collision  
-Block RAM processor/data_mem/memory_file_reg_0_2 may get memory collision error if read and write address collide. Use of address collision resolution circuitry is recommended.
-Related violations: <none>
-
-SYNTH-16#4 Warning
-Address collision  
-Block RAM processor/data_mem/memory_file_reg_0_3 may get memory collision error if read and write address collide. Use of address collision resolution circuitry is recommended.
-Related violations: <none>
-
-SYNTH-16#5 Warning
-Address collision  
-Block RAM processor/data_mem/memory_file_reg_0_4 may get memory collision error if read and write address collide. Use of address collision resolution circuitry is recommended.
-Related violations: <none>
-
-SYNTH-16#6 Warning
-Address collision  
-Block RAM processor/data_mem/memory_file_reg_0_5 may get memory collision error if read and write address collide. Use of address collision resolution circuitry is recommended.
-Related violations: <none>
-
-SYNTH-16#7 Warning
-Address collision  
-Block RAM processor/data_mem/memory_file_reg_0_6 may get memory collision error if read and write address collide. Use of address collision resolution circuitry is recommended.
-Related violations: <none>
-
-SYNTH-16#8 Warning
-Address collision  
-Block RAM processor/data_mem/memory_file_reg_0_7 may get memory collision error if read and write address collide. Use of address collision resolution circuitry is recommended.
-Related violations: <none>
-
-SYNTH-16#9 Warning
-Address collision  
-Block RAM processor/data_mem/memory_file_reg_1_0 may get memory collision error if read and write address collide. Use of address collision resolution circuitry is recommended.
-Related violations: <none>
-
-SYNTH-16#10 Warning
-Address collision  
-Block RAM processor/data_mem/memory_file_reg_1_1 may get memory collision error if read and write address collide. Use of address collision resolution circuitry is recommended.
-Related violations: <none>
-
-SYNTH-16#11 Warning
-Address collision  
-Block RAM processor/data_mem/memory_file_reg_1_2 may get memory collision error if read and write address collide. Use of address collision resolution circuitry is recommended.
-Related violations: <none>
-
-SYNTH-16#12 Warning
-Address collision  
-Block RAM processor/data_mem/memory_file_reg_1_3 may get memory collision error if read and write address collide. Use of address collision resolution circuitry is recommended.
-Related violations: <none>
-
-SYNTH-16#13 Warning
-Address collision  
-Block RAM processor/data_mem/memory_file_reg_1_4 may get memory collision error if read and write address collide. Use of address collision resolution circuitry is recommended.
-Related violations: <none>
-
-SYNTH-16#14 Warning
-Address collision  
-Block RAM processor/data_mem/memory_file_reg_1_5 may get memory collision error if read and write address collide. Use of address collision resolution circuitry is recommended.
-Related violations: <none>
-
-SYNTH-16#15 Warning
-Address collision  
-Block RAM processor/data_mem/memory_file_reg_1_6 may get memory collision error if read and write address collide. Use of address collision resolution circuitry is recommended.
-Related violations: <none>
-
-SYNTH-16#16 Warning
-Address collision  
-Block RAM processor/data_mem/memory_file_reg_1_7 may get memory collision error if read and write address collide. Use of address collision resolution circuitry is recommended.
-Related violations: <none>
-
 TIMING-18#1 Warning
 Missing input or output delay  
 An input delay is missing on UART_RX_in relative to the rising and/or falling clock edge(s) of clk_pin.

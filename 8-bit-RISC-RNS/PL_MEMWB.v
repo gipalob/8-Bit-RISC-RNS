@@ -13,7 +13,8 @@ module PL_MEMWB #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10) (
     //Outputs
     output reg [0:3] branch_conds_MEMWB,
     output invalidate_instr,              //invalidate instruction currently in IFID
-    output mem_wr_en,                     
+    output mem_wr_en,             
+    output mem_rd_en,        
     output reg_wr_en,
     output [NUM_DOMAINS*8 - 1:0] wr_data, // { [7:0] Domain1, [7:0] Domain2, ... }
     //For INPUT / OUTPUT instructions
@@ -39,6 +40,7 @@ module PL_MEMWB #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10) (
     assign wr_data =            (EX_reg[9] == 1'b1) ? {8'b0, IO_read_data} : ((EX_reg[4]==1'b1) ? {8'b0, dmem_dout} : operation_result);
     assign invalidate_instr =   (EX_reg[3] || EX_reg[5] || EX_reg[6]);
     assign mem_wr_en =          (EX_reg[0] && !invalidate_instr);
+    assign mem_rd_en =          (EX_reg[4] && !invalidate_instr);
     assign reg_wr_en =          (EX_reg[1] && !invalidate_instr);
 
     assign IO_write_data =      (EX_reg[8] == 1'b1) ? operation_result[7:0] : 8'b0; //output data is always the lowest 8 bits of the operation result

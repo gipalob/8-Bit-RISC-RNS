@@ -70,15 +70,16 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "synth_1" START { ROLLUP_AUTO }
-set_param chipscope.maxJobs 3
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a35tcpg236-1
 
 set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
+set_msg_config -source 4 -id {IP_Flow 19-2162} -severity warning -new_severity info
 set_property webtalk.parent_dir /home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.cache/wt [current_project]
 set_property parent.project_path /home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.xpr [current_project]
+set_property XPM_LIBRARIES XPM_MEMORY [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
 set_property board_part digilentinc.com:cmod_a7-35t:part0:1.2 [current_project]
@@ -105,6 +106,9 @@ read_verilog -library xil_defaultlib {
   /home/user/CIS4900/8-bit-RISC-RNS/UART/uart_tx6.v
   /home/user/CIS4900/8-bit-RISC-RNS/top.v
 }
+read_ip -quiet /home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci
+set_property used_in_implementation false [get_files -all /home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.gen/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0_ooc.xdc]
+
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
 # stitched into the results of this synthesis run. Any black boxes in the
@@ -123,7 +127,7 @@ read_checkpoint -auto_incremental -incremental /home/user/CIS4900/8-bit-RISC-RNS
 close [open __synthesis_is_running__ w]
 
 OPTRACE "synth_design" START { }
-synth_design -top top -part xc7a35tcpg236-1
+synth_design -top top -part xc7a35tcpg236-1 -flatten_hierarchy full -directive PerformanceOptimized
 OPTRACE "synth_design" END { }
 if { [get_msg_config -count -severity {CRITICAL WARNING}] > 0 } {
  send_msg_id runtcl-6 info "Synthesis results are not added to the cache due to CRITICAL_WARNING"

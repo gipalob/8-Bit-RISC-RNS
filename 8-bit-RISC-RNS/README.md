@@ -26,6 +26,17 @@ This implementation is foundationally based on NayanaBannur/8-bit-RISC-Processor
         - If x1 == x2, `JMPEQ` will execute and set the program counter to 0x211. However, by this point, `JMP 0x219` has finished IF/ID as well. The problem is that the original implementation had no instruction invalidation for `JMP` instructions. The instruction at 0x211 will enter IF/ID, and then the next cycle the program counter is set to 0x219. This was fixed by conditionally assigning branch_taken in the EX pipeline register based on its last state.
         -   This _does not apply_ to other instructions- if `JMPEQ` evaluates `true`, and the instruction at the line below is, say, `ADD`, the `invalidate_instr` signal will keep `reg_wr_en` LOW when the `ADD` enters `MEMWB`.
 
+    - Call / Return Stack: 
+        - Two new instructions have been added: `JR RA` and `CALL`. 
+        - `CALL` Behaves as a regular unconditional `JMP` instruction, but the opcode raises a flag to add the address after the `CALL` to `reg [9:0] stack [0:7]` in module `ctrl_CallRetStack`.
+        - Module `ctrl_CallRetStack` will always hold `output [9:0] ret_addr` at the value held in the top of the stack. When `JR RA` reaches ID, it will place this value into a register within ID and raise a signal `pop_stack` to remove that value from the stack. 
+
+
+## Current Issues to Remedy:
+- If 2 `NOP` instructions are not placed after each `JMP`, conditional or not, arithmetic instructions will reach `MEMWB` before any Invalidation signal can prevent register / data memory writes. Stall insertion must be improved.
+- Data memory has relatively (compared to comb. delay of other nets, peaking at ~8ns) massive delay (approx 28ns), setting a hard lower bound of ~30ns for clock period. 
+
+
 ## ISA Organization:
 <ins>**Instructions are all 16-bits long.**</ins>
 ### R-Type Instructions

@@ -8,7 +8,7 @@ Feb  8 2024
 /home/user/CIS4900/8-bit-RISC-RNS/PL_ALU.v,1753728336,verilog,,/home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v,,PL_ALU;adder;complement;logical;shift,,,,,,,,
 /home/user/CIS4900/8-bit-RISC-RNS/PL_ALU_RNS.v,1754320011,verilog,,/home/user/CIS4900/8-bit-RISC-RNS/PL_EX.v,,PL_ALU_RNS;RNS_adder;RNS_fit_129;RNS_fit_256;RNS_multiplier;RNS_sub,,,,,,,,
 /home/user/CIS4900/8-bit-RISC-RNS/PL_EX.v,1754526081,verilog,,/home/user/CIS4900/8-bit-RISC-RNS/PL_IFID.v,,PL_EX,,,,,,,,
-/home/user/CIS4900/8-bit-RISC-RNS/PL_IFID.v,1754527487,verilog,,/home/user/CIS4900/8-bit-RISC-RNS/PL_MEMWB.v,,PL_IFID,,,,,,,,
+/home/user/CIS4900/8-bit-RISC-RNS/PL_IFID.v,1754528053,verilog,,/home/user/CIS4900/8-bit-RISC-RNS/PL_MEMWB.v,,PL_IFID,,,,,,,,
 /home/user/CIS4900/8-bit-RISC-RNS/PL_MEMWB.v,1754320011,verilog,,/home/user/CIS4900/8-bit-RISC-RNS/Reg_File.v,,PL_MEMWB,,,,,,,,
 /home/user/CIS4900/8-bit-RISC-RNS/Reg_File.v,1754320011,verilog,,/home/user/CIS4900/8-bit-RISC-RNS/ctrl_BranchPred.v,,Reg_File,,,,,,,,
 /home/user/CIS4900/8-bit-RISC-RNS/ctrl_BranchPred.v,1754522591,verilog,,/home/user/CIS4900/8-bit-RISC-RNS/ctrl_CallRetStack.v,,ctrl_BranchPred,,,,,,,,

@@ -1,13 +1,13 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2023.2.2 (lin64) Build 4126759 Thu Feb  8 23:52:05 MST 2024
-| Date         : Thu Aug  7 02:01:44 2025
-| Host         : eddd3f79d6f5 running 64-bit Ubuntu 22.04.5 LTS
+| Date         : Wed Aug 27 20:16:26 2025
+| Host         : b271721db919 running 64-bit Ubuntu 22.04.5 LTS
 | Command      : report_qor_suggestions -max_paths 100 -file route_report_qor_suggestions_0.rpt -pb route_report_qor_suggestions_0.pb
 | Design       : top
 | Device       : xc7a35t
 | Design State : Routed
-| ML Models    : v2020.1.0
+| ML Models    : v2021.2.0
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
 Report QoR Suggestions
@@ -32,6 +32,6 @@ Table of Contents
 +---+----+---------+---------+
 | # | Id | Command | Options |
 +---+----+---------+---------+
-* The design is not compatible for suggesting strategy, as it was not run using vivado implementation default or vivado implementation explore strategy.
+* ML Strategies are not generated as the design meets setup timing
 
 

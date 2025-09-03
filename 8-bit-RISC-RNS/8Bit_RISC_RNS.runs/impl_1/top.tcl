@@ -123,7 +123,7 @@ set ACTIVE_STEP init_design
 set rc [catch {
   create_msg_db init_design.pb
   set_param chipscope.maxJobs 3
-  set_param runs.launchOptions { -jobs 6  }
+  set_param runs.launchOptions { -jobs 8  }
 OPTRACE "create in-memory project" START { }
   create_project -in_memory -part xc7a35tcpg236-1
   set_property board_part digilentinc.com:cmod_a7-35t:part0:1.2 [current_project]
@@ -135,9 +135,11 @@ OPTRACE "set parameters" START { }
   set_property parent.project_path /home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.xpr [current_project]
   set_property ip_output_repo /home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.cache/ip [current_project]
   set_property ip_cache_permissions {read write} [current_project]
+  set_property XPM_LIBRARIES XPM_MEMORY [current_project]
 OPTRACE "set parameters" END { }
 OPTRACE "add files" START { }
   add_files -quiet /home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.runs/synth_1/top.dcp
+  read_ip -quiet /home/user/CIS4900/8-bit-RISC-RNS/8Bit_RISC_RNS.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci
 OPTRACE "read constraints: implementation" START { }
   read_xdc /home/user/CIS4900/Cmod-A7-Master.xdc
 OPTRACE "read constraints: implementation" END { }
@@ -172,7 +174,7 @@ set rc [catch {
 OPTRACE "read constraints: opt_design" START { }
 OPTRACE "read constraints: opt_design" END { }
 OPTRACE "opt_design" START { }
-  opt_design -directive RuntimeOptimized
+  opt_design 
 OPTRACE "opt_design" END { }
 OPTRACE "read constraints: opt_design_post" START { }
 OPTRACE "read constraints: opt_design_post" END { }

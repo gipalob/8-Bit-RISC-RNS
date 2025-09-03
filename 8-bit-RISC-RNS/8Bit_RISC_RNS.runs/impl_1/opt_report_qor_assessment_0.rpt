@@ -1,8 +1,8 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2023.2.2 (lin64) Build 4126759 Thu Feb  8 23:52:05 MST 2024
-| Date         : Thu Aug  7 02:01:20 2025
-| Host         : eddd3f79d6f5 running 64-bit Ubuntu 22.04.5 LTS
+| Date         : Wed Aug 27 20:16:01 2025
+| Host         : b271721db919 running 64-bit Ubuntu 22.04.5 LTS
 | Command      : report_qor_assessment -max_paths 100 -file opt_report_qor_assessment_0.rpt -pb opt_report_qor_assessment_0.pb
 | Design       : top
 | Device       : xc7a35tcpg236-1
@@ -37,7 +37,7 @@ Table of Contents
 | Name             | Threshold | Actual | Used | Available | Score | Status |
 +------------------+-----------+--------+------+-----------+-------+--------+
 | Utilization      |           |        |      |           |   5.0 |        |
-|    LUT Combined  |     <2.00 |   0.00 |    0 |       732 |       | REVIEW |
+|    LUT Combined  |     <2.00 |   0.00 |    0 |       749 |       | REVIEW |
 | Netlist          |           |        |      |           |       |     OK |
 | Clocking         |           |        |      |           |   5.0 |     OK |
 | Congestion       |           |        |      |           |   5.0 |     OK |

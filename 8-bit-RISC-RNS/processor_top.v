@@ -21,8 +21,8 @@ module processor_top #(parameter PROG_CTR_WID = 10, parameter NUM_DOMAINS = 2, p
     wire [7:0]                  rd_data3;           //data for op3 from regfile
     wire [7:0]  dmem_dout;          //data read from data memory
     wire [NUM_DOMAINS*8 - 1:0]  wr_data;            //data to be written to reg || datamem 
-    wire [15:0]                 data_wr_addr, data_rd_addr;
-    wire                        mem_wr_en, reg_wr_en;
+    wire [15:0]                 data_op_addr;
+    wire                        mem_wr_en, reg_wr_en, mem_rd_en;
 
     //**// IF/ID Pipeline Register Signals //**//
     wire                        load_true_IFID;     //load instruction flag to ctrl_Forward
@@ -94,8 +94,9 @@ module processor_top #(parameter PROG_CTR_WID = 10, parameter NUM_DOMAINS = 2, p
     Data_Mem data_mem(
         .clk(clk), .reset(reset),
         //INPUTS
-        .data_rd_addr(data_rd_addr), .data_wr_addr(data_wr_addr), //even though both will be {op1, op2} need to keep separate for timing - read triggers dout <= {mem @ addr}
-        .datamem_wr_data(wr_data[7:0]), .store_to_mem(mem_wr_en),
+        .data_op_addr(data_op_addr),
+        .datamem_wr_data(wr_data[7:0]), 
+        .read_from_mem(mem_rd_en), .store_to_mem(mem_wr_en),
         //OUTPUTS
         .dmem_dout(dmem_dout)
     );
@@ -161,7 +162,7 @@ module processor_top #(parameter PROG_CTR_WID = 10, parameter NUM_DOMAINS = 2, p
         //Outputs to next stage
         .branch_conds_EX(branch_conds_EX),
         .branch_taken_EX(branch_taken_EX),
-        .data_wr_addr(data_wr_addr), .data_rd_addr(data_rd_addr),   //data memory write/read address
+        .data_op_addr(data_op_addr),
         .EX_reg(EX_reg),                                            //mixed EX pipeline register signals
         .destination_reg_addr(destination_reg_addr),                //destination register address, to be pulled from EX pipeline reg)
         .operation_result(operation_result),
@@ -181,6 +182,7 @@ module processor_top #(parameter PROG_CTR_WID = 10, parameter NUM_DOMAINS = 2, p
         .branch_conds_MEMWB(branch_conds_MEMWB),    //branch conditions in MEM/WB stage to ctrl_Fwd
         .invalidate_instr(invalidate_instr),        //invalidate instruction in IFID pipeline register
         .mem_wr_en(mem_wr_en),                      //memory write enable signal
+        .mem_rd_en(mem_rd_en),
         .reg_wr_en(reg_wr_en),                      //register write enable signal
         .wr_data(wr_data),                          //data to be written to reg || datamem 
         .IO_read_data(IO_read_data),          //data read from input port

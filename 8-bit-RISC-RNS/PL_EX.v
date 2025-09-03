@@ -13,7 +13,7 @@ module PL_EX #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10, [9 * NUM_DOMAINS-1:
 
     output reg [0:4]                 branch_conds_EX,
     output reg                       branch_taken_EX, //indicate branch was taken in EX stage- reg out needed for timing in Program Counter & IFID I believe
-    output reg [15:0]                data_wr_addr, data_rd_addr, //data memory write/read address
+    output reg [15:0]                data_op_addr,
     output reg [0:9]                 EX_reg,
     output reg [3:0]                 destination_reg_addr, // {RNS_file, [2:0] addr}
     output reg [NUM_DOMAINS*8 - 1:0] operation_result,      // { [7:0] Domain1, [7:0] Domain2, ... }
@@ -141,8 +141,7 @@ module PL_EX #(parameter NUM_DOMAINS = 1, PROG_CTR_WID = 10, [9 * NUM_DOMAINS-1:
             operation_result <=  {8'b0, ALU_dout};              // else use ALU output
         end
 
-        data_wr_addr <=  IFID_reg[15] ? {op1[7:0], op2[7:0]} : 16'b0; //if store_true, write to st_mem_addr_reg, else write to ld_mem_addr_reg
-        data_rd_addr <=  IFID_reg[16] ? {op1[7:0], op2[7:0]} : 16'b0; //if load_true_IFID, write to ld_mem_addr_reg, else write to st_mem_addr_reg
+        data_op_addr <=  (IFID_reg[15] || IFID_reg[16]) ? {op1[7:0], op2[7:0]} : 16'b0; //if store_true || load_true_IFID
 
         branch_conds_EX <=  {
             COMP_gt_flag,

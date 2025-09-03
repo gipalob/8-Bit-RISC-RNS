@@ -465,7 +465,7 @@ module PL_IFID #(parameter PROG_CTR_WID=10, NUM_DOMAINS=1) (
 			begin
 				   jump_return <= 1'b1;
 				   unconditional_jump <= 1'b1;
-				   pop_stack <= 1'b1; //pop the stack to get the return address
+				   pop_stack <= 1'b1; // signal to ctrl_CallRetStack
 				   return_addr_reg <= return_addr; //set the next program counter to the return
 			end
 

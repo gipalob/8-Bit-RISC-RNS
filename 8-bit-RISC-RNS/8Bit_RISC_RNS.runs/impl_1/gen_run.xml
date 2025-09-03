@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="impl_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1754531988">
+<GenRun Id="impl_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1756325727">
   <File Type="POSTROUTE-PHYSOPT-RQS-RPT" Name="postroute_physopt_report_qor_suggestions_0.rpt"/>
   <File Type="ROUTE-RQS-RPT" Name="route_report_qor_suggestions_0.rpt"/>
   <File Type="POSTROUTE-PHYSOPT-RQS" Name="top_postroute_physopted.rqs"/>
@@ -26,12 +26,12 @@
   <File Type="BITSTR-MSK" Name="top.msk"/>
   <File Type="BG-BIN" Name="top.bin"/>
   <File Type="BG-BIT" Name="top.bit"/>
-  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-RPX" Name="top_bus_skew_postroute_physopted.rpx"/>
-  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-PB" Name="top_bus_skew_postroute_physopted.pb"/>
-  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW" Name="top_bus_skew_postroute_physopted.rpt"/>
-  <File Type="POSTROUTE-PHYSOPT-TIMING-RPX" Name="top_timing_summary_postroute_physopted.rpx"/>
-  <File Type="POSTROUTE-PHYSOPT-TIMING-PB" Name="top_timing_summary_postroute_physopted.pb"/>
-  <File Type="POSTROUTE-PHYSOPT-TIMING" Name="top_timing_summary_postroute_physopted.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-RPX" Name="post_route_phys_opt_report_bus_skew_0.rpx"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-PB" Name="post_route_phys_opt_report_bus_skew_0.pb"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW" Name="post_route_phys_opt_report_bus_skew_0.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-RPX" Name="post_route_phys_opt_report_timing_summary_0.rpx"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-PB" Name="post_route_phys_opt_report_timing_summary_0.pb"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING" Name="post_route_phys_opt_report_timing_summary_0.rpt"/>
   <File Type="POSTROUTE-PHYSOPT-BLACKBOX-DCP" Name="top_postroute_physopt_bb.dcp"/>
   <File Type="POSTROUTE-PHYSOPT-DCP" Name="top_postroute_physopt.dcp"/>
   <File Type="ROUTE-RQS-PB" Name="route_report_qor_suggestions_0.pb"/>
@@ -238,13 +238,9 @@
     </Config>
   </FileSet>
   <Strategy Version="1" Minor="2">
-    <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2023">
-      <Desc>Default settings for Implementation.</Desc>
-    </StratHandle>
+    <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2023"/>
     <Step Id="init_design"/>
-    <Step Id="opt_design">
-      <Option Id="Directive">4</Option>
-    </Step>
+    <Step Id="opt_design"/>
     <Step Id="power_opt_design"/>
     <Step Id="place_design"/>
     <Step Id="post_place_power_opt_design"/>
@@ -253,4 +249,5 @@
     <Step Id="post_route_phys_opt_design"/>
     <Step Id="write_bitstream"/>
   </Strategy>
+  <BlockFileSet Type="BlockSrcs" Name="blk_mem_gen_0"/>
 </GenRun>
